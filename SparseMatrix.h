@@ -33,6 +33,7 @@
 			vector<unsigned int> cols, rows;
 
 			void construct(unsigned int m, unsigned int n);
+			void validateCoordinations(unsigned int row, unsigned int col) const;
 
 	};
 

@@ -41,9 +41,7 @@ void SparseMatrix::construct(unsigned int m, unsigned int n)
 
 SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int col)
 {
-	if (row < 1 || col < 1 || row > this->n || col > this->m) {
-		throw "Element coordinations out of range.";
-	}
+	this->validateCoordinations(row, col);
 
 	unsigned int nnz = getFirstNextNonZero(this->rows, row - 1);
 
@@ -85,9 +83,7 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 
 int SparseMatrix::get(unsigned int row, unsigned int col) const
 {
-	if (row < 1 || col < 1 || row > this->n || col > this->m) {
-		throw "Element coordinations out of range.";
-	}
+	this->validateCoordinations(row, col);
 
 	if (this->rows[row - 1] == 0) { // empty row
 		return 0;
@@ -100,6 +96,15 @@ int SparseMatrix::get(unsigned int row, unsigned int col) const
 	}
 
 	return 0;
+}
+
+
+
+void SparseMatrix::validateCoordinations(unsigned int row, unsigned int col) const
+{
+	if (row < 1 || col < 1 || row > this->m || col > this->n) {
+		throw "Coordinations out of range.";
+	}
 }
 
 
