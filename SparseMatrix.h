@@ -15,7 +15,7 @@
 		public:
 
 			SparseMatrix(unsigned int n);
-			SparseMatrix(unsigned int m, unsigned int n);
+			SparseMatrix(unsigned int rows, unsigned int columns);
 
 			int get(unsigned int row, unsigned int col) const;
 			SparseMatrix & insert(int value, unsigned int row, unsigned int col);

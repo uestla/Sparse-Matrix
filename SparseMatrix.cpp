@@ -14,27 +14,46 @@ SparseMatrix::SparseMatrix(unsigned int n)
 
 
 
-SparseMatrix::SparseMatrix(unsigned int m, unsigned int n)
+SparseMatrix::SparseMatrix(unsigned int rows, unsigned int columns)
 {
-	this->construct(m, n);
+	this->construct(rows, columns);
 }
 
 
 
-void SparseMatrix::construct(unsigned int m, unsigned int n)
+void SparseMatrix::construct(unsigned int rows, unsigned int columns)
 {
-	if (m < 1 || n < 1) {
+	if (rows < 1 || columns < 1) {
 		throw "Matrix dimensions cannot be zero or negative.";
 	}
 
-	this->m = m;
-	this->n = n;
+	this->m = rows;
+	this->n = columns;
 
-	for (unsigned int i = 0; i < n; i++) {
+	for (unsigned int i = 0; i < columns; i++) {
 		this->rows.push_back(0);
 	}
 
 	this->rows.push_back(1);
+}
+
+
+
+int SparseMatrix::get(unsigned int row, unsigned int col) const
+{
+	this->validateCoordinations(row, col);
+
+	if (this->rows[row - 1] == 0) { // empty row
+		return 0;
+	}
+
+	for (unsigned int j = this->rows[row - 1], nnz = getFirstNextNonZero(this->rows, row - 1); j < nnz; j++) {
+		if (this->cols[j - 1] == col) {
+			return this->vals[j - 1];
+		}
+	}
+
+	return 0;
 }
 
 
@@ -77,25 +96,6 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 	}
 
 	return *this;
-}
-
-
-
-int SparseMatrix::get(unsigned int row, unsigned int col) const
-{
-	this->validateCoordinations(row, col);
-
-	if (this->rows[row - 1] == 0) { // empty row
-		return 0;
-	}
-
-	for (unsigned int j = this->rows[row - 1], nnz = getFirstNextNonZero(this->rows, row - 1); j < nnz; j++) {
-		if (this->cols[j - 1] == col) {
-			return this->vals[j - 1];
-		}
-	}
-
-	return 0;
 }
 
 
