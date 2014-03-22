@@ -42,10 +42,10 @@
 	{
 		os << name << ": [";
 
-		for (unsigned int i = 0, len = array.size(); i < len; i++) {
+		for (unsigned int i = 0, size = array.size(); i < size; i++) {
 			os << array[i];
 
-			if (i != len - 1) {
+			if (i != size - 1) {
 				os << ", ";
 			}
 		}

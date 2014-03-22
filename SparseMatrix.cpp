@@ -100,6 +100,30 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 
 
 
+vector<int> SparseMatrix::multiply(const vector<int> & x) const
+{
+	if (this->n != x.size()) {
+		throw "Matrix column count and vector size don't match.";
+	}
+
+	int a;
+	vector<int> result;
+
+	for (unsigned int i = 1; i <= this->m; i++) {
+		a  = 0;
+
+		for (unsigned int j = 1; j <= this->n; j++) {
+			a += x[i - 1] * this->get(i, j);
+		}
+
+		result.push_back(a);
+	}
+
+	return result;
+}
+
+
+
 void SparseMatrix::validateCoordinations(unsigned int row, unsigned int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
