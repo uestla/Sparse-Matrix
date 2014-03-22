@@ -11,7 +11,7 @@
 
 	unsigned int getFirstNextNonZero(const vector<unsigned int> & array, unsigned int index)
 	{
-		for (unsigned int i = index + 1, len = array.size(); i < len; i++) {
+		for (unsigned int i = index + 1, size = array.size(); i < size; i++) {
 			if (array[i] != 0) {
 				return array[i];
 			}
