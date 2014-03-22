@@ -76,21 +76,37 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 		}
 
 	} else {
+		bool inserted = false;
+
 		for (unsigned int j = this->rows[row - 1]; j < nnz; j++) {
 			if (this->cols[j - 1] == col) { // just overwrite the value
 				this->vals[j - 1] = value;
+				inserted = true;
+				break;
 
-			} else if (this->cols[j - 1] > col) {
+			} else if (col < this->cols[j - 1]) {
 				this->vals.insert(this->vals.begin() + j - 1, value);
 				this->cols.insert(this->cols.begin() + j - 1, col);
 
-				for (unsigned int i = j; i < this->rows.size(); i++) {
+				for (unsigned int i = row; i < this->rows.size(); i++) {
 					if (this->rows[i] != 0) {
 						this->rows[i]++;
 					}
 				}
 
+				inserted = true;
 				break;
+			}
+		}
+
+		if (!inserted) {
+			this->vals.insert(this->vals.begin() + nnz - 1, value);
+			this->cols.insert(this->cols.begin() + nnz - 1, col);
+
+			for (unsigned int i = row; i < this->rows.size(); i++) {
+				if (this->rows[i] != 0) {
+					this->rows[i]++;
+				}
 			}
 		}
 	}
