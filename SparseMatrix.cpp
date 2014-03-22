@@ -49,9 +49,9 @@ int SparseMatrix::get(unsigned int row, unsigned int col) const
 
 	unsigned int nnz = getFirstNextNonZero(this->rows, row - 1);
 
-	for (unsigned int j = this->rows[row - 1]; j < nnz; j++) {
-		if (this->cols[j - 1] == col) {
-			return this->vals[j - 1];
+	for (unsigned int j = this->rows[row - 1] - 1; j < nnz - 1; j++) {
+		if (this->cols[j] == col) {
+			return this->vals[j];
 		}
 	}
 
@@ -129,8 +129,8 @@ vector<int> SparseMatrix::multiply(const vector<int> & x) const
 	for (unsigned int i = 0; i < this->m; i++) {
 		if (this->rows[i] != 0) {
 			unsigned int nnz = getFirstNextNonZero(this->rows, i);
-			for (unsigned int j = this->rows[i]; j < nnz; j++) {
-				result[i] += x[this->cols[j - 1] - 1] * this->vals[j - 1];
+			for (unsigned int j = this->rows[i] - 1; j < nnz - 1; j++) {
+				result[i] += x[this->cols[j] - 1] * this->vals[j];
 			}
 		}
 	}
