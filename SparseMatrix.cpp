@@ -129,7 +129,7 @@ vector<int> SparseMatrix::multiply(const vector<int> & x) const
 		a  = 0;
 
 		for (unsigned int j = 1; j <= this->n; j++) {
-			a += x[i - 1] * this->get(i, j);
+			a += x[j - 1] * this->get(i, j);
 		}
 
 		result.push_back(a);

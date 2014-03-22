@@ -53,16 +53,32 @@ int main(int argc, char ** argv)
 
 		SparseMatrix mm(4);
 		mm.insert(10, 1, 1);
-		mm.insert(3, 2, 1);
-		mm.insert(9, 2, 2);
-		mm.insert(7, 3, 2);
-		mm.insert(8, 3, 3);
-		mm.insert(7, 3, 4);
-		mm.insert(3, 4, 1);
-		mm.insert(8, 4, 3);
-		mm.insert(7, 4, 4);
-
 		cout << mm << endl;
+
+		mm.insert(3, 2, 1);
+		cout << mm << endl;
+
+		mm.insert(9, 2, 2);
+		cout << mm << endl;
+
+		mm.insert(7, 3, 2);
+		cout << mm << endl;
+
+		mm.insert(8, 3, 3);
+		cout << mm << endl;
+
+		mm.insert(7, 3, 4);
+		cout << mm << endl;
+
+		mm.insert(3, 4, 1);
+		cout << mm << endl;
+
+		mm.insert(8, 4, 3);
+		cout << mm << endl;
+
+		mm.insert(7, 4, 4);
+		cout << mm << endl;
+
 		print(mm, cout);
 
 		vector<int> x;
