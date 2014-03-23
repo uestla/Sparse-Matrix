@@ -171,6 +171,31 @@ SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
 
 
 
+SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
+{
+	if (this->m != m.m || this->n != m.n) {
+		throw "Cannot add: matrices dimensions don't match.";
+	}
+
+	SparseMatrix result(this->m, this->n);
+
+	int a;
+
+	for (unsigned int i = 1; i <= this->m; i++) {
+		for (unsigned int j = 1; j <= this->n; j++) {
+			a = this->get(i, j) + m.get(i, j);
+
+			if (a != 0) {
+				result.insert(a, i, j);
+			}
+		}
+	}
+
+	return result;
+}
+
+
+
 void SparseMatrix::validateCoordinations(unsigned int row, unsigned int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {

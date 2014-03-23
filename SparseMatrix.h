@@ -23,6 +23,8 @@
 			vector<int> multiply(const vector<int> & x) const;
 			SparseMatrix multiply(const SparseMatrix & m) const;
 
+			SparseMatrix add(const SparseMatrix & m) const;
+
 			friend ostream & operator << (ostream & os, const SparseMatrix & matrix);
 			friend void print(const SparseMatrix & matrix, ostream & os);
 
