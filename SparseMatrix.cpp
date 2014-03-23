@@ -49,7 +49,7 @@ int SparseMatrix::get(unsigned int row, unsigned int col) const
 
 	unsigned int nnz = getFirstNextNonZero(this->rows, row - 1);
 
-	for (unsigned int j = this->rows[row - 1] - 1; j < nnz - 1; j++) {
+	for (unsigned int j = this->rows[row - 1] - 1; j < nnz - 1 && col <= this->cols[j]; j++) {
 		if (this->cols[j] == col) {
 			return this->vals[j];
 		}
@@ -68,49 +68,38 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 
 	unsigned int nnz = getFirstNextNonZero(this->rows, row - 1);
 
+	bool inserted = false;
+
 	if (this->rows[row - 1] == 0) {
 		this->rows[row - 1] = nnz;
 		this->vals.insert(this->vals.begin() + nnz - 1, value);
 		this->cols.insert(this->cols.begin() + nnz - 1, col);
-
-		for (unsigned int i = row; i < this->rows.size(); i++) {
-			if (this->rows[i] != 0) {
-				this->rows[i]++;
-			}
-		}
+		inserted = true;
 
 	} else {
-		bool inserted = false;
-
 		for (unsigned int j = this->rows[row - 1]; j < nnz; j++) {
 			if (this->cols[j - 1] == col) { // just overwrite the value
 				this->vals[j - 1] = value;
-				inserted = true;
 				break;
 
 			} else if (col < this->cols[j - 1]) {
 				this->vals.insert(this->vals.begin() + j - 1, value);
 				this->cols.insert(this->cols.begin() + j - 1, col);
-
-				for (unsigned int i = row; i < this->rows.size(); i++) {
-					if (this->rows[i] != 0) {
-						this->rows[i]++;
-					}
-				}
-
 				inserted = true;
 				break;
+
+			} else if (j == nnz - 1) {
+				this->vals.insert(this->vals.begin() + j, value);
+				this->cols.insert(this->cols.begin() + j, col);
+				inserted = true;
 			}
 		}
+	}
 
-		if (!inserted) {
-			this->vals.insert(this->vals.begin() + nnz - 1, value);
-			this->cols.insert(this->cols.begin() + nnz - 1, col);
-
-			for (unsigned int i = row; i < this->rows.size(); i++) {
-				if (this->rows[i] != 0) {
-					this->rows[i]++;
-				}
+	if (inserted) {
+		for (unsigned int i = row; i < this->rows.size(); i++) {
+			if (this->rows[i] != 0) {
+				this->rows[i]++;
 			}
 		}
 	}
@@ -123,7 +112,7 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 vector<int> SparseMatrix::multiply(const vector<int> & x) const
 {
 	if (this->n != x.size()) {
-		throw "Matrix column count and vector size don't match.";
+		throw "Cannot multiply: Matrix column count and vector size don't match.";
 	}
 
 	vector<int> result(this->m, 0);
@@ -145,7 +134,7 @@ vector<int> SparseMatrix::multiply(const vector<int> & x) const
 SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
 {
 	if (this->n != m.m) {
-		throw "Left matrix column count and right matrix row count don't match.";
+		throw "Cannot multiply: Left matrix column count and right matrix row count don't match.";
 	}
 
 	SparseMatrix result(this->m, m.n);
