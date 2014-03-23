@@ -64,6 +64,8 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 {
 	this->validateCoordinations(row, col);
 
+	// TODO: delete element when inserting 0
+
 	unsigned int nnz = getFirstNextNonZero(this->rows, row - 1);
 
 	if (this->rows[row - 1] == 0) {
@@ -131,6 +133,35 @@ vector<int> SparseMatrix::multiply(const vector<int> & x) const
 			unsigned int nnz = getFirstNextNonZero(this->rows, i);
 			for (unsigned int j = this->rows[i] - 1; j < nnz - 1; j++) {
 				result[i] += x[this->cols[j] - 1] * this->vals[j];
+			}
+		}
+	}
+
+	return result;
+}
+
+
+
+SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
+{
+	if (this->n != m.m) {
+		throw "Left matrix column count and right matrix row count don't match.";
+	}
+
+	SparseMatrix result(this->m, m.n);
+
+	int a;
+
+	for (unsigned int i = 1; i <= this->m; i++) {
+		for (unsigned int j = 1; j <= m.n; j++) {
+			a = 0;
+
+			for (unsigned int k = 1; k <= this->n; k++) {
+				a += this->get(i, k) * m.get(k, j);
+			}
+
+			if (a != 0) {
+				result.insert(a, i, j);
 			}
 		}
 	}
