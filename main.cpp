@@ -1,31 +1,33 @@
 #include <vector>
 #include <iostream>
+#include "tests.h"
+#include "testslib.h"
 #include "SparseMatrix.h"
 
 using namespace std;
 
 
 
-void print(const char * name, const vector<int> & x)
-{
-	cout << name << " = [";
-
-	for (unsigned int i = 0, size = x.size(); i < size; i++) {
-		cout << x[i];
-
-		if (i != size - 1) {
-			cout << ", ";
-		}
-	}
-
-	cout << "]" << endl;
-}
-
-
-
 int main(int argc, char ** argv)
 {
 	try {
+		testException("Constructor fail #1", constructorFail1, "Matrix dimensions cannot be zero or negative.");
+		testException("Constructor fail #2", constructorFail2, "Matrix dimensions cannot be zero or negative.");
+		testException("Constructor fail #3", constructorFail3, "Matrix dimensions cannot be zero or negative.");
+		testException("Constructor fail #4", constructorFail4, "Matrix dimensions cannot be zero or negative.");
+		testException("Constructor fail #5", constructorFail5, "Matrix dimensions cannot be zero or negative.");
+
+		testException("get() fail", getFail, "Coordinations out of range.");
+		testException("insert() fail", insertFail, "Coordinations out of range.");
+
+	} catch (const char * message) {
+		cout << "Tests failed: " << message << endl;
+		return 1;
+	}
+
+	return 0;
+
+	/* try {
 		SparseMatrix m(3);
 		cout << m << endl;
 		print(m, cout);
@@ -93,5 +95,5 @@ int main(int argc, char ** argv)
 		cout << "error: " << message << endl;
 	}
 
-	return 0;
+	return 0; */
 }

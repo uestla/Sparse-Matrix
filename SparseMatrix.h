@@ -14,17 +14,18 @@
 
 		public:
 
-			SparseMatrix(unsigned int n);
-			SparseMatrix(unsigned int rows, unsigned int columns);
+			SparseMatrix(int n);
+			SparseMatrix(int rows, int columns);
 
-			int get(unsigned int row, unsigned int col) const;
-			SparseMatrix & insert(int value, unsigned int row, unsigned int col);
+			int get(int row, int col) const;
+			SparseMatrix & insert(int value, int row, int col);
 
 			vector<int> multiply(const vector<int> & x) const;
 			SparseMatrix multiply(const SparseMatrix & m) const;
 
 			SparseMatrix add(const SparseMatrix & m) const;
 
+			friend bool operator == (const SparseMatrix & a, const SparseMatrix & b);
 			friend ostream & operator << (ostream & os, const SparseMatrix & matrix);
 			friend void print(const SparseMatrix & matrix, ostream & os);
 
@@ -32,13 +33,12 @@
 
 		protected:
 
-			unsigned int m, n;
+			int m, n;
 
-			vector<int> vals;
-			vector<unsigned int> cols, rows;
+			vector<int> vals, cols, rows;
 
-			void construct(unsigned int m, unsigned int n);
-			void validateCoordinations(unsigned int row, unsigned int col) const;
+			void construct(int m, int n);
+			void validateCoordinations(int row, int col) const;
 
 	};
 

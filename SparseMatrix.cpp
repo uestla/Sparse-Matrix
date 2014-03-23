@@ -7,21 +7,21 @@ using namespace std;
 
 
 
-SparseMatrix::SparseMatrix(unsigned int n)
+SparseMatrix::SparseMatrix(int n)
 {
 	this->construct(n, n);
 }
 
 
 
-SparseMatrix::SparseMatrix(unsigned int rows, unsigned int columns)
+SparseMatrix::SparseMatrix(int rows, int columns)
 {
 	this->construct(rows, columns);
 }
 
 
 
-void SparseMatrix::construct(unsigned int rows, unsigned int columns)
+void SparseMatrix::construct(int rows, int columns)
 {
 	if (rows < 1 || columns < 1) {
 		throw "Matrix dimensions cannot be zero or negative.";
@@ -30,7 +30,7 @@ void SparseMatrix::construct(unsigned int rows, unsigned int columns)
 	this->m = rows;
 	this->n = columns;
 
-	for (unsigned int i = 0; i < columns; i++) {
+	for (int i = 0; i < columns; i++) {
 		this->rows.push_back(0);
 	}
 
@@ -39,7 +39,7 @@ void SparseMatrix::construct(unsigned int rows, unsigned int columns)
 
 
 
-int SparseMatrix::get(unsigned int row, unsigned int col) const
+int SparseMatrix::get(int row, int col) const
 {
 	this->validateCoordinations(row, col);
 
@@ -47,9 +47,9 @@ int SparseMatrix::get(unsigned int row, unsigned int col) const
 		return 0;
 	}
 
-	unsigned int nnz = getFirstNextNonZero(this->rows, row - 1);
+	int nnz = getFirstNextNonZero(this->rows, row - 1);
 
-	for (unsigned int j = this->rows[row - 1] - 1; j < nnz - 1 && col <= this->cols[j]; j++) {
+	for (int j = this->rows[row - 1] - 1; j < nnz - 1 && col <= this->cols[j]; j++) {
 		if (this->cols[j] == col) {
 			return this->vals[j];
 		}
@@ -60,13 +60,13 @@ int SparseMatrix::get(unsigned int row, unsigned int col) const
 
 
 
-SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int col)
+SparseMatrix & SparseMatrix::insert(int value, int row, int col)
 {
 	this->validateCoordinations(row, col);
 
 	// TODO: delete element when inserting 0
 
-	unsigned int nnz = getFirstNextNonZero(this->rows, row - 1);
+	int nnz = getFirstNextNonZero(this->rows, row - 1);
 
 	bool inserted = false;
 
@@ -77,7 +77,7 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 		inserted = true;
 
 	} else {
-		for (unsigned int j = this->rows[row - 1]; j < nnz; j++) {
+		for (int j = this->rows[row - 1]; j < nnz; j++) {
 			if (this->cols[j - 1] == col) { // just overwrite the value
 				this->vals[j - 1] = value;
 				break;
@@ -97,7 +97,7 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 	}
 
 	if (inserted) {
-		for (unsigned int i = row; i < this->rows.size(); i++) {
+		for (int i = row; i < (int) this->rows.size(); i++) {
 			if (this->rows[i] != 0) {
 				this->rows[i]++;
 			}
@@ -111,16 +111,16 @@ SparseMatrix & SparseMatrix::insert(int value, unsigned int row, unsigned int co
 
 vector<int> SparseMatrix::multiply(const vector<int> & x) const
 {
-	if (this->n != x.size()) {
+	if (this->n != (int) x.size()) {
 		throw "Cannot multiply: Matrix column count and vector size don't match.";
 	}
 
 	vector<int> result(this->m, 0);
 
-	for (unsigned int i = 0; i < this->m; i++) {
+	for (int i = 0; i < this->m; i++) {
 		if (this->rows[i] != 0) {
-			unsigned int nnz = getFirstNextNonZero(this->rows, i);
-			for (unsigned int j = this->rows[i] - 1; j < nnz - 1; j++) {
+			int nnz = getFirstNextNonZero(this->rows, i);
+			for (int j = this->rows[i] - 1; j < nnz - 1; j++) {
 				result[i] += x[this->cols[j] - 1] * this->vals[j];
 			}
 		}
@@ -141,11 +141,11 @@ SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
 
 	int a;
 
-	for (unsigned int i = 1; i <= this->m; i++) {
-		for (unsigned int j = 1; j <= m.n; j++) {
+	for (int i = 1; i <= this->m; i++) {
+		for (int j = 1; j <= m.n; j++) {
 			a = 0;
 
-			for (unsigned int k = 1; k <= this->n; k++) {
+			for (int k = 1; k <= this->n; k++) {
 				a += this->get(i, k) * m.get(k, j);
 			}
 
@@ -170,8 +170,8 @@ SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
 
 	int a;
 
-	for (unsigned int i = 1; i <= this->m; i++) {
-		for (unsigned int j = 1; j <= this->n; j++) {
+	for (int i = 1; i <= this->m; i++) {
+		for (int j = 1; j <= this->n; j++) {
 			a = this->get(i, j) + m.get(i, j);
 
 			if (a != 0) {
@@ -185,7 +185,7 @@ SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
 
 
 
-void SparseMatrix::validateCoordinations(unsigned int row, unsigned int col) const
+void SparseMatrix::validateCoordinations(int row, int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
 		throw "Coordinations out of range.";
@@ -194,11 +194,18 @@ void SparseMatrix::validateCoordinations(unsigned int row, unsigned int col) con
 
 
 
+bool operator == (const SparseMatrix & a, const SparseMatrix & b)
+{
+	return a.vals == b.vals && a.cols == b.cols && a.rows == b.rows;
+}
+
+
+
 ostream & operator << (ostream & os, const SparseMatrix & matrix)
 {
 	printArray<int>(os, "vals", matrix.vals);
-	printArray<unsigned int>(os, "cols", matrix.cols);
-	printArray<unsigned int>(os, "rows", matrix.rows);
+	printArray<int>(os, "cols", matrix.cols);
+	printArray<int>(os, "rows", matrix.rows);
 
 	return os;
 }

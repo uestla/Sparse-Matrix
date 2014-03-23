@@ -9,9 +9,9 @@
 
 
 
-	unsigned int getFirstNextNonZero(const vector<unsigned int> & array, unsigned int index)
+	int getFirstNextNonZero(const vector<int> & array, int index)
 	{
-		for (unsigned int i = index + 1, size = array.size(); i < size; i++) {
+		for (int i = index + 1, size = array.size(); i < size; i++) {
 			if (array[i] != 0) {
 				return array[i];
 			}
@@ -24,8 +24,8 @@
 
 	void print(const SparseMatrix & matrix, ostream & os)
 	{
-		for (unsigned int i = 1; i <= matrix.n; i++) {
-			for (unsigned int j = 1; j <= matrix.m; j++) {
+		for (int i = 1; i <= matrix.n; i++) {
+			for (int j = 1; j <= matrix.m; j++) {
 				os << matrix.get(i, j) << " ";
 			}
 
