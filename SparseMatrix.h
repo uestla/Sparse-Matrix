@@ -26,6 +26,7 @@
 			SparseMatrix add(const SparseMatrix & m) const;
 
 			friend bool operator == (const SparseMatrix & a, const SparseMatrix & b);
+			friend bool operator != (const SparseMatrix & a, const SparseMatrix & b);
 			friend ostream & operator << (ostream & os, const SparseMatrix & matrix);
 			friend void print(const SparseMatrix & matrix, ostream & os);
 

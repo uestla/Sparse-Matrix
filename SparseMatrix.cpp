@@ -201,6 +201,13 @@ bool operator == (const SparseMatrix & a, const SparseMatrix & b)
 
 
 
+bool operator != (const SparseMatrix & a, const SparseMatrix & b)
+{
+	return !(a == b);
+}
+
+
+
 ostream & operator << (ostream & os, const SparseMatrix & matrix)
 {
 	printArray<int>(os, "vals", matrix.vals);
