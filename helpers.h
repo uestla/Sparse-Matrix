@@ -24,8 +24,8 @@
 
 	void print(const SparseMatrix & matrix, ostream & os)
 	{
-		for (int i = 1; i <= matrix.n; i++) {
-			for (int j = 1; j <= matrix.m; j++) {
+		for (int i = 1; i <= matrix.m; i++) {
+			for (int j = 1; j <= matrix.n; j++) {
 				os << matrix.get(i, j) << " ";
 			}
 
