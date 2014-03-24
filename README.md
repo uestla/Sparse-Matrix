@@ -41,7 +41,7 @@ Při dodržení správných rozměrů můžeme matici přenásobit vektorem zpra
 ```cpp
 SparseMatrix a(3);
 vector<int> x(3, 2);
-a.multiply(x);
+vector<int> result = a.multiply(x);
 ```
 
 #### Násobení maticí
