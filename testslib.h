@@ -10,7 +10,14 @@
 
 
 
-	void testException(const char * testname, void (*callback)(void), const char * message)
+	void success(const char * name)
+	{
+		cout << "Test '" << name << "' passed successfully." << endl;
+	}
+
+
+
+	void assertException(const char * testname, void (*callback)(void), const char * message)
 	{
 		try {
 			callback();
@@ -27,7 +34,19 @@
 			throw "Exception expected but none thrown.";
 		}
 
-		cout << "Test '" << testname << "' passed successfully." << endl;
+		success(testname);
+	}
+
+
+
+	template<class T>
+	void assertEquals(const char * testname, const T & a, const T & b)
+	{
+		if (a != b) {
+			throw "Objects not equal when they should be.";
+		}
+
+		success(testname);
 	}
 
 #endif

@@ -11,14 +11,25 @@ using namespace std;
 int main(int argc, char ** argv)
 {
 	try {
-		testException("Constructor fail #1", constructorFail1, "Matrix dimensions cannot be zero or negative.");
-		testException("Constructor fail #2", constructorFail2, "Matrix dimensions cannot be zero or negative.");
-		testException("Constructor fail #3", constructorFail3, "Matrix dimensions cannot be zero or negative.");
-		testException("Constructor fail #4", constructorFail4, "Matrix dimensions cannot be zero or negative.");
-		testException("Constructor fail #5", constructorFail5, "Matrix dimensions cannot be zero or negative.");
+		assertException("constructor fail #1", constructorFail1, "Matrix dimensions cannot be zero or negative.");
+		assertException("constructor fail #2", constructorFail2, "Matrix dimensions cannot be zero or negative.");
+		assertException("constructor fail #3", constructorFail3, "Matrix dimensions cannot be zero or negative.");
+		assertException("constructor fail #4", constructorFail4, "Matrix dimensions cannot be zero or negative.");
+		assertException("constructor fail #5", constructorFail5, "Matrix dimensions cannot be zero or negative.");
 
-		testException("get() fail", getFail, "Coordinations out of range.");
-		testException("insert() fail", insertFail, "Coordinations out of range.");
+		assertException("get() fail", getFail, "Coordinations out of range.");
+		assertException("insert() fail", insertFail, "Coordinations out of range.");
+
+		assertException("multiply() fail #1", multiplicationFail1, "Cannot multiply: Matrix column count and vector size don't match.");
+		assertException("multiply() fail #2", multiplicationFail2, "Cannot multiply: Left matrix column count and right matrix row count don't match.");
+
+		assertException("add() fail #1", additionFail1, "Cannot add: matrices dimensions don't match.");
+		assertException("add() fail #2", additionFail2, "Cannot add: matrices dimensions don't match.");
+		assertException("add() fail #3", additionFail3, "Cannot add: matrices dimensions don't match.");
+
+		testVectorMultiplication1();
+		testVectorMultiplication2();
+		testVectorMultiplication3();
 
 	} catch (const char * message) {
 		cout << "Tests failed: " << message << endl;
