@@ -49,7 +49,7 @@ int SparseMatrix::get(int row, int col) const
 
 	int nnz = getFirstNextNonZero(this->rows, row - 1);
 
-	for (int j = this->rows[row - 1] - 1; j < nnz - 1 && col <= this->cols[j]; j++) {
+	for (int j = this->rows[row - 1] - 1; j < nnz - 1 && this->cols[j] <= col; j++) {
 		if (this->cols[j] == col) {
 			return this->vals[j];
 		}
