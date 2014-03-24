@@ -31,6 +31,10 @@ int main(int argc, char ** argv)
 		testVectorMultiplication2();
 		testVectorMultiplication3();
 
+		testAddition1();
+		testAddition2();
+		testAddition3();
+
 	} catch (const char * message) {
 		cout << "Tests failed: " << message << endl;
 		return 1;

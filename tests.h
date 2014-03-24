@@ -165,4 +165,95 @@
 		assertEquals("vector multiplication #3", m.multiply(x), result);
 	}
 
+
+
+	void testAddition1(void)
+	{
+		// [ 0 0 0 ]   [ 1 2 3 ]   [ 1 2 3 ]
+		// [ 0 0 0 ] + [ 4 5 6 ] = [ 4 5 6 ]
+		// [ 0 0 0 ]   [ 7 8 9 ]   [ 7 8 9 ]
+
+		SparseMatrix a(3);
+		SparseMatrix b(3);
+		b.insert(1, 1, 1)
+			.insert(2, 1, 2)
+			.insert(3, 1, 3)
+			.insert(4, 2, 1)
+			.insert(5, 2, 2)
+			.insert(6, 2, 3)
+			.insert(7, 3, 1)
+			.insert(8, 3, 2)
+			.insert(9, 3, 3);
+
+		assertEquals("addition #1", a.add(b), b);
+	}
+
+
+
+	void testAddition2(void)
+	{
+		// [ -1 -2 -3 ]   [ 1 2 3 ]   [ 0 0 0 ]
+		// [ -4 -5 -6 ] + [ 4 5 6 ] = [ 0 0 0 ]
+		// [ -7 -8 -9 ]   [ 7 8 9 ]   [ 0 0 0 ]
+
+		SparseMatrix a(3);
+		a.insert(-1, 1, 1)
+			.insert(-2, 1, 2)
+			.insert(-3, 1, 3)
+			.insert(-4, 2, 1)
+			.insert(-5, 2, 2)
+			.insert(-6, 2, 3)
+			.insert(-7, 3, 1)
+			.insert(-8, 3, 2)
+			.insert(-9, 3, 3);
+
+		SparseMatrix b(3);
+		b.insert(1, 1, 1)
+			.insert(2, 1, 2)
+			.insert(3, 1, 3)
+			.insert(4, 2, 1)
+			.insert(5, 2, 2)
+			.insert(6, 2, 3)
+			.insert(7, 3, 1)
+			.insert(8, 3, 2)
+			.insert(9, 3, 3);
+
+		assertEquals("addition #2", a.add(b), SparseMatrix(3));
+	}
+
+
+
+	void testAddition3(void)
+	{
+		// [ 1 0 1 ]   [ 0 1 0 ]   [ 1 1 1 ]
+		// [ 0 1 0 ] + [ 1 0 1 ] = [ 1 1 1 ]
+		// [ 1 0 1 ]   [ 0 1 0 ]   [ 1 1 1 ]
+
+		SparseMatrix a(3);
+		a.insert(1, 1, 1)
+			.insert(1, 1, 3)
+			.insert(1, 2, 2)
+			.insert(1, 3, 1)
+			.insert(1, 3, 3);
+
+		SparseMatrix b(3);
+		b.insert(1, 1, 2)
+			.insert(1, 2, 1)
+			.insert(1, 2, 3)
+			.insert(1, 3, 2);
+
+		SparseMatrix result(3);
+		result.insert(1, 1, 1)
+			.insert(1, 1, 2)
+			.insert(1, 1, 3)
+			.insert(1, 2, 1)
+			.insert(1, 2, 2)
+			.insert(1, 2, 3)
+			.insert(1, 3, 1)
+			.insert(1, 3, 2)
+			.insert(1, 3, 3);
+
+		assertEquals("addition #3", a.add(b), result);
+	}
+
 #endif
