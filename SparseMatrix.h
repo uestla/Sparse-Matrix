@@ -76,7 +76,7 @@
 
 
 			/**
-			 * Multiplies matrix with another matrix
+			 * Multiplies matrix by another matrix
 			 *
 			 * @param  m
 			 * @return result of the product

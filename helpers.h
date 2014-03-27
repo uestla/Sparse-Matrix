@@ -18,6 +18,13 @@
 
 
 
+	/**
+	 * Returns first non-zero value in vector after element at given index
+	 *
+	 * @param  array
+	 * @param  index
+	 * @return next non-zero value or 0 if not found
+	 */
 	int getFirstNextNonZero(const vector<int> & array, int index)
 	{
 		for (int i = index + 1, size = array.size(); i < size; i++) {
@@ -31,6 +38,12 @@
 
 
 
+	/**
+	 * Prints matrix in human friendly format
+	 *
+	 * @param  matrix to print
+	 * @param  output stream
+	 */
 	void print(const SparseMatrix & matrix, ostream & os)
 	{
 		for (int i = 1; i <= matrix.m; i++) {
@@ -46,6 +59,14 @@
 
 
 
+	/**
+	 * Prints vector in human friendy format.
+	 * NOTE: vector elements have to have 'operator <<' defined!
+	 *
+     * @param os
+     * @param name
+     * @param array
+     */
 	template<class T>
 	void printArray(ostream & os, const char * name, vector<T> array)
 	{
