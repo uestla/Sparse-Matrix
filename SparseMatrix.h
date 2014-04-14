@@ -61,7 +61,7 @@
 			 * @param  col
 			 * @return self for fluent interface
 			 */
-			SparseMatrix & insert(int value, int row, int col);
+			SparseMatrix & set(int value, int row, int col);
 
 
 

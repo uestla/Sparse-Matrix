@@ -53,7 +53,7 @@
 	void insertFail(void)
 	{
 		SparseMatrix m(3, 4);
-		m.insert(-1, 4, 0);
+		m.set(-1, 4, 0);
 	}
 
 
@@ -106,11 +106,11 @@
 		// [ 0 4 7 ]   [ 3 ]   [ 21 ]
 
 		SparseMatrix m(3);
-		m.insert(1, 1, 3)
-			.insert(2, 2, 1)
-			.insert(3, 2, 3)
-			.insert(4, 3, 2)
-			.insert(7, 3, 3);
+		m.set(1, 1, 3)
+			.set(2, 2, 1)
+			.set(3, 2, 3)
+			.set(4, 3, 2)
+			.set(7, 3, 3);
 
 		vector<int> x;
 		x.push_back(2);
@@ -149,15 +149,15 @@
 		// [ 7 8 9 ]   [ 0 ]   [ 0 ]
 
 		SparseMatrix m(3);
-		m.insert(1, 1, 1)
-			.insert(2, 1, 2)
-			.insert(3, 1, 3)
-			.insert(4, 2, 1)
-			.insert(5, 2, 2)
-			.insert(6, 2, 3)
-			.insert(7, 3, 1)
-			.insert(8, 3, 2)
-			.insert(9, 3, 3);
+		m.set(1, 1, 1)
+			.set(2, 1, 2)
+			.set(3, 1, 3)
+			.set(4, 2, 1)
+			.set(5, 2, 2)
+			.set(6, 2, 3)
+			.set(7, 3, 1)
+			.set(8, 3, 2)
+			.set(9, 3, 3);
 
 		vector<int> x(3, 0);
 		vector<int> result(3, 0);
@@ -175,15 +175,15 @@
 
 		SparseMatrix a(3);
 		SparseMatrix b(3);
-		b.insert(1, 1, 1)
-			.insert(2, 1, 2)
-			.insert(3, 1, 3)
-			.insert(4, 2, 1)
-			.insert(5, 2, 2)
-			.insert(6, 2, 3)
-			.insert(7, 3, 1)
-			.insert(8, 3, 2)
-			.insert(9, 3, 3);
+		b.set(1, 1, 1)
+			.set(2, 1, 2)
+			.set(3, 1, 3)
+			.set(4, 2, 1)
+			.set(5, 2, 2)
+			.set(6, 2, 3)
+			.set(7, 3, 1)
+			.set(8, 3, 2)
+			.set(9, 3, 3);
 
 		assertEquals("addition #1", a.add(b), b);
 	}
@@ -197,26 +197,26 @@
 		// [ -7 -8 -9 ]   [ 7 8 9 ]   [ 0 0 0 ]
 
 		SparseMatrix a(3);
-		a.insert(-1, 1, 1)
-			.insert(-2, 1, 2)
-			.insert(-3, 1, 3)
-			.insert(-4, 2, 1)
-			.insert(-5, 2, 2)
-			.insert(-6, 2, 3)
-			.insert(-7, 3, 1)
-			.insert(-8, 3, 2)
-			.insert(-9, 3, 3);
+		a.set(-1, 1, 1)
+			.set(-2, 1, 2)
+			.set(-3, 1, 3)
+			.set(-4, 2, 1)
+			.set(-5, 2, 2)
+			.set(-6, 2, 3)
+			.set(-7, 3, 1)
+			.set(-8, 3, 2)
+			.set(-9, 3, 3);
 
 		SparseMatrix b(3);
-		b.insert(1, 1, 1)
-			.insert(2, 1, 2)
-			.insert(3, 1, 3)
-			.insert(4, 2, 1)
-			.insert(5, 2, 2)
-			.insert(6, 2, 3)
-			.insert(7, 3, 1)
-			.insert(8, 3, 2)
-			.insert(9, 3, 3);
+		b.set(1, 1, 1)
+			.set(2, 1, 2)
+			.set(3, 1, 3)
+			.set(4, 2, 1)
+			.set(5, 2, 2)
+			.set(6, 2, 3)
+			.set(7, 3, 1)
+			.set(8, 3, 2)
+			.set(9, 3, 3);
 
 		assertEquals("addition #2", a.add(b), SparseMatrix(3));
 	}
@@ -230,28 +230,28 @@
 		// [ 1 0 1 ]   [ 0 1 0 ]   [ 1 1 1 ]
 
 		SparseMatrix a(3);
-		a.insert(1, 1, 1)
-			.insert(1, 1, 3)
-			.insert(1, 2, 2)
-			.insert(1, 3, 1)
-			.insert(1, 3, 3);
+		a.set(1, 1, 1)
+			.set(1, 1, 3)
+			.set(1, 2, 2)
+			.set(1, 3, 1)
+			.set(1, 3, 3);
 
 		SparseMatrix b(3);
-		b.insert(1, 1, 2)
-			.insert(1, 2, 1)
-			.insert(1, 2, 3)
-			.insert(1, 3, 2);
+		b.set(1, 1, 2)
+			.set(1, 2, 1)
+			.set(1, 2, 3)
+			.set(1, 3, 2);
 
 		SparseMatrix result(3);
-		result.insert(1, 1, 1)
-			.insert(1, 1, 2)
-			.insert(1, 1, 3)
-			.insert(1, 2, 1)
-			.insert(1, 2, 2)
-			.insert(1, 2, 3)
-			.insert(1, 3, 1)
-			.insert(1, 3, 2)
-			.insert(1, 3, 3);
+		result.set(1, 1, 1)
+			.set(1, 1, 2)
+			.set(1, 1, 3)
+			.set(1, 2, 1)
+			.set(1, 2, 2)
+			.set(1, 2, 3)
+			.set(1, 3, 1)
+			.set(1, 3, 2)
+			.set(1, 3, 3);
 
 		assertEquals("addition #3", a.add(b), result);
 	}
@@ -265,35 +265,35 @@
 		// [ 7 8 9 ]   [ 0 1 0 ]   [ 15 24 15 ]
 
 		SparseMatrix a(3);
-		a.insert(1, 1, 1)
-			.insert(2, 1, 2)
-			.insert(3, 1, 3)
-			.insert(4, 2, 1)
-			.insert(5, 2, 2)
-			.insert(6, 2, 3)
-			.insert(7, 3, 1)
-			.insert(8, 3, 2)
-			.insert(9, 3, 3);
+		a.set(1, 1, 1)
+			.set(2, 1, 2)
+			.set(3, 1, 3)
+			.set(4, 2, 1)
+			.set(5, 2, 2)
+			.set(6, 2, 3)
+			.set(7, 3, 1)
+			.set(8, 3, 2)
+			.set(9, 3, 3);
 
 		SparseMatrix b(3);
-		b.insert(1, 1, 1)
-			.insert(1, 1, 2)
-			.insert(1, 1, 3)
-			.insert(1, 2, 1)
-			.insert(1, 2, 2)
-			.insert(1, 2, 3)
-			.insert(1, 3, 2);
+		b.set(1, 1, 1)
+			.set(1, 1, 2)
+			.set(1, 1, 3)
+			.set(1, 2, 1)
+			.set(1, 2, 2)
+			.set(1, 2, 3)
+			.set(1, 3, 2);
 
 		SparseMatrix result(3);
-		result.insert(3, 1, 1)
-			.insert(6, 1, 2)
-			.insert(3, 1, 3)
-			.insert(9, 2, 1)
-			.insert(15, 2, 2)
-			.insert(9, 2, 3)
-			.insert(15, 3, 1)
-			.insert(24, 3, 2)
-			.insert(15, 3, 3);
+		result.set(3, 1, 1)
+			.set(6, 1, 2)
+			.set(3, 1, 3)
+			.set(9, 2, 1)
+			.set(15, 2, 2)
+			.set(9, 2, 3)
+			.set(15, 3, 1)
+			.set(24, 3, 2)
+			.set(15, 3, 3);
 
 		assertEquals("multiplication #1", a.multiply(b), result);
 	}
@@ -307,11 +307,11 @@
 		// [ 2 2 0 ]   [ 0 0 0 ]   [ 0 0 0 ]
 
 		SparseMatrix a(3);
-		a.insert(1, 1, 1)
-			.insert(1, 1, 3)
-			.insert(1, 2, 3)
-			.insert(2, 3, 1)
-			.insert(2, 3, 2);
+		a.set(1, 1, 1)
+			.set(1, 1, 3)
+			.set(1, 2, 3)
+			.set(2, 3, 1)
+			.set(2, 3, 2);
 
 		SparseMatrix b(3);
 		SparseMatrix result(3);
@@ -328,20 +328,20 @@
 		// [ 0 0 1 ]   [ 7 8 9 ]   [ 7 8 9 ]
 
 		SparseMatrix a(3);
-		a.insert(1, 1, 1)
-			.insert(1, 2, 2)
-			.insert(1, 3, 3);
+		a.set(1, 1, 1)
+			.set(1, 2, 2)
+			.set(1, 3, 3);
 
 		SparseMatrix b(3);
-		b.insert(1, 1, 1)
-			.insert(2, 1, 2)
-			.insert(3, 1, 3)
-			.insert(4, 2, 1)
-			.insert(5, 2, 2)
-			.insert(6, 2, 3)
-			.insert(7, 3, 1)
-			.insert(8, 3, 2)
-			.insert(9, 3, 3);
+		b.set(1, 1, 1)
+			.set(2, 1, 2)
+			.set(3, 1, 3)
+			.set(4, 2, 1)
+			.set(5, 2, 2)
+			.set(6, 2, 3)
+			.set(7, 3, 1)
+			.set(8, 3, 2)
+			.set(9, 3, 3);
 
 		assertEquals("multiplication #3.1", a.multiply(b), b);
 		assertEquals("multiplication #3.2", b.multiply(a), b);

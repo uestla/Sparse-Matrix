@@ -69,7 +69,7 @@ int SparseMatrix::get(int row, int col) const
 
 
 
-SparseMatrix & SparseMatrix::insert(int value, int row, int col)
+SparseMatrix & SparseMatrix::set(int value, int row, int col)
 {
 	this->validateCoordinations(row, col);
 
