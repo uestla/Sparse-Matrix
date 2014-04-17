@@ -28,7 +28,11 @@
 	{
 		for (int i = 1; i <= matrix.m; i++) {
 			for (int j = 1; j <= matrix.n; j++) {
-				os << matrix.get(i, j) << " ";
+				if (j != 1) {
+					os << " ";
+				}
+
+				os << matrix.get(i, j);
 			}
 
 			os << endl;
