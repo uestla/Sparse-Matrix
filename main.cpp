@@ -39,8 +39,8 @@ int main(int argc, char ** argv)
 		testMultiplication2();
 		testMultiplication3();
 
-	} catch (const char * message) {
-		cout << "Tests failed: " << message << endl;
+	} catch (const FailureException & e) {
+		cout << "Test '" << e.getTestName() << "' failed with message '" << e.getMessage() << "'." << endl;
 		return 1;
 	}
 
