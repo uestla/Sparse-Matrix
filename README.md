@@ -27,11 +27,11 @@ SparseMatrix b(3, 5); // matice 3×5 (3 řádky, 5 sloupců)
 
 #### Vložení prvku
 
-Pro vložení prvku použijeme metodu `insert()`, které řekneme, co a kam chceme vložit.
+Pro vložení prvku použijeme metodu `set()`, které řekneme, co a kam chceme vložit.
 
 ```cpp
 SparseMatrix a(3);
-a.insert(-5, 2, 3); // vloží hodnotu -5 na 2. řádek do 3. sloupce
+a.set(-5, 2, 3); // vloží hodnotu -5 na 2. řádek do 3. sloupce
 ```
 
 #### Čtení prvku
