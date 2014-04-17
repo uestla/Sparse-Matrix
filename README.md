@@ -79,7 +79,7 @@ SparseMatrix result = a.add(b);
 Chceme-li matici vypsat v lidsky čitelné podobě, můžeme pro to využít pomocnou funkci `print()`. Ta se nachází v hlavičkovém souboru `helpers.h`, který je třeba načíst.
 
 ```cpp
-#include "helpers.h";
+#include "helpers.h"
 
 SparseMatrix a(3);
 print(a);
