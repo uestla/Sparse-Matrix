@@ -27,6 +27,8 @@ int main(int argc, char ** argv)
 		assertException("add() fail #2", additionFail2, "Cannot add: matrices dimensions don't match.");
 		assertException("add() fail #3", additionFail3, "Cannot add: matrices dimensions don't match.");
 
+		testInsertion();
+
 		testVectorMultiplication1();
 		testVectorMultiplication2();
 		testVectorMultiplication3();

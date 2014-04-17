@@ -98,6 +98,27 @@
 
 
 
+	void testInsertion(void)
+	{
+		ostringstream oss;
+
+		int idx = 1;
+		SparseMatrix m(3);
+		for (int i = 1; i <= 3; i++) {
+			for (int j = 1; j <= 3; j++) {
+				oss.str("");
+				oss << "insertion test #" << idx++;
+				assertEquals(oss.str().c_str(), 0, m.get(i, j));
+			}
+		}
+
+		m.set(-4, 1, 3);
+		assertEquals("insertion test #10", 0, m.get(1, 1));
+		assertEquals("insertion test #11", 0, m.get(1, 1));
+	}
+
+
+
 	void testVectorMultiplication1(void)
 	{
 		// [ 0 0 1 ]   [ 2 ]   [  3 ]
