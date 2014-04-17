@@ -115,6 +115,7 @@
 		m.set(-4, 1, 3);
 		assertEquals("insertion test #10", 0, m.get(1, 1));
 		assertEquals("insertion test #11", 0, m.get(1, 1));
+		assertEquals("insertion test #12", -4, m.get(1, 3));
 	}
 
 
