@@ -4,6 +4,15 @@ Knihovna Sparse Matrix implementuje řídkou matici za využití formátu [CSR](
 
 ## Použití
 
+### Načtení knihovny
+
+Načíst knihovnu znamená vložit hlavičkový soubor:
+
+```cpp
+#include "SparseMatrix.h"
+```
+
+
 ### Vytvoření matice
 
 Konstruktor přebírá jeden či dva parametry v závislosti na tom, chceme-li vytvořit čtvercovou, resp. nečtvercovou matici.
@@ -62,4 +71,16 @@ Pokud mají 2 matice stejné rozměry, můžeme je sečíst.
 SparseMatrix a(3, 4);
 SparseMatrix b(3, 4);
 SparseMatrix result = a.add(b);
+```
+
+
+#### Výpis matice
+
+Chceme-li matici vypsat v lidsky čitelné podobě, můžeme pro to využít pomocnou funkci `print()`. Ta se nachází v hlavičkovém souboru `helpers.h`, který je třeba načíst.
+
+```cpp
+#include "helpers.h";
+
+SparseMatrix a(3);
+print(a);
 ```
