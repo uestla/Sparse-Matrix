@@ -19,26 +19,6 @@
 
 
 	/**
-	 * Returns first non-zero value in vector after element at given index
-	 *
-	 * @param  array
-	 * @param  index
-	 * @return next non-zero value or 0 if not found
-	 */
-	int getFirstNextNonZero(const vector<int> & array, int index)
-	{
-		for (int i = index + 1, size = array.size(); i < size; i++) {
-			if (array[i] != 0) {
-				return array[i];
-			}
-		}
-
-		return 0;
-	}
-
-
-
-	/**
 	 * Prints matrix in human friendly format
 	 *
 	 * @param  matrix to print

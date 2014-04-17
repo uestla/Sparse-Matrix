@@ -6,7 +6,6 @@
 	#include "SparseMatrix.h"
 
 
-
 	void constructorFail1(void)
 	{
 		SparseMatrix(0);
@@ -50,7 +49,7 @@
 
 
 
-	void insertFail(void)
+	void setFail(void)
 	{
 		SparseMatrix m(3, 4);
 		m.set(-1, 4, 0);

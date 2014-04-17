@@ -162,6 +162,28 @@
 			 */
 			void validateCoordinations(int row, int col) const;
 
+
+
+			/**
+			 * Inserts given value into the matrix
+			 *
+			 * @param  index at which the new element will be placed
+			 * @param  row
+			 * @param  col
+			 * @param  value
+			 */
+			void insert(int index, int row, int col, int value);
+
+
+
+			/**
+			 * Removes value from the matrix
+			 *
+			 * @param  index
+			 * @param  row
+			 */
+			void remove(int index, int row);
+
 	};
 
 #endif

@@ -39,11 +39,9 @@ void SparseMatrix::construct(int rows, int columns)
 	this->m = rows;
 	this->n = columns;
 
-	for (int i = 0; i < columns; i++) {
-		this->rows.push_back(0);
+	for (int i = 0; i <= rows; i++) {
+		this->rows.push_back(1);
 	}
-
-	this->rows.push_back(1);
 }
 
 
@@ -52,15 +50,9 @@ int SparseMatrix::get(int row, int col) const
 {
 	this->validateCoordinations(row, col);
 
-	if (this->rows[row - 1] == 0) { // empty row
-		return 0;
-	}
-
-	int nnz = getFirstNextNonZero(this->rows, row - 1);
-
-	for (int j = this->rows[row - 1] - 1; j < nnz - 1 && this->cols[j] <= col; j++) {
-		if (this->cols[j] == col) {
-			return this->vals[j];
+	for (int i = this->rows[row - 1] - 1; i < this->rows[row] - 1; i++) {
+		if (this->cols[i] == col) {
+			return this->vals[i];
 		}
 	}
 
@@ -73,44 +65,30 @@ SparseMatrix & SparseMatrix::set(int value, int row, int col)
 {
 	this->validateCoordinations(row, col);
 
-	// TODO: delete element when inserting 0
+	if (this->rows[row - 1] < this->rows[row]) {
+		for (int i = this->rows[row - 1]; i < this->rows[row]; i++) {
+			if (this->cols[i - 1] == col) {
+				if (value == 0) {
+					this->remove(i - 1, row);
 
-	int nnz = getFirstNextNonZero(this->rows, row - 1);
+				} else { // overwrite the value
+					this->vals[i - 1] = value;
+				}
 
-	bool inserted = false;
-
-	if (this->rows[row - 1] == 0) {
-		this->rows[row - 1] = nnz;
-		this->vals.insert(this->vals.begin() + nnz - 1, value);
-		this->cols.insert(this->cols.begin() + nnz - 1, col);
-		inserted = true;
-
-	} else {
-		for (int j = this->rows[row - 1]; j < nnz; j++) {
-			if (this->cols[j - 1] == col) { // just overwrite the value
-				this->vals[j - 1] = value;
 				break;
 
-			} else if (col < this->cols[j - 1]) {
-				this->vals.insert(this->vals.begin() + j - 1, value);
-				this->cols.insert(this->cols.begin() + j - 1, col);
-				inserted = true;
+			} else if (col < this->cols[i - 1]) {
+				this->insert(i - 1, row, col, value);
 				break;
 
-			} else if (j == nnz - 1) {
-				this->vals.insert(this->vals.begin() + j, value);
-				this->cols.insert(this->cols.begin() + j, col);
-				inserted = true;
+			} else if (i == this->rows[row] - 1) {
+				this->insert(i, row, col, value);
+				break;
 			}
 		}
-	}
 
-	if (inserted) {
-		for (int i = row; i < (int) this->rows.size(); i++) {
-			if (this->rows[i] != 0) {
-				this->rows[i]++;
-			}
-		}
+	} else if (value != 0) {
+		this->insert(this->rows[row] - 1, row, col, value);
 	}
 
 	return *this;
@@ -126,12 +104,9 @@ vector<int> SparseMatrix::multiply(const vector<int> & x) const
 
 	vector<int> result(this->m, 0);
 
-	for (int i = 0; i < this->m; i++) {
-		if (this->rows[i] != 0) {
-			int nnz = getFirstNextNonZero(this->rows, i);
-			for (int j = this->rows[i] - 1; j < nnz - 1; j++) {
-				result[i] += x[this->cols[j] - 1] * this->vals[j];
-			}
+	for (int i = 1; i <= this->m; i++) {
+		for (int j = 1; j <= this->n; j++) {
+			result[i - 1] += this->get(i, j) * x[j - 1];
 		}
 	}
 
@@ -158,9 +133,7 @@ SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
 				a += this->get(i, k) * m.get(k, j);
 			}
 
-			if (a != 0) {
-				result.insert(a, i, j);
-			}
+			result.set(a, i, j);
 		}
 	}
 
@@ -177,15 +150,9 @@ SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
 
 	SparseMatrix result(this->m, this->n);
 
-	int a;
-
 	for (int i = 1; i <= this->m; i++) {
 		for (int j = 1; j <= this->n; j++) {
-			a = this->get(i, j) + m.get(i, j);
-
-			if (a != 0) {
-				result.insert(a, i, j);
-			}
+			result.set(this->get(i, j) + m.get(i, j), i, j);
 		}
 	}
 
@@ -198,6 +165,30 @@ void SparseMatrix::validateCoordinations(int row, int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
 		throw "Coordinations out of range.";
+	}
+}
+
+
+
+void SparseMatrix::insert(int index, int row, int col, int value)
+{
+	this->cols.insert(this->cols.begin() + index, col);
+	this->vals.insert(this->vals.begin() + index, value);
+
+	for (int i = row; i <= this->m; i++) {
+		this->rows[i]++;
+	}
+}
+
+
+
+void SparseMatrix::remove(int index, int row)
+{
+	this->cols.erase(this->cols.begin() + index);
+	this->vals.erase(this->vals.begin() + index);
+
+	for (int i = row; i <= this->m; i++) {
+		this->rows[i]--;
 	}
 }
 
