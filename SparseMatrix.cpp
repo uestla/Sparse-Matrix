@@ -65,26 +65,23 @@ SparseMatrix & SparseMatrix::set(int value, int row, int col)
 {
 	this->validateCoordinations(row, col);
 
-	if (this->rows[row - 1] < this->rows[row]) {
-		for (int i = this->rows[row - 1]; i < this->rows[row]; i++) {
-			if (this->cols[i - 1] == col) {
-				if (value == 0) {
-					this->remove(i - 1, row);
+	int pos = this->rows[row - 1] - 1;
 
-				} else { // overwrite the value
-					this->vals[i - 1] = value;
-				}
+	for (; pos < this->rows[row] - 1; pos++) {
+		if (this->cols[pos] == col) {
+			break;
 
-				break;
+		} else if (col < this->cols[pos]) {
+			break;
+		}
+	}
 
-			} else if (col < this->cols[i - 1]) {
-				this->insert(i - 1, row, col, value);
-				break;
+	if (pos < (int) this->cols.size() && this->cols[pos] == col) {
+		if (value == 0) {
+			this->remove(pos, row);
 
-			} else if (i == this->rows[row] - 1) {
-				this->insert(i, row, col, value);
-				break;
-			}
+		} else {
+			this->vals[pos] = value;
 		}
 
 	} else if (value != 0) {
