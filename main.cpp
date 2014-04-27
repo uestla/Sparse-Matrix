@@ -1,8 +1,7 @@
 #include <vector>
 #include <iostream>
-#include "tests.h"
 #include "testslib.h"
-#include "SparseMatrix.h"
+#include "tests.h"
 
 using namespace std;
 
