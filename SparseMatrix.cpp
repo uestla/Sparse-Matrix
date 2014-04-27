@@ -106,7 +106,7 @@ SparseMatrix & SparseMatrix::set(int val, int row, int col)
 			this->remove(pos, row);
 
 		} else {
-			(*this->vals)[pos] = val;
+			this->vals->at(pos) = val;
 		}
 	}
 
@@ -201,7 +201,7 @@ void SparseMatrix::insert(int index, int row, int col, int val)
 	}
 
 	for (int i = row; i <= this->m; i++) {
-		(*(this->rows))[i] = (*(this->rows))[i] + 1;
+		this->rows->at(i) = this->rows->at(i) + 1;
 	}
 }
 
@@ -213,7 +213,7 @@ void SparseMatrix::remove(int index, int row)
 	this->cols->erase(this->cols->begin() + index);
 
 	for (int i = row; i <= this->m; i++) {
-		(*(this->rows))[i] = (*(this->rows))[i] - 1;
+		this->rows->at(i) = this->rows->at(i) - 1;
 	}
 }
 
