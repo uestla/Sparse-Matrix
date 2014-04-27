@@ -19,31 +19,6 @@
 
 
 	/**
-	 * Prints matrix in human friendly format
-	 *
-	 * @param  matrix to print
-	 * @param  output stream
-	 */
-	void print(const SparseMatrix & matrix, ostream & os)
-	{
-		for (int i = 1; i <= matrix.m; i++) {
-			for (int j = 1; j <= matrix.n; j++) {
-				if (j != 1) {
-					os << " ";
-				}
-
-				os << matrix.get(i, j);
-			}
-
-			os << endl;
-		}
-
-		os << endl;
-	}
-
-
-
-	/**
 	 * Prints vector in human friendy format.
 	 * NOTE: vector elements have to have 'operator <<' defined!
 	 *
@@ -52,19 +27,40 @@
 	 * @param array
 	 */
 	template<class T>
-	void printArray(ostream & os, const char * name, vector<T> array)
+	void printArray(ostream & os, const char * name, const vector<T> * array)
 	{
 		os << name << ": [";
 
-		for (unsigned int i = 0, size = array.size(); i < size; i++) {
-			os << array[i];
+		if (array != NULL) {
+			for (unsigned int i = 0, size = array->size(); i < size; i++) {
+				os << array->at(i);
 
-			if (i != size - 1) {
-				os << ", ";
+				if (i != size - 1) {
+					os << ", ";
+				}
 			}
 		}
 
-		os << "]" << endl;
+		os << "]";
+	}
+
+
+
+	/**
+	 * Prints matrix in human friendly format
+	 *
+	 * @param  matrix to print
+	 * @param  output stream
+	 */
+	void print(const SparseMatrix & matrix, ostream & os)
+	{
+		printArray(os, "vals", matrix.vals);
+		os << endl;
+
+		printArray(os, "cols", matrix.cols);
+		os << endl;
+
+		printArray(os, "rows", matrix.rows);
 	}
 
 #endif

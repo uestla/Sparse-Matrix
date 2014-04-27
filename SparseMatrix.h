@@ -30,6 +30,8 @@
 			 */
 			SparseMatrix(int n);
 
+			~SparseMatrix(void);
+
 
 
 			/**
@@ -61,7 +63,7 @@
 			 * @param  col
 			 * @return self for fluent interface
 			 */
-			SparseMatrix & set(int value, int row, int col);
+			SparseMatrix & set(int val, int row, int col);
 
 
 
@@ -142,7 +144,7 @@
 
 			int m, n;
 
-			vector<int> vals, cols, rows;
+			vector<int> * vals, * cols, * rows;
 
 			/**
 			 * Common internal constructor
@@ -170,9 +172,9 @@
 			 * @param  index at which the new element will be placed
 			 * @param  row
 			 * @param  col
-			 * @param  value
+			 * @param  val
 			 */
-			void insert(int index, int row, int col, int value);
+			void insert(int index, int row, int col, int val);
 
 
 
