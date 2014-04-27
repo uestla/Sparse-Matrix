@@ -47,10 +47,10 @@
 	 * Prints vector in human friendy format.
 	 * NOTE: vector elements have to have 'operator <<' defined!
 	 *
-     * @param os
-     * @param name
-     * @param array
-     */
+	 * @param os
+	 * @param name
+	 * @param array
+	 */
 	template<class T>
 	void printArray(ostream & os, const char * name, vector<T> array)
 	{
