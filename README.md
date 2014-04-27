@@ -76,11 +76,9 @@ SparseMatrix result = a.add(b);
 
 #### Matrix printing
 
-If we want to print the matrix in human readable form, we can use helper function `print()`, which is located in header file `helpers.h` (we need to include it as well).
+When we want to print the matrix in human readable form, we can simply send it to the output stream.
 
 ```cpp
-#include "helpers.h"
-
 SparseMatrix a(3);
-print(a);
+std::cout << a << endl;
 ```
