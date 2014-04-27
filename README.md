@@ -1,51 +1,51 @@
-# Knihovna Sparse Matrix
+# Sparse Matrix library
 
-Knihovna Sparse Matrix implementuje řídkou matici za využití formátu [CSR](http://netlib.org/linalg/html_templates/node91.html#SECTION00931100000000000000). Její použití by mělo být maximálně intuitivní (vizte příklady níže).
+Sparse Matrix library implements sparse matrix using [CSR](http://netlib.org/linalg/html_templates/node91.html#SECTION00931100000000000000) format. Using this library should be as intuitive as possible (see examples below).
 
-## Použití
+## Usage
 
-### Načtení knihovny
+### Loading
 
-Načíst knihovnu znamená vložit hlavičkový soubor:
+To load the library just include the header file.
 
 ```cpp
 #include "SparseMatrix.h"
 ```
 
 
-### Vytvoření matice
+### Matrix creation
 
-Konstruktor přebírá jeden či dva parametry v závislosti na tom, chceme-li vytvořit čtvercovou, resp. nečtvercovou matici.
+The constructor takes one or two arguments depending on if we want to create a square or non-square matrix. By default, values of all matrix elements are 0.
 
 ```cpp
-SparseMatrix a(3); // matice 3×3
-SparseMatrix b(3, 5); // matice 3×5 (3 řádky, 5 sloupců)
+SparseMatrix a(3); // 3×3 matrix
+SparseMatrix b(3, 5); // 3×5 matrix (3 rows, 5 columns)
 ```
 
 
-### Maticové operace
+### Matrix operations
 
-#### Vložení prvku
+#### Setting element
 
-Pro vložení prvku použijeme metodu `set()`, které řekneme, co a kam chceme vložit.
-
-```cpp
-SparseMatrix a(3);
-a.set(-5, 2, 3); // vloží hodnotu -5 na 2. řádek do 3. sloupce
-```
-
-#### Čtení prvku
-
-Pro přečtení prvku použijeme metodu `get()`, které předáme souřadnice čteného prvku.
+For inserting new element there is a method `set()`, which takes 3 arguments - what (value) and where (row, column) we want to insert.
 
 ```cpp
 SparseMatrix a(3);
-a.get(2, 3); // vrátí hodnotu prvku na 2. řádku ve 3. sloupci (vrátí 0, pokud na tuto pozici nebyl vložen prvek)
+a.set(-5, 2, 3); // inserts value -5 on 2nd row into 3rd column
 ```
 
-#### Násobení vektorem
+#### Getting element
 
-Při dodržení správných rozměrů můžeme matici přenásobit vektorem zprava.
+To get the value of specific element use method `get()`:
+
+```cpp
+SparseMatrix a(3);
+a.get(2, 3); // returns value of the element on 2nd row in 3rd column (returns 0 if no value has been assigned yet)
+```
+
+#### Vector multiplication
+
+We can multiply the matrix by vector (but only if the vector has a proper dimension).
 
 ```cpp
 SparseMatrix a(3);
@@ -53,9 +53,9 @@ vector<int> x(3, 2);
 vector<int> result = a.multiply(x);
 ```
 
-#### Násobení maticí
+#### Matrix multiplication
 
-Opětovně při dodržení správných rozměrů můžeme matici přenásobit jinou maticí zprava.
+We can also multiply the matrix by another matrix (again - only if the matrix has proper dimensions).
 
 ```cpp
 SparseMatrix a(3, 4);
@@ -63,9 +63,9 @@ SparseMatrix b(4, 5);
 SparseMatrix result = a.multiply(b);
 ```
 
-#### Součet matic
+#### Matrix addition
 
-Pokud mají 2 matice stejné rozměry, můžeme je sečíst.
+When two matrices have the same dimensions, we can add them together.
 
 ```cpp
 SparseMatrix a(3, 4);
@@ -74,9 +74,9 @@ SparseMatrix result = a.add(b);
 ```
 
 
-#### Výpis matice
+#### Matrix printing
 
-Chceme-li matici vypsat v lidsky čitelné podobě, můžeme pro to využít pomocnou funkci `print()`. Ta se nachází v hlavičkovém souboru `helpers.h`, který je třeba načíst.
+If we want to print the matrix in human readable form, we can use helper function `print()`, which is located in header file `helpers.h` (we need to include it as well).
 
 ```cpp
 #include "helpers.h"
