@@ -96,16 +96,18 @@ SparseMatrix & SparseMatrix::set(int val, int row, int col)
 		}
 	}
 
-	if (this->cols != NULL && pos < (int) this->cols->size() && this->cols->at(pos) == col) {
+	if (pos == this->rows->at(row) - 1) {
+		if (val != 0) {
+			this->insert(pos, row, col, val);
+		}
+
+	} else {
 		if (val == 0) {
 			this->remove(pos, row);
 
 		} else {
 			(*this->vals)[pos] = val;
 		}
-
-	} else if (val != 0) {
-		this->insert(this->rows->at(row) - 1, row, col, val);
 	}
 
 	return *this;
