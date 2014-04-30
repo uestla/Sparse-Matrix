@@ -101,13 +101,11 @@ SparseMatrix & SparseMatrix::set(int val, int row, int col)
 			this->insert(pos, row, col, val);
 		}
 
-	} else {
-		if (val == 0) {
-			this->remove(pos, row);
+	} else if (val == 0) {
+		this->remove(pos, row);
 
-		} else {
-			this->vals->at(pos) = val;
-		}
+	} else {
+		this->vals->at(pos) = val;
 	}
 
 	return *this;
