@@ -83,7 +83,7 @@ SparseMatrix & SparseMatrix::set(int val, int row, int col)
 	this->validateCoordinations(row, col);
 
 	int pos = this->rows->at(row - 1) - 1;
-	int actual;
+	int actual = -1;
 
 	for (; pos < this->rows->at(row) - 1; pos++) {
 		actual = this->cols->at(pos);
@@ -96,7 +96,7 @@ SparseMatrix & SparseMatrix::set(int val, int row, int col)
 		}
 	}
 
-	if (pos == this->rows->at(row) - 1) {
+	if (actual != col) {
 		if (val != 0) {
 			this->insert(pos, row, col, val);
 		}
