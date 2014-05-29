@@ -14,19 +14,16 @@
 using namespace std;
 
 
-
 SparseMatrix::SparseMatrix(int n)
 {
 	this->construct(n, n);
 }
 
 
-
 SparseMatrix::SparseMatrix(int rows, int columns)
 {
 	this->construct(rows, columns);
 }
-
 
 
 SparseMatrix::~SparseMatrix(void)
@@ -38,7 +35,6 @@ SparseMatrix::~SparseMatrix(void)
 
 	delete this->rows;
 }
-
 
 
 void SparseMatrix::construct(int rows, int columns)
@@ -53,7 +49,6 @@ void SparseMatrix::construct(int rows, int columns)
 	this->vals = this->cols = NULL;
 	this->rows = new vector<int>(rows + 1, 1);
 }
-
 
 
 int SparseMatrix::get(int row, int col) const
@@ -75,7 +70,6 @@ int SparseMatrix::get(int row, int col) const
 
 	return 0;
 }
-
 
 
 SparseMatrix & SparseMatrix::set(int val, int row, int col)
@@ -112,7 +106,6 @@ SparseMatrix & SparseMatrix::set(int val, int row, int col)
 }
 
 
-
 vector<int> SparseMatrix::multiply(const vector<int> & x) const
 {
 	if (this->n != (int) x.size()) {
@@ -129,7 +122,6 @@ vector<int> SparseMatrix::multiply(const vector<int> & x) const
 
 	return result;
 }
-
 
 
 SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
@@ -158,7 +150,6 @@ SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
 }
 
 
-
 SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
 {
 	if (this->m != m.m || this->n != m.n) {
@@ -177,14 +168,12 @@ SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
 }
 
 
-
 void SparseMatrix::validateCoordinations(int row, int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
 		throw "Coordinations out of range.";
 	}
 }
-
 
 
 void SparseMatrix::insert(int index, int row, int col, int val)
@@ -204,7 +193,6 @@ void SparseMatrix::insert(int index, int row, int col, int val)
 }
 
 
-
 void SparseMatrix::remove(int index, int row)
 {
 	this->vals->erase(this->vals->begin() + index);
@@ -214,7 +202,6 @@ void SparseMatrix::remove(int index, int row)
 		this->rows->at(i) = this->rows->at(i) - 1;
 	}
 }
-
 
 
 bool operator == (const SparseMatrix & a, const SparseMatrix & b)
@@ -227,12 +214,10 @@ bool operator == (const SparseMatrix & a, const SparseMatrix & b)
 }
 
 
-
 bool operator != (const SparseMatrix & a, const SparseMatrix & b)
 {
 	return !(a == b);
 }
-
 
 
 ostream & operator << (ostream & os, const SparseMatrix & matrix)

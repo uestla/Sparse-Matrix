@@ -12,12 +12,10 @@
 	}
 
 
-
 	void constructorFail2(void)
 	{
 		SparseMatrix(-5);
 	}
-
 
 
 	void constructorFail3(void)
@@ -26,19 +24,16 @@
 	}
 
 
-
 	void constructorFail4(void)
 	{
 		SparseMatrix(3, -1);
 	}
 
 
-
 	void constructorFail5(void)
 	{
 		SparseMatrix(-10, -7);
 	}
-
 
 
 	void getFail(void)
@@ -48,13 +43,11 @@
 	}
 
 
-
 	void setFail(void)
 	{
 		SparseMatrix m(3, 4);
 		m.set(-1, 4, 0);
 	}
-
 
 
 	void multiplicationFail1(void)
@@ -65,13 +58,11 @@
 	}
 
 
-
 	void multiplicationFail2(void)
 	{
 		SparseMatrix a(3, 4), b(5, 6);
 		a.multiply(b);
 	}
-
 
 
 	void additionFail1(void)
@@ -81,7 +72,6 @@
 	}
 
 
-
 	void additionFail2(void)
 	{
 		SparseMatrix a(3, 4), b(4, 4);
@@ -89,13 +79,11 @@
 	}
 
 
-
 	void additionFail3(void)
 	{
 		SparseMatrix a(3, 4), b(4, 5);
 		a.add(b);
 	}
-
 
 
 	void testInsertion(void)
@@ -116,7 +104,6 @@
 		assertEquals("insertion test #10", 0, m.get(1, 1));
 		assertEquals("insertion test #11", -4, m.get(1, 3));
 	}
-
 
 
 	void testVectorMultiplication1(void)
@@ -146,7 +133,6 @@
 	}
 
 
-
 	void testVectorMultiplication2(void)
 	{
 		// [ 0 0 0 ]   [ 1 ]   [ 0 ]
@@ -159,7 +145,6 @@
 
 		assertEquals("vector multiplication #2", m.multiply(x), result);
 	}
-
 
 
 	void testVectorMultiplication3(void)
@@ -186,7 +171,6 @@
 	}
 
 
-
 	void testAddition1(void)
 	{
 		// [ 0 0 0 ]   [ 1 2 3 ]   [ 1 2 3 ]
@@ -207,7 +191,6 @@
 
 		assertEquals("addition #1", a.add(b), b);
 	}
-
 
 
 	void testAddition2(void)
@@ -242,7 +225,6 @@
 	}
 
 
-
 	void testAddition3(void)
 	{
 		// [ 1 0 1 ]   [ 0 1 0 ]   [ 1 1 1 ]
@@ -275,7 +257,6 @@
 
 		assertEquals("addition #3", a.add(b), result);
 	}
-
 
 
 	void testMultiplication1(void)
@@ -319,7 +300,6 @@
 	}
 
 
-
 	void testMultiplication2(void)
 	{
 		// [ 1 0 1 ]   [ 0 0 0 ]   [ 0 0 0 ]
@@ -338,7 +318,6 @@
 
 		assertEquals("multiplication #2", a.multiply(b), result);
 	}
-
 
 
 	void testMultiplication3(void)

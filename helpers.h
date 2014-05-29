@@ -17,7 +17,6 @@
 	using namespace std;
 
 
-
 	/**
 	 * Prints vector in human friendy format.
 	 * NOTE: vector elements have to have 'operator <<' defined!
@@ -43,7 +42,6 @@
 
 		os << "]";
 	}
-
 
 
 	/**

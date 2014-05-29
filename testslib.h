@@ -10,7 +10,6 @@
 	using namespace std;
 
 
-
 	class FailureException
 	{
 
@@ -20,19 +19,16 @@
 			{}
 
 
-
 			inline string getTestName(void) const
 			{
 				return this->testname;
 			}
 
 
-
 			inline string getMessage(void) const
 			{
 				return this->message;
 			}
-
 
 
 		protected:
@@ -42,12 +38,10 @@
 	};
 
 
-
 	void success(const char * name)
 	{
 		cout << "Test '" << name << "' passed successfully." << endl;
 	}
-
 
 
 	void assertException(const char * testname, void (*callback)(void), const char * message)
@@ -70,7 +64,6 @@
 
 		success(testname);
 	}
-
 
 
 	template<class T>

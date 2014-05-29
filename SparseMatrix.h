@@ -17,7 +17,6 @@
 	using namespace std;
 
 
-
 	class SparseMatrix
 	{
 
@@ -33,7 +32,6 @@
 			~SparseMatrix(void);
 
 
-
 			/**
 			 * Creates a non-square matrix
 			 *
@@ -41,7 +39,6 @@
 			 * @param  columns number of columns
 			 */
 			SparseMatrix(int rows, int columns);
-
 
 
 			/**
@@ -52,7 +49,6 @@
 			 * @return value of element or 0 if value has not been set yet
 			 */
 			int get(int row, int col) const;
-
 
 
 			/**
@@ -66,7 +62,6 @@
 			SparseMatrix & set(int val, int row, int col);
 
 
-
 			/**
 			 * Multiplies matrix with vector
 			 *
@@ -74,7 +69,6 @@
 			 * @return result of the product
 			 */
 			vector<int> multiply(const vector<int> & x) const;
-
 
 
 			/**
@@ -86,7 +80,6 @@
 			SparseMatrix multiply(const SparseMatrix & m) const;
 
 
-
 			/**
 			 * Adds another matrix to this matrix
 			 *
@@ -94,7 +87,6 @@
 			 * @return result of the sum
 			 */
 			SparseMatrix add(const SparseMatrix & m) const;
-
 
 
 			/**
@@ -107,7 +99,6 @@
 			friend bool operator == (const SparseMatrix & a, const SparseMatrix & b);
 
 
-
 			/**
 			 * Compares two matrices
 			 *
@@ -116,7 +107,6 @@
 			 * @return are both matrices unequal?
 			 */
 			friend bool operator != (const SparseMatrix & a, const SparseMatrix & b);
-
 
 
 			/**
@@ -129,7 +119,6 @@
 			friend ostream & operator << (ostream & os, const SparseMatrix & matrix);
 
 
-
 			/**
 			 * Prints matrix in human friendly format
 			 *
@@ -137,7 +126,6 @@
 			 * @param  output stream
 			 */
 			friend void print(const SparseMatrix & matrix, ostream & os);
-
 
 
 		protected:
@@ -155,7 +143,6 @@
 			void construct(int m, int n);
 
 
-
 			/**
 			 * Element coordination validator
 			 *
@@ -163,7 +150,6 @@
 			 * @param  col
 			 */
 			void validateCoordinations(int row, int col) const;
-
 
 
 			/**
@@ -175,7 +161,6 @@
 			 * @param  val
 			 */
 			void insert(int index, int row, int col, int val);
-
 
 
 			/**
