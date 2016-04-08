@@ -14,19 +14,19 @@
 using namespace std;
 
 
-SparseMatrix::SparseMatrix(int n)
+template<typename T> SparseMatrix<T>::SparseMatrix(int n)
 {
 	this->construct(n, n);
 }
 
 
-SparseMatrix::SparseMatrix(int rows, int columns)
+template<typename T> SparseMatrix<T>::SparseMatrix(int rows, int columns)
 {
 	this->construct(rows, columns);
 }
 
 
-SparseMatrix::~SparseMatrix(void)
+template<typename T> SparseMatrix<T>::~SparseMatrix(void)
 {
 	if (this->vals != NULL) {
 		delete this->vals;
@@ -37,7 +37,7 @@ SparseMatrix::~SparseMatrix(void)
 }
 
 
-void SparseMatrix::construct(int rows, int columns)
+template<typename T> void SparseMatrix<T>::construct(int rows, int columns)
 {
 	if (rows < 1 || columns < 1) {
 		throw "Matrix dimensions cannot be zero or negative.";
@@ -46,12 +46,13 @@ void SparseMatrix::construct(int rows, int columns)
 	this->m = rows;
 	this->n = columns;
 
-	this->vals = this->cols = NULL;
+	this->vals = NULL;
+	this->cols = NULL;
 	this->rows = new vector<int>(rows + 1, 1);
 }
 
 
-int SparseMatrix::get(int row, int col) const
+template<typename T> T SparseMatrix<T>::get(int row, int col) const
 {
 	this->validateCoordinations(row, col);
 
@@ -72,7 +73,7 @@ int SparseMatrix::get(int row, int col) const
 }
 
 
-SparseMatrix & SparseMatrix::set(int val, int row, int col)
+template<typename T> SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
 {
 	this->validateCoordinations(row, col);
 
@@ -106,13 +107,13 @@ SparseMatrix & SparseMatrix::set(int val, int row, int col)
 }
 
 
-vector<int> SparseMatrix::multiply(const vector<int> & x) const
+template<typename T> vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 {
 	if (this->n != (int) x.size()) {
 		throw "Cannot multiply: Matrix column count and vector size don't match.";
 	}
 
-	vector<int> result(this->m, 0);
+	vector<T> result(this->m, 0);
 
 	for (int i = 1; i <= this->m; i++) {
 		for (int j = 1; j <= this->n; j++) {
@@ -124,15 +125,15 @@ vector<int> SparseMatrix::multiply(const vector<int> & x) const
 }
 
 
-SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
+template<typename T> SparseMatrix<T> SparseMatrix<T>::multiply(const SparseMatrix<T> & m) const
 {
 	if (this->n != m.m) {
 		throw "Cannot multiply: Left matrix column count and right matrix row count don't match.";
 	}
 
-	SparseMatrix result(this->m, m.n);
+	SparseMatrix<T> result(this->m, m.n);
 
-	int a;
+	T a;
 
 	for (int i = 1; i <= this->m; i++) {
 		for (int j = 1; j <= m.n; j++) {
@@ -150,13 +151,13 @@ SparseMatrix SparseMatrix::multiply(const SparseMatrix & m) const
 }
 
 
-SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
+template<typename T> SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 {
 	if (this->m != m.m || this->n != m.n) {
 		throw "Cannot add: matrices dimensions don't match.";
 	}
 
-	SparseMatrix result(this->m, this->n);
+	SparseMatrix<T> result(this->m, this->n);
 
 	for (int i = 1; i <= this->m; i++) {
 		for (int j = 1; j <= this->n; j++) {
@@ -168,7 +169,7 @@ SparseMatrix SparseMatrix::add(const SparseMatrix & m) const
 }
 
 
-void SparseMatrix::validateCoordinations(int row, int col) const
+template<typename T> void SparseMatrix<T>::validateCoordinations(int row, int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
 		throw "Coordinations out of range.";
@@ -176,10 +177,10 @@ void SparseMatrix::validateCoordinations(int row, int col) const
 }
 
 
-void SparseMatrix::insert(int index, int row, int col, int val)
+template<typename T> void SparseMatrix<T>::insert(int index, int row, int col, T val)
 {
 	if (this->vals == NULL) {
-		this->vals = new vector<int>(1, val);
+		this->vals = new vector<T>(1, val);
 		this->cols = new vector<int>(1, col);
 
 	} else {
@@ -193,7 +194,7 @@ void SparseMatrix::insert(int index, int row, int col, int val)
 }
 
 
-void SparseMatrix::remove(int index, int row)
+template<typename T> void SparseMatrix<T>::remove(int index, int row)
 {
 	this->vals->erase(this->vals->begin() + index);
 	this->cols->erase(this->cols->begin() + index);
@@ -204,7 +205,7 @@ void SparseMatrix::remove(int index, int row)
 }
 
 
-bool operator == (const SparseMatrix & a, const SparseMatrix & b)
+template<typename T> bool operator == (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
 {
 	return ((a.vals == NULL && b.vals == NULL)
 				|| (a.vals != NULL && b.vals != NULL && *(a.vals) == *(b.vals)))
@@ -214,13 +215,13 @@ bool operator == (const SparseMatrix & a, const SparseMatrix & b)
 }
 
 
-bool operator != (const SparseMatrix & a, const SparseMatrix & b)
+template<typename T> bool operator != (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
 {
 	return !(a == b);
 }
 
 
-ostream & operator << (ostream & os, const SparseMatrix & matrix)
+template<typename T> ostream & operator << (ostream & os, const SparseMatrix<T> & matrix)
 {
 	for (int i = 1; i <= matrix.m; i++) {
 		for (int j = 1; j <= matrix.n; j++) {
@@ -238,3 +239,7 @@ ostream & operator << (ostream & os, const SparseMatrix & matrix)
 
 	return os;
 }
+
+template class SparseMatrix<double>;
+template class SparseMatrix<float>;
+template class SparseMatrix<int>;

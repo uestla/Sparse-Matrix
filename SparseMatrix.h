@@ -16,7 +16,7 @@
 
 	using namespace std;
 
-
+	template <typename T>
 	class SparseMatrix
 	{
 
@@ -48,7 +48,7 @@
 			 * @param  col
 			 * @return value of element or 0 if value has not been set yet
 			 */
-			int get(int row, int col) const;
+			T get(int row, int col) const;
 
 
 			/**
@@ -59,7 +59,7 @@
 			 * @param  col
 			 * @return self for fluent interface
 			 */
-			SparseMatrix & set(int val, int row, int col);
+			SparseMatrix & set(T val, int row, int col);
 
 
 			/**
@@ -68,7 +68,7 @@
 			 * @param  x vector
 			 * @return result of the product
 			 */
-			vector<int> multiply(const vector<int> & x) const;
+			vector<T> multiply(const vector<T> & x) const;
 
 
 			/**
@@ -125,14 +125,15 @@
 			 * @param  matrix to print
 			 * @param  output stream
 			 */
-			friend void print(const SparseMatrix & matrix, ostream & os);
+			template<typename T> friend void print(const SparseMatrix<T> & matrix, ostream & os);
 
 
 		protected:
 
 			int m, n;
 
-			vector<int> * vals, * cols, * rows;
+			vector<int>  * cols, * rows;
+			vector<T> * vals;
 
 			/**
 			 * Common internal constructor
@@ -160,7 +161,7 @@
 			 * @param  col
 			 * @param  val
 			 */
-			void insert(int index, int row, int col, int val);
+			void insert(int index, int row, int col, T val);
 
 
 			/**

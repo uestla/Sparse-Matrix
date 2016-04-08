@@ -50,7 +50,8 @@
 	 * @param  matrix to print
 	 * @param  output stream
 	 */
-	void print(const SparseMatrix & matrix, ostream & os)
+	template<typename T>
+	void print(const SparseMatrix<T> & matrix, ostream & os)
 	{
 		printArray(os, "vals", matrix.vals);
 		os << endl;
@@ -60,5 +61,5 @@
 
 		printArray(os, "rows", matrix.rows);
 	}
-
+	template void print<double>(const SparseMatrix<double> & matrix, ostream & os);
 #endif
