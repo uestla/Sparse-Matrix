@@ -1,17 +1,13 @@
 #include <vector>
 #include <iostream>
-#if 0
 #include "testslib.h"
 #include "tests.h"
-#endif
-#include "SparseMatrix.h"
-#include "helpers.h"
+
 using namespace std;
 
 
 int main(int argc, char ** argv)
 {
-#if 0
 	try {
 		assertException("constructor fail #1", constructorFail1, "Matrix dimensions cannot be zero or negative.");
 		assertException("constructor fail #2", constructorFail2, "Matrix dimensions cannot be zero or negative.");
@@ -47,11 +43,6 @@ int main(int argc, char ** argv)
 		cerr << "Test '" << e.getTestName() << "' failed with message '" << e.getMessage() << "'." << endl;
 		return 1;
 	}
-#else
-	SparseMatrix<int> m(3);
-	m.set(3, 2, 2);
-	m.set(1, 1, 1);
-	print(m, cout);
-#endif
+
 	return 0;
 }

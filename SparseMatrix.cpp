@@ -240,6 +240,7 @@ template<typename T> ostream & operator << (ostream & os, const SparseMatrix<T> 
 	return os;
 }
 
-template class SparseMatrix<double>;
-template class SparseMatrix<float>;
+
 template class SparseMatrix<int>;
+template class SparseMatrix<float>;
+template class SparseMatrix<double>;

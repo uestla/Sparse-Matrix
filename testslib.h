@@ -66,7 +66,7 @@
 	}
 
 
-	template<class T>
+	template<typename T>
 	void assertEquals(const char * testname, const T & a, const T & b)
 	{
 		if (a != b) {

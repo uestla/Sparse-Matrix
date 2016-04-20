@@ -8,51 +8,51 @@
 
 	void constructorFail1(void)
 	{
-		SparseMatrix(0);
+		SparseMatrix<int>(0);
 	}
 
 
 	void constructorFail2(void)
 	{
-		SparseMatrix(-5);
+		SparseMatrix<int>(-5);
 	}
 
 
 	void constructorFail3(void)
 	{
-		SparseMatrix(-4, 3);
+		SparseMatrix<int>(-4, 3);
 	}
 
 
 	void constructorFail4(void)
 	{
-		SparseMatrix(3, -1);
+		SparseMatrix<int>(3, -1);
 	}
 
 
 	void constructorFail5(void)
 	{
-		SparseMatrix(-10, -7);
+		SparseMatrix<int>(-10, -7);
 	}
 
 
 	void getFail(void)
 	{
-		SparseMatrix m(1, 1);
+		SparseMatrix<int> m(1, 1);
 		m.get(2, 1);
 	}
 
 
 	void setFail(void)
 	{
-		SparseMatrix m(3, 4);
+		SparseMatrix<int> m(3, 4);
 		m.set(-1, 4, 0);
 	}
 
 
 	void multiplicationFail1(void)
 	{
-		SparseMatrix m(3, 4);
+		SparseMatrix<int> m(3, 4);
 		vector<int> x(3, 1);
 		m.multiply(x);
 	}
@@ -60,28 +60,28 @@
 
 	void multiplicationFail2(void)
 	{
-		SparseMatrix a(3, 4), b(5, 6);
+		SparseMatrix<int> a(3, 4), b(5, 6);
 		a.multiply(b);
 	}
 
 
 	void additionFail1(void)
 	{
-		SparseMatrix a(3, 4), b(3, 5);
+		SparseMatrix<int> a(3, 4), b(3, 5);
 		a.add(b);
 	}
 
 
 	void additionFail2(void)
 	{
-		SparseMatrix a(3, 4), b(4, 4);
+		SparseMatrix<int> a(3, 4), b(4, 4);
 		a.add(b);
 	}
 
 
 	void additionFail3(void)
 	{
-		SparseMatrix a(3, 4), b(4, 5);
+		SparseMatrix<int> a(3, 4), b(4, 5);
 		a.add(b);
 	}
 
@@ -91,18 +91,18 @@
 		ostringstream oss;
 
 		int idx = 1;
-		SparseMatrix m(3);
+		SparseMatrix<int> m(3);
 		for (int i = 1; i <= 3; i++) {
 			for (int j = 1; j <= 3; j++) {
 				oss.str("");
 				oss << "insertion test #" << idx++;
-				assertEquals(oss.str().c_str(), 0, m.get(i, j));
+				assertEquals<int>(oss.str().c_str(), 0, m.get(i, j));
 			}
 		}
 
 		m.set(-4, 1, 3);
-		assertEquals("insertion test #10", 0, m.get(1, 1));
-		assertEquals("insertion test #11", -4, m.get(1, 3));
+		assertEquals<int>("insertion test #10", 0, m.get(1, 1));
+		assertEquals<int>("insertion test #11", -4, m.get(1, 3));
 	}
 
 
@@ -112,7 +112,7 @@
 		// [ 2 0 3 ] × [ 0 ] = [ 13 ]
 		// [ 0 4 7 ]   [ 3 ]   [ 21 ]
 
-		SparseMatrix m(3);
+		SparseMatrix<int> m(3);
 		m.set(1, 1, 3)
 			.set(2, 2, 1)
 			.set(3, 2, 3)
@@ -129,7 +129,7 @@
 		result.push_back(13);
 		result.push_back(21);
 
-		assertEquals("vector multiplication #1", m.multiply(x), result);
+		assertEquals<vector<int> >("vector multiplication #1", m.multiply(x), result);
 	}
 
 
@@ -139,11 +139,11 @@
 		// [ 0 0 0 ] × [ 1 ] = [ 0 ]
 		// [ 0 0 0 ]   [ 1 ]   [ 0 ]
 
-		SparseMatrix m(3);
+		SparseMatrix<int> m(3);
 		vector<int> x(3, 1);
 		vector<int> result(3, 0);
 
-		assertEquals("vector multiplication #2", m.multiply(x), result);
+		assertEquals<vector<int> >("vector multiplication #2", m.multiply(x), result);
 	}
 
 
@@ -153,7 +153,7 @@
 		// [ 4 5 6 ] × [ 0 ] = [ 0 ]
 		// [ 7 8 9 ]   [ 0 ]   [ 0 ]
 
-		SparseMatrix m(3);
+		SparseMatrix<int> m(3);
 		m.set(1, 1, 1)
 			.set(2, 1, 2)
 			.set(3, 1, 3)
@@ -167,7 +167,7 @@
 		vector<int> x(3, 0);
 		vector<int> result(3, 0);
 
-		assertEquals("vector multiplication #3", m.multiply(x), result);
+		assertEquals<vector<int> >("vector multiplication #3", m.multiply(x), result);
 	}
 
 
@@ -177,8 +177,8 @@
 		// [ 0 0 0 ] + [ 4 5 6 ] = [ 4 5 6 ]
 		// [ 0 0 0 ]   [ 7 8 9 ]   [ 7 8 9 ]
 
-		SparseMatrix a(3);
-		SparseMatrix b(3);
+		SparseMatrix<int> a(3);
+		SparseMatrix<int> b(3);
 		b.set(1, 1, 1)
 			.set(2, 1, 2)
 			.set(3, 1, 3)
@@ -189,7 +189,7 @@
 			.set(8, 3, 2)
 			.set(9, 3, 3);
 
-		assertEquals("addition #1", a.add(b), b);
+		assertEquals<SparseMatrix<int> >("addition #1", a.add(b), b);
 	}
 
 
@@ -199,7 +199,7 @@
 		// [ -4 -5 -6 ] + [ 4 5 6 ] = [ 0 0 0 ]
 		// [ -7 -8 -9 ]   [ 7 8 9 ]   [ 0 0 0 ]
 
-		SparseMatrix a(3);
+		SparseMatrix<int> a(3);
 		a.set(-1, 1, 1)
 			.set(-2, 1, 2)
 			.set(-3, 1, 3)
@@ -210,7 +210,7 @@
 			.set(-8, 3, 2)
 			.set(-9, 3, 3);
 
-		SparseMatrix b(3);
+		SparseMatrix<int> b(3);
 		b.set(1, 1, 1)
 			.set(2, 1, 2)
 			.set(3, 1, 3)
@@ -221,7 +221,7 @@
 			.set(8, 3, 2)
 			.set(9, 3, 3);
 
-		assertEquals("addition #2", a.add(b), SparseMatrix(3));
+		assertEquals<SparseMatrix<int> >("addition #2", a.add(b), SparseMatrix<int>(3));
 	}
 
 
@@ -231,20 +231,20 @@
 		// [ 0 1 0 ] + [ 1 0 1 ] = [ 1 1 1 ]
 		// [ 1 0 1 ]   [ 0 1 0 ]   [ 1 1 1 ]
 
-		SparseMatrix a(3);
+		SparseMatrix<int> a(3);
 		a.set(1, 1, 1)
 			.set(1, 1, 3)
 			.set(1, 2, 2)
 			.set(1, 3, 1)
 			.set(1, 3, 3);
 
-		SparseMatrix b(3);
+		SparseMatrix<int> b(3);
 		b.set(1, 1, 2)
 			.set(1, 2, 1)
 			.set(1, 2, 3)
 			.set(1, 3, 2);
 
-		SparseMatrix result(3);
+		SparseMatrix<int> result(3);
 		result.set(1, 1, 1)
 			.set(1, 1, 2)
 			.set(1, 1, 3)
@@ -255,7 +255,7 @@
 			.set(1, 3, 2)
 			.set(1, 3, 3);
 
-		assertEquals("addition #3", a.add(b), result);
+		assertEquals<SparseMatrix<int> >("addition #3", a.add(b), result);
 	}
 
 
@@ -265,7 +265,7 @@
 		// [ 4 5 6 ] × [ 1 1 1 ] = [  9 15  9 ]
 		// [ 7 8 9 ]   [ 0 1 0 ]   [ 15 24 15 ]
 
-		SparseMatrix a(3);
+		SparseMatrix<int> a(3);
 		a.set(1, 1, 1)
 			.set(2, 1, 2)
 			.set(3, 1, 3)
@@ -276,7 +276,7 @@
 			.set(8, 3, 2)
 			.set(9, 3, 3);
 
-		SparseMatrix b(3);
+		SparseMatrix<int> b(3);
 		b.set(1, 1, 1)
 			.set(1, 1, 2)
 			.set(1, 1, 3)
@@ -285,7 +285,7 @@
 			.set(1, 2, 3)
 			.set(1, 3, 2);
 
-		SparseMatrix result(3);
+		SparseMatrix<int> result(3);
 		result.set(3, 1, 1)
 			.set(6, 1, 2)
 			.set(3, 1, 3)
@@ -296,7 +296,7 @@
 			.set(24, 3, 2)
 			.set(15, 3, 3);
 
-		assertEquals("multiplication #1", a.multiply(b), result);
+		assertEquals<SparseMatrix<int> >("multiplication #1", a.multiply(b), result);
 	}
 
 
@@ -306,17 +306,17 @@
 		// [ 0 0 1 ] × [ 0 0 0 ] = [ 0 0 0 ]
 		// [ 2 2 0 ]   [ 0 0 0 ]   [ 0 0 0 ]
 
-		SparseMatrix a(3);
+		SparseMatrix<int> a(3);
 		a.set(1, 1, 1)
 			.set(1, 1, 3)
 			.set(1, 2, 3)
 			.set(2, 3, 1)
 			.set(2, 3, 2);
 
-		SparseMatrix b(3);
-		SparseMatrix result(3);
+		SparseMatrix<int> b(3);
+		SparseMatrix<int> result(3);
 
-		assertEquals("multiplication #2", a.multiply(b), result);
+		assertEquals<SparseMatrix<int> >("multiplication #2", a.multiply(b), result);
 	}
 
 
@@ -326,12 +326,12 @@
 		// [ 0 1 0 ] × [ 4 5 6 ] = [ 4 5 6 ]
 		// [ 0 0 1 ]   [ 7 8 9 ]   [ 7 8 9 ]
 
-		SparseMatrix a(3);
+		SparseMatrix<int> a(3);
 		a.set(1, 1, 1)
 			.set(1, 2, 2)
 			.set(1, 3, 3);
 
-		SparseMatrix b(3);
+		SparseMatrix<int> b(3);
 		b.set(1, 1, 1)
 			.set(2, 1, 2)
 			.set(3, 1, 3)
@@ -342,8 +342,8 @@
 			.set(8, 3, 2)
 			.set(9, 3, 3);
 
-		assertEquals("multiplication #3.1", a.multiply(b), b);
-		assertEquals("multiplication #3.2", b.multiply(a), b);
+		assertEquals<SparseMatrix<int> >("multiplication #3.1", a.multiply(b), b);
+		assertEquals<SparseMatrix<int> >("multiplication #3.2", b.multiply(a), b);
 	}
 
 #endif

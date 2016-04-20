@@ -96,7 +96,7 @@
 			 * @param  b
 			 * @return are both matrices equal?
 			 */
-			friend bool operator == (const SparseMatrix & a, const SparseMatrix & b);
+			template<typename X> friend bool operator == (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
 
 
 			/**
@@ -106,7 +106,7 @@
 			 * @param  b
 			 * @return are both matrices unequal?
 			 */
-			friend bool operator != (const SparseMatrix & a, const SparseMatrix & b);
+			template<typename X> friend bool operator != (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
 
 
 			/**
@@ -116,7 +116,7 @@
 			 * @param  matrix to print
 			 * @return output stream for fluent interface
 			 */
-			friend ostream & operator << (ostream & os, const SparseMatrix & matrix);
+			template<typename X> friend ostream & operator << (ostream & os, const SparseMatrix<X> & matrix);
 
 
 			/**
@@ -125,7 +125,7 @@
 			 * @param  matrix to print
 			 * @param  output stream
 			 */
-			template<typename T> friend void print(const SparseMatrix<T> & matrix, ostream & os);
+			template<typename X> friend void print(const SparseMatrix<X> & matrix, ostream & os);
 
 
 		protected:
