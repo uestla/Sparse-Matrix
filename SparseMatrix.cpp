@@ -244,3 +244,6 @@ template<typename T> ostream & operator << (ostream & os, const SparseMatrix<T> 
 template class SparseMatrix<int>;
 template class SparseMatrix<float>;
 template class SparseMatrix<double>;
+
+template bool operator == (const SparseMatrix<int> & a, const SparseMatrix<int> & b);
+template bool operator != (const SparseMatrix<int> & a, const SparseMatrix<int> & b);
