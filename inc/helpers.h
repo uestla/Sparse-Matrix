@@ -12,7 +12,7 @@
 	#define	__HELPERS_H__
 
 	#include <vector>
-	#include "SparseMatrix.h"
+	#include "../SparseMatrix/SparseMatrix.h"
 
 	using namespace std;
 

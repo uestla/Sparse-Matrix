@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
-#include "testslib.h"
-#include "tests.h"
+#include "tests/testslib.h"
+#include "tests/tests.h"
 
 using namespace std;
 

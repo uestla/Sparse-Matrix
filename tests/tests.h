@@ -3,7 +3,7 @@
 	#define	__TESTS_H__
 
 	#include "testslib.h"
-	#include "SparseMatrix.h"
+	#include "../SparseMatrix/SparseMatrix.h"
 
 
 	void constructorFail1(void)
