@@ -61,5 +61,8 @@
 
 		printArray(os, "rows", matrix.rows);
 	}
+
+
 	template void print<double>(const SparseMatrix<double> & matrix, ostream & os);
+
 #endif
