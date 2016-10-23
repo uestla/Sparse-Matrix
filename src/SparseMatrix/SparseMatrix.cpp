@@ -1,7 +1,7 @@
 /**
  * This file is part of the SparseMatrix library
  *
- * Copyright (c) 2014 Petr Kessler (http://kesspess.1991.cz)
+ * Copyright (c) 2014-2016 Petr Kessler (http://kesspess.1991.cz)
  *
  * @license  MIT
  * @link     https://github.com/uestla/Sparse-Matrix
@@ -247,3 +247,7 @@ template class SparseMatrix<double>;
 
 template bool operator == (const SparseMatrix<int> & a, const SparseMatrix<int> & b);
 template bool operator != (const SparseMatrix<int> & a, const SparseMatrix<int> & b);
+template bool operator == (const SparseMatrix<float> & a, const SparseMatrix<float> & b);
+template bool operator != (const SparseMatrix<float> & a, const SparseMatrix<float> & b);
+template bool operator == (const SparseMatrix<double> & a, const SparseMatrix<double> & b);
+template bool operator != (const SparseMatrix<double> & a, const SparseMatrix<double> & b);

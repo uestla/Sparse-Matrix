@@ -1,7 +1,6 @@
 #include <vector>
 #include <iostream>
-#include "tests/testslib.h"
-#include "tests/tests.h"
+#include "tests.h"
 
 using namespace std;
 
