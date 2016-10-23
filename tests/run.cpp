@@ -12,7 +12,6 @@ int main(int argc, char ** argv)
 		assertException("constructor fail #2", constructorFail2, "Matrix dimensions cannot be zero or negative.");
 		assertException("constructor fail #3", constructorFail3, "Matrix dimensions cannot be zero or negative.");
 		assertException("constructor fail #4", constructorFail4, "Matrix dimensions cannot be zero or negative.");
-		assertException("constructor fail #5", constructorFail5, "Matrix dimensions cannot be zero or negative.");
 
 		assertException("get() fail", getFail, "Coordinations out of range.");
 		assertException("set() fail", setFail, "Coordinations out of range.");

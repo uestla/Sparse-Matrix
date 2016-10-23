@@ -14,13 +14,13 @@
 using namespace std;
 
 
-template<typename T> SparseMatrix<T>::SparseMatrix(int n)
+template<typename T> SparseMatrix<T>::SparseMatrix(unsigned int n)
 {
 	this->construct(n, n);
 }
 
 
-template<typename T> SparseMatrix<T>::SparseMatrix(int rows, int columns)
+template<typename T> SparseMatrix<T>::SparseMatrix(unsigned int rows, unsigned int columns)
 {
 	this->construct(rows, columns);
 }
@@ -37,7 +37,7 @@ template<typename T> SparseMatrix<T>::~SparseMatrix(void)
 }
 
 
-template<typename T> void SparseMatrix<T>::construct(int rows, int columns)
+template<typename T> void SparseMatrix<T>::construct(unsigned int rows, unsigned int columns)
 {
 	if (rows < 1 || columns < 1) {
 		throw "Matrix dimensions cannot be zero or negative.";
@@ -52,7 +52,7 @@ template<typename T> void SparseMatrix<T>::construct(int rows, int columns)
 }
 
 
-template<typename T> T SparseMatrix<T>::get(int row, int col) const
+template<typename T> T SparseMatrix<T>::get(unsigned int row, unsigned int col) const
 {
 	this->validateCoordinations(row, col);
 
@@ -73,7 +73,7 @@ template<typename T> T SparseMatrix<T>::get(int row, int col) const
 }
 
 
-template<typename T> SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
+template<typename T> SparseMatrix<T> & SparseMatrix<T>::set(T val, unsigned int row, unsigned int col)
 {
 	this->validateCoordinations(row, col);
 
@@ -169,7 +169,7 @@ template<typename T> SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> 
 }
 
 
-template<typename T> void SparseMatrix<T>::validateCoordinations(int row, int col) const
+template<typename T> void SparseMatrix<T>::validateCoordinations(unsigned int row, unsigned int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
 		throw "Coordinations out of range.";
@@ -177,7 +177,7 @@ template<typename T> void SparseMatrix<T>::validateCoordinations(int row, int co
 }
 
 
-template<typename T> void SparseMatrix<T>::insert(int index, int row, int col, T val)
+template<typename T> void SparseMatrix<T>::insert(unsigned int index, unsigned int row, unsigned int col, T val)
 {
 	if (this->vals == NULL) {
 		this->vals = new vector<T>(1, val);
@@ -194,7 +194,7 @@ template<typename T> void SparseMatrix<T>::insert(int index, int row, int col, T
 }
 
 
-template<typename T> void SparseMatrix<T>::remove(int index, int row)
+template<typename T> void SparseMatrix<T>::remove(unsigned int index, unsigned int row)
 {
 	this->vals->erase(this->vals->begin() + index);
 	this->cols->erase(this->cols->begin() + index);

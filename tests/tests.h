@@ -14,25 +14,19 @@
 
 	void constructorFail2(void)
 	{
-		SparseMatrix<int>(-5);
+		SparseMatrix<int>(0, 1);
 	}
 
 
 	void constructorFail3(void)
 	{
-		SparseMatrix<int>(-4, 3);
+		SparseMatrix<int>(1, 0);
 	}
 
 
 	void constructorFail4(void)
 	{
-		SparseMatrix<int>(3, -1);
-	}
-
-
-	void constructorFail5(void)
-	{
-		SparseMatrix<int>(-10, -7);
+		SparseMatrix<int>(0, 0);
 	}
 
 
