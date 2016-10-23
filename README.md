@@ -11,7 +11,7 @@ Sparse Matrix library implements sparse matrix using [CSR](http://netlib.org/lin
 To load the library just include the header file.
 
 ```cpp
-#include "SparseMatrix/SparseMatrix.h"
+#include "src/SparseMatrix/SparseMatrix.h"
 ```
 
 
