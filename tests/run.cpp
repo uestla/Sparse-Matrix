@@ -13,8 +13,8 @@ int main(int argc, char ** argv)
 		assertException("constructor fail #3", constructorFail3, "Matrix dimensions cannot be zero or negative.");
 		assertException("constructor fail #4", constructorFail4, "Matrix dimensions cannot be zero or negative.");
 
-		assertException("get() fail", getFail, "Coordinations out of range.");
-		assertException("set() fail", setFail, "Coordinations out of range.");
+		assertException("get() fail", getFail, "Coordinates out of range.");
+		assertException("set() fail", setFail, "Coordinates out of range.");
 
 		assertException("multiply() fail #1", multiplicationFail1, "Cannot multiply: Matrix column count and vector size don't match.");
 		assertException("multiply() fail #2", multiplicationFail2, "Cannot multiply: Left matrix column count and right matrix row count don't match.");

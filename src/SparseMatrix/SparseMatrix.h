@@ -149,12 +149,12 @@
 
 
 			/**
-			 * Element coordination validator
+			 * Element coordinate validator
 			 *
 			 * @param  row
 			 * @param  col
 			 */
-			void validateCoordinations(unsigned int row, unsigned int col) const;
+			void validateCoordinates(int row, int col) const;
 
 
 			/**

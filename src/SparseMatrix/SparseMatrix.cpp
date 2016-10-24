@@ -54,7 +54,7 @@ template<typename T> void SparseMatrix<T>::construct(unsigned int rows, unsigned
 
 template<typename T> T SparseMatrix<T>::get(unsigned int row, unsigned int col) const
 {
-	this->validateCoordinations(row, col);
+	this->validateCoordinates(row, col);
 
 	int actual;
 
@@ -75,7 +75,7 @@ template<typename T> T SparseMatrix<T>::get(unsigned int row, unsigned int col) 
 
 template<typename T> SparseMatrix<T> & SparseMatrix<T>::set(T val, unsigned int row, unsigned int col)
 {
-	this->validateCoordinations(row, col);
+	this->validateCoordinates(row, col);
 
 	int pos = this->rows->at(row - 1) - 1;
 	int actual = -1;
@@ -169,10 +169,10 @@ template<typename T> SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> 
 }
 
 
-template<typename T> void SparseMatrix<T>::validateCoordinations(unsigned int row, unsigned int col) const
+template<typename T> void SparseMatrix<T>::validateCoordinates(int row, int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
-		throw "Coordinations out of range.";
+		throw "Coordinates out of range.";
 	}
 }
 
