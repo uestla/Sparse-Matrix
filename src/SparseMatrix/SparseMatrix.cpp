@@ -115,9 +115,15 @@ template<typename T> vector<T> SparseMatrix<T>::multiply(const vector<T> & x) co
 
 	vector<T> result(this->m, T());
 
-	for (int i = 1; i <= this->m; i++) {
-		for (int j = 1; j <= this->n; j++) {
-			result[i - 1] += this->get(i, j) * x[j - 1];
+	if (this->vals != NULL) { // only if some values set
+		int row = 1;
+
+		for (int i = 0, len = this->vals->size(); i < len; i++) {
+			if (this->rows->at(row) - 1 == i) {
+				row++;
+			}
+
+			result[row - 1] += this->vals->at(i) * x[this->cols->at(i) - 1];
 		}
 	}
 
