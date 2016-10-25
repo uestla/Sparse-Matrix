@@ -49,7 +49,7 @@
 
 	void success(const char * name)
 	{
-		cout << "Test '" << name << "' passed successfully." << endl;
+		cout << name << " - OK" << endl;
 	}
 
 

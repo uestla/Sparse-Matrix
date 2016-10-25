@@ -48,7 +48,7 @@ int main(int argc, char ** argv)
 		testMultiplication3();
 
 	} catch (const FailureException & e) {
-		cerr << "Test '" << e.getTestName() << "' failed with message '" << e.getMessage() << "'." << endl;
+		cerr << e.getTestName() << " - FAIL: '" << e.getMessage() << "'." << endl;
 		return 1;
 	}
 
