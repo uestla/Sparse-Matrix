@@ -1,3 +1,12 @@
+/**
+ * This file is part of the SparseMatrix library
+ *
+ * Copyright (c) 2014-2016 Petr Kessler (http://kesspess.1991.cz)
+ *
+ * @license  MIT
+ * @link     https://github.com/uestla/Sparse-Matrix
+ */
+
 #ifndef __TESTS_H__
 
 	#define	__TESTS_H__
