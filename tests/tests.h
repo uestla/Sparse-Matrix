@@ -111,9 +111,17 @@
 
 	void testInternalStorage(void)
 	{
-		// [ 1  0 4 5 ]
-		// [ 2 -1 0 0 ]
-		// [ 0  0 3 2 ]
+		/*
+			Matrix
+			[ 1  0 4 5 ]
+			[ 2 -1 0 0 ]
+			[ 0  0 3 2 ]
+
+			should be stored as
+			values:  [ 1, 4, 5, 2, -1, 3, 2 ]
+			columns: [ 1, 3, 4, 1, 2, 3, 4 ]
+			rows:    [ 1, 4, 6, 8 ]
+		*/
 
 		SparseMatrixMock<int> m(3, 4);
 		m.set(1, 1, 1)
