@@ -33,6 +33,7 @@ int main(int argc, char ** argv)
 		assertException("add() fail #3", additionFail3, "Cannot add: matrices dimensions don't match.");
 
 		testInsertion();
+		testInternalStorage();
 
 		testVectorMultiplication1();
 		testVectorMultiplication2();

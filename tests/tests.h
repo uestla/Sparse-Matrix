@@ -12,6 +12,7 @@
 	#define	__TESTS_H__
 
 	#include "testslib.h"
+	#include "SparseMatrixMock.h"
 	#include "../src/SparseMatrix/SparseMatrix.h"
 
 
@@ -106,6 +107,51 @@
 		m.set(-4, 1, 3);
 		assertEquals<int>("insertion test #10", 0, m.get(1, 1));
 		assertEquals<int>("insertion test #11", -4, m.get(1, 3));
+	}
+
+
+	void testInternalStorage(void)
+	{
+		// [ 1  0 4 5 ]
+		// [ 2 -1 0 0 ]
+		// [ 0  0 3 2 ]
+
+		SparseMatrixMock<int> m(3, 4);
+		m.set(1, 1, 1)
+			.set(4, 1, 3)
+			.set(5, 1, 4)
+			.set(2, 2, 1)
+			.set(-1, 2, 2)
+			.set(3, 3, 3)
+			.set(2, 3, 4);
+
+		vector<int> values;
+		values.push_back(1);
+		values.push_back(4);
+		values.push_back(5);
+		values.push_back(2);
+		values.push_back(-1);
+		values.push_back(3);
+		values.push_back(2);
+
+		vector<int> columnPointers;
+		columnPointers.push_back(1);
+		columnPointers.push_back(3);
+		columnPointers.push_back(4);
+		columnPointers.push_back(1);
+		columnPointers.push_back(2);
+		columnPointers.push_back(3);
+		columnPointers.push_back(4);
+
+		vector<int> rowPointers;
+		rowPointers.push_back(1);
+		rowPointers.push_back(4);
+		rowPointers.push_back(6);
+		rowPointers.push_back(8);
+
+		assertEquals<vector<int> >("internal values storage", values, *(m.getValues()));
+		assertEquals<vector<int> >("internal column pointers storage", columnPointers, *(m.getColumnPointers()));
+		assertEquals<vector<int> >("internal row pointers storage", rowPointers, *(m.getRowPointers()));
 	}
 
 
