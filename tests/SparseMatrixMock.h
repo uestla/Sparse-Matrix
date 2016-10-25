@@ -17,7 +17,7 @@
 
 
 	/**
-	 * This class is used only for testing purposes CSR format
+	 * This class is used only for testing purposes
 	 *
 	 * @internal
 	 */
