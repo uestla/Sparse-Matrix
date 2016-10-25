@@ -27,7 +27,7 @@
 			 *
 			 * @param  n number of rows and columns
 			 */
-			SparseMatrix(unsigned int n);
+			SparseMatrix(int n);
 
 			~SparseMatrix(void);
 
@@ -38,28 +38,28 @@
 			 * @param  rows number of rows
 			 * @param  columns number of columns
 			 */
-			SparseMatrix(unsigned int rows, unsigned int columns);
+			SparseMatrix(int rows, int columns);
 
 
 			/**
-			 * Element value getter
+			 * Element getter
 			 *
 			 * @param  row
 			 * @param  col
 			 * @return value of element or 0 if value has not been set yet
 			 */
-			T get(unsigned int row, unsigned int col) const;
+			T get(int row, int col) const;
 
 
 			/**
-			 * Element value setter
+			 * Element setter
 			 *
 			 * @param  value
 			 * @param  row
 			 * @param  col
 			 * @return self for fluent interface
 			 */
-			SparseMatrix & set(T val, unsigned int row, unsigned int col);
+			SparseMatrix & set(T value, int row, int col);
 
 
 			/**
@@ -136,7 +136,7 @@
 
 			int m, n;
 
-			vector<int>  * cols, * rows;
+			vector<int> * cols, * rows;
 			vector<T> * vals;
 
 			/**
@@ -145,7 +145,7 @@
 			 * @param  m number of rows
 			 * @param  n number of columns
 			 */
-			void construct(unsigned int m, unsigned int n);
+			void construct(int m, int n);
 
 
 			/**
@@ -165,7 +165,7 @@
 			 * @param  col
 			 * @param  val
 			 */
-			void insert(unsigned int index, unsigned int row, unsigned int col, T val);
+			void insert(int index, int row, int col, T val);
 
 
 			/**
@@ -174,7 +174,7 @@
 			 * @param  index
 			 * @param  row
 			 */
-			void remove(unsigned int index, unsigned int row);
+			void remove(int index, int row);
 
 	};
 
