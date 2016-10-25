@@ -90,7 +90,7 @@
 	}
 
 
-	void testInsertion(void)
+	void testGettersAndSetters(void)
 	{
 		ostringstream oss;
 
@@ -105,8 +105,7 @@
 		}
 
 		m.set(-4, 1, 3);
-		assertEquals<int>("insertion test #10", 0, m.get(1, 1));
-		assertEquals<int>("insertion test #11", -4, m.get(1, 3));
+		assertEquals<int>("insertion test #10", -4, m.get(1, 3));
 	}
 
 
