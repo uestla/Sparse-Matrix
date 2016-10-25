@@ -29,8 +29,6 @@
 			 */
 			SparseMatrix(int n);
 
-			~SparseMatrix(void);
-
 
 			/**
 			 * Creates a non-square matrix
@@ -39,6 +37,9 @@
 			 * @param  columns number of columns
 			 */
 			SparseMatrix(int rows, int columns);
+
+
+			~SparseMatrix(void);
 
 
 			/**

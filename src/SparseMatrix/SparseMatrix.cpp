@@ -26,17 +26,6 @@ template<typename T> SparseMatrix<T>::SparseMatrix(int rows, int columns)
 }
 
 
-template<typename T> SparseMatrix<T>::~SparseMatrix(void)
-{
-	if (this->vals != NULL) {
-		delete this->vals;
-		delete this->cols;
-	}
-
-	delete this->rows;
-}
-
-
 template<typename T> void SparseMatrix<T>::construct(int rows, int columns)
 {
 	if (rows < 1 || columns < 1) {
@@ -49,6 +38,17 @@ template<typename T> void SparseMatrix<T>::construct(int rows, int columns)
 	this->vals = NULL;
 	this->cols = NULL;
 	this->rows = new vector<int>(rows + 1, 1);
+}
+
+
+template<typename T> SparseMatrix<T>::~SparseMatrix(void)
+{
+	if (this->vals != NULL) {
+		delete this->vals;
+		delete this->cols;
+	}
+
+	delete this->rows;
 }
 
 
