@@ -79,7 +79,11 @@
 	void assertEquals(const char * testname, const T & a, const T & b)
 	{
 		if (a != b) {
-			throw FailureException(testname, "Objects not equal when they should be.");
+			ostringstream oss;
+			oss << "Objects not equal when they should be." << endl;
+			oss << a << endl << endl << "vs." << endl << endl << b;
+
+			throw FailureException(testname, oss.str());
 		}
 
 		success(testname);
