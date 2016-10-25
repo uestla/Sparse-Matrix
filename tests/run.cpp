@@ -7,7 +7,6 @@
  * @link     https://github.com/uestla/Sparse-Matrix
  */
 
-#include <vector>
 #include <iostream>
 #include "tests.h"
 

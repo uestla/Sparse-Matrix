@@ -11,6 +11,7 @@
 
 	#define	__TESTS_H__
 
+	#include <vector>
 	#include "testslib.h"
 	#include "SparseMatrixMock.h"
 	#include "../src/SparseMatrix/SparseMatrix.h"
