@@ -113,7 +113,7 @@
 
 
 			/**
-			 * Prints the internal matrix vectors
+			 * Prints matrix in human friendly format
 			 *
 			 * @param  output stream
 			 * @param  matrix to print
@@ -121,16 +121,6 @@
 			 */
 			template<typename X>
 			friend ostream & operator << (ostream & os, const SparseMatrix<X> & matrix);
-
-
-			/**
-			 * Prints matrix in human friendly format
-			 *
-			 * @param  matrix to print
-			 * @param  output stream
-			 */
-			template<typename X>
-			friend void print(const SparseMatrix<X> & matrix, ostream & os);
 
 
 		protected:
