@@ -1,9 +1,11 @@
 # SparseMatrix Makefile
 
-all: build
-
-build:
-	g++ -Wall -pedantic tests/run.cpp src/SparseMatrix/SparseMatrix.cpp -o tests/SparseMatrix-tests
+all: test
 
 test:
+	g++ -Wall -pedantic tests/run.cpp src/SparseMatrix/SparseMatrix.cpp -o tests/SparseMatrix-tests
 	./tests/SparseMatrix-tests.exe
+
+debug:
+	g++ -Wall -pedantic -g tests/run.cpp src/SparseMatrix/SparseMatrix.cpp -o tests/SparseMatrix-tests-gdb
+	gdb tests/SparseMatrix-tests-gdb.exe
