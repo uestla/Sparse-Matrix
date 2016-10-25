@@ -31,7 +31,7 @@
 
 
 			/**
-			 * Creates a non-square matrix
+			 * Creates a general matrix
 			 *
 			 * @param  rows number of rows
 			 * @param  columns number of columns
