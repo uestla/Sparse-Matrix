@@ -56,15 +56,15 @@ template<typename T> T SparseMatrix<T>::get(int row, int col) const
 {
 	this->validateCoordinates(row, col);
 
-	int actual;
+	int currCol;
 
-	for (int i = this->rows->at(row - 1) - 1; i < this->rows->at(row) - 1; i++) {
-		actual = this->cols->at(i);
+	for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++) {
+		currCol = this->cols->at(pos);
 
-		if (actual == col) {
-			return this->vals->at(i);
+		if (currCol == col) {
+			return this->vals->at(pos);
 
-		} else if (actual > col) {
+		} else if (currCol > col) {
 			break;
 		}
 	}
@@ -78,20 +78,20 @@ template<typename T> SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int 
 	this->validateCoordinates(row, col);
 
 	int pos = this->rows->at(row - 1) - 1;
-	int actual = -1;
+	int currCol = 0;
 
 	for (; pos < this->rows->at(row) - 1; pos++) {
-		actual = this->cols->at(pos);
+		currCol = this->cols->at(pos);
 
-		if (actual == col) {
+		if (currCol == col) {
 			break;
 
-		} else if (actual > col) {
+		} else if (currCol > col) {
 			break;
 		}
 	}
 
-	if (actual != col) {
+	if (currCol != col) {
 		if (val != 0) {
 			this->insert(pos, row, col, val);
 		}
