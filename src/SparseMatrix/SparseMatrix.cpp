@@ -205,6 +205,8 @@ template<typename T> void SparseMatrix<T>::remove(int index, int row)
 }
 
 
+// === FRIEND FUNCTIONS =========================================
+
 template<typename T> bool operator == (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
 {
 	return ((a.vals == NULL && b.vals == NULL)
@@ -240,6 +242,8 @@ template<typename T> ostream & operator << (ostream & os, const SparseMatrix<T> 
 	return os;
 }
 
+
+// === BASIC TYPES DECLARATIONS =========================================
 
 template class SparseMatrix<int>;
 template class SparseMatrix<float>;
