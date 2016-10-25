@@ -47,7 +47,7 @@
 			 *
 			 * @param  row
 			 * @param  col
-			 * @return value of element or 0 if value has not been set yet
+			 * @return element at given position or empty element if not set yet
 			 */
 			T get(int row, int col) const;
 

@@ -69,7 +69,7 @@ template<typename T> T SparseMatrix<T>::get(int row, int col) const
 		}
 	}
 
-	return 0;
+	return T();
 }
 
 
@@ -92,11 +92,11 @@ template<typename T> SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int 
 	}
 
 	if (currCol != col) {
-		if (val != 0) {
+		if (val != T()) {
 			this->insert(pos, row, col, val);
 		}
 
-	} else if (val == 0) {
+	} else if (val == T()) {
 		this->remove(pos, row);
 
 	} else {
@@ -113,7 +113,7 @@ template<typename T> vector<T> SparseMatrix<T>::multiply(const vector<T> & x) co
 		throw "Cannot multiply: Matrix column count and vector size don't match.";
 	}
 
-	vector<T> result(this->m, 0);
+	vector<T> result(this->m, T());
 
 	for (int i = 1; i <= this->m; i++) {
 		for (int j = 1; j <= this->n; j++) {
