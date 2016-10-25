@@ -251,3 +251,7 @@ template bool operator == (const SparseMatrix<float> & a, const SparseMatrix<flo
 template bool operator != (const SparseMatrix<float> & a, const SparseMatrix<float> & b);
 template bool operator == (const SparseMatrix<double> & a, const SparseMatrix<double> & b);
 template bool operator != (const SparseMatrix<double> & a, const SparseMatrix<double> & b);
+
+template ostream & operator << (ostream & os, const SparseMatrix<int> & m);
+template ostream & operator << (ostream & os, const SparseMatrix<float> & m);
+template ostream & operator << (ostream & os, const SparseMatrix<double> & m);
