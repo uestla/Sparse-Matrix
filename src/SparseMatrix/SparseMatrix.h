@@ -60,7 +60,7 @@
 			 * @param  col
 			 * @return self for fluent interface
 			 */
-			SparseMatrix & set(T value, int row, int col);
+			SparseMatrix & set(T val, int row, int col);
 
 
 			/**
