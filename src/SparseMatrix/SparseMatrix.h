@@ -16,6 +16,7 @@
 
 	using namespace std;
 
+
 	template <typename T>
 	class SparseMatrix
 	{
@@ -95,7 +96,7 @@
 			 * @param  m
 			 * @return result of the product
 			 */
-			SparseMatrix multiply(const SparseMatrix & m) const;
+			SparseMatrix<T> multiply(const SparseMatrix<T> & m) const;
 
 
 			/**
@@ -104,7 +105,7 @@
 			 * @param  m
 			 * @return result of the sum
 			 */
-			SparseMatrix add(const SparseMatrix & m) const;
+			SparseMatrix<T> add(const SparseMatrix<T> & m) const;
 
 
 			/**
@@ -141,7 +142,7 @@
 			/**
 			 * Prints matrix in human friendly format
 			 *
-			 * @param  output stream
+			 * @param  os output stream
 			 * @param  matrix to print
 			 * @return output stream for fluent interface
 			 */
@@ -153,8 +154,9 @@
 
 			int m, n;
 
-			vector<int> * cols, * rows;
 			vector<T> * vals;
+			vector<int> * rows, * cols;
+
 
 			/**
 			 * Common internal constructor
