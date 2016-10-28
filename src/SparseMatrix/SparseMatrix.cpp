@@ -214,6 +214,63 @@ SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 
 
 template<typename T>
+void SparseMatrix<T>::printInfo(ostream & os) const
+{
+	vector<int>::iterator intIt;
+
+	os << "rows (" << this->rows->size() << "): [";
+
+	for (intIt = this->rows->begin(); intIt < this->rows->end(); intIt++) {
+		if (intIt > this->rows->begin()) {
+			os << ", ";
+		}
+
+		os << *intIt;
+	}
+
+	os << "]";
+
+	os << endl << "cols";
+	if (this->cols == NULL) {
+		os << ": NULL";
+
+	} else {
+		os << " (" << this->cols->size() << "): [";
+
+		for (intIt = this->cols->begin(); intIt < this->cols->end(); intIt++) {
+			if (intIt > this->cols->begin()) {
+				os << ", ";
+			}
+
+			os << *intIt;
+		}
+
+		os << "]";
+	}
+
+	os << endl << "vals";
+	if (this->vals == NULL) {
+		os << ": NULL";
+
+	} else {
+		typename vector<T>::iterator valIt;
+
+		os << " (" << this->vals->size() << "): [";
+
+		for (valIt = this->vals->begin(); valIt < this->vals->end(); valIt++) {
+			if (valIt > this->vals->begin()) {
+				os << ", ";
+			}
+
+			os << *valIt;
+		}
+
+		os << "]";
+	}
+}
+
+
+template<typename T>
 void SparseMatrix<T>::validateCoordinates(int row, int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
