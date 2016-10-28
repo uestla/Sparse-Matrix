@@ -39,6 +39,23 @@
 			SparseMatrix(int rows, int columns);
 
 
+			/**
+			 * Copy constructor
+			 *
+			 * @param  m instance to be copied
+			 */
+			SparseMatrix(const SparseMatrix<T> & m);
+
+
+			/**
+			 * Assignment operator
+			 *
+			 * @param  m matrix we're assigning
+			 * @return deep copy of assigned matrix
+			 */
+			SparseMatrix<T> & operator = (const SparseMatrix<T> & m);
+
+
 			~SparseMatrix(void);
 
 
@@ -91,6 +108,15 @@
 
 
 			/**
+			 * Sends internal storage info to given output stream
+			 *
+			 * @param  os output stream
+			 * @return void
+			 */
+			void printInfo(ostream & os) const;
+
+
+			/**
 			 * Compares two matrices
 			 *
 			 * @param  a
@@ -137,6 +163,15 @@
 			 * @param  n number of columns
 			 */
 			void construct(int m, int n);
+
+
+			/**
+			 * Copies matrix (used in copy constructor and assignment operator)
+			 *
+			 * @param  m matrix to be copied
+			 * @return void
+			 */
+			void deepCopy(const SparseMatrix<T> & m);
 
 
 			/**

@@ -45,6 +45,35 @@ void SparseMatrix<T>::construct(int rows, int columns)
 
 
 template<typename T>
+SparseMatrix<T>::SparseMatrix(const SparseMatrix<T> & matrix)
+{
+	this->deepCopy(matrix);
+}
+
+
+template<typename T>
+SparseMatrix<T> & SparseMatrix<T>::operator = (const SparseMatrix<T> & matrix)
+{
+	if (&matrix != this) {
+		this->deepCopy(matrix);
+	}
+
+	return *this;
+}
+
+
+template<typename T>
+void SparseMatrix<T>::deepCopy(const SparseMatrix<T> & matrix)
+{
+	this->m = matrix.m;
+	this->n = matrix.n;
+	this->cols = new vector<int>(*(matrix.cols));
+	this->rows = new vector<int>(*(matrix.rows));
+	this->vals = new vector<T>(*(matrix.vals));
+}
+
+
+template<typename T>
 SparseMatrix<T>::~SparseMatrix(void)
 {
 	if (this->vals != NULL) {
