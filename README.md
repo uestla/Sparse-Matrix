@@ -1,6 +1,6 @@
 # Sparse Matrix library
 
-Sparse Matrix library implements sparse matrix using [CSR](http://netlib.org/linalg/html_templates/node91.html#SECTION00931100000000000000) format. Using this library should be as intuitive as possible (see examples below).
+Sparse Matrix library implements sparse matrix using [CRS](http://netlib.org/linalg/html_templates/node91.html#SECTION00931100000000000000) format. Using this library should be as intuitive as possible (see examples below).
 
 [![Buy me a Coffee](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KWQJ7VTXZMZLS)
 
