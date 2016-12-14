@@ -88,8 +88,8 @@ sum = matrixA + matrixB; // operator
 To access matrix dimensions use simple getters:
 
 ```cpp
-matrix.getRowCount();
-matrix.getColumnCount();
+int rows = matrix.getRowCount();
+int cols = matrix.getColumnCount();
 ```
 
 #### Printing matrix
