@@ -65,7 +65,11 @@ void testVectorMultiplication(void)
 			}
 		}
 
+		// method
 		assertEquals<vector<int> >(manualResult, sparseMatrix.multiply(vec), "Incorrect vector multiplication");
+
+		// operator
+		assertEquals<vector<int> >(manualResult, sparseMatrix * vec, "Incorrect vector multiplication (operator *)");
 	}
 
 	cout << " OK" << endl;
@@ -101,10 +105,18 @@ void testMatricesMultiplication(void)
 			}
 		}
 
+		// method
 		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
 			sparseMatrixA.multiply(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices multiplication"
+		);
+
+		// operator
+		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+			sparseMatrixA * sparseMatrixB,
+			manualResult,
+			"Incorrect matrices multiplication (operator *)"
 		);
 	}
 

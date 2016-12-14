@@ -51,7 +51,10 @@ Number of columns in the matrix has to be the same as the size of the vector, ot
 ```cpp
 SparseMatrix<int> mat(4, 5);
 vector<int> vec(5, 2);
-vector<int> result = mat.multiply(vec);
+
+vector<int> result;
+result = mat.multiply(vec); // method
+result = mat * vec; // operator
 ```
 
 #### Matrix-Matrix multiplication
@@ -62,7 +65,9 @@ Number of columns in the left matrix must be same as number of rows in the right
 SparseMatrix<int> matrixA(2, 3);
 SparseMatrix<int> matrixB(3, 4);
 
-SparseMatrix<int> product = matrixA.multiply(matrixB); // is of size 2×4
+SparseMatrix<int> product; // will be of size 2×4
+product = matrixA.multiply(matrixB); // method
+product = matrixA * matrixB; // operator
 ```
 
 #### Matrix-Matrix addition
@@ -73,7 +78,9 @@ You can also add matrices together. Both matrices has to have same dimentions, o
 SparseMatrix<int> matrixA(4, 7);
 SparseMatrix<int> matrixB(4, 7);
 
-SparseMatrix<int> sum = matrixA.add(matrixB);
+SparseMatrix<int> sum;
+sum = matrixA.add(matrixB); // method
+sum = matrixA + matrixB; // operator
 ```
 
 #### Dimensions
@@ -125,7 +132,6 @@ You can see a simple custom element example in [the tests](tests/tests/custom-ty
 In the nearest future following features are planned to be added:
 
 * moving under a namespace to prevent colisions
-* adding matrix operators `+` and `*` to shorten the code
 * `operator[]` for both getting and setting matrix values
 * optimizing of M-M multiplication and addition
 * more matrix operations (subtraction, transpose, etc.)

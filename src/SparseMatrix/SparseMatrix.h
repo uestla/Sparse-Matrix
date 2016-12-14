@@ -105,6 +105,9 @@
 			 */
 			vector<T> multiply(const vector<T> & x) const;
 
+			template<typename X>
+			friend vector<X> operator * (const SparseMatrix<X> & m, const vector<X> & x);
+
 
 			/**
 			 * Multiplies matrix by another matrix
@@ -114,6 +117,9 @@
 			 */
 			SparseMatrix<T> multiply(const SparseMatrix<T> & m) const;
 
+			template<typename X>
+			friend SparseMatrix<X> operator * (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
+
 
 			/**
 			 * Adds another matrix to this matrix
@@ -122,6 +128,9 @@
 			 * @return result of the sum
 			 */
 			SparseMatrix<T> add(const SparseMatrix<T> & m) const;
+
+			template<typename X>
+			friend SparseMatrix<X> operator + (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
 
 
 			/**

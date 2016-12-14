@@ -80,10 +80,18 @@ void testAddition(void)
 			}
 		}
 
+		// method
 		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
 			sparseMatrixA.add(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices addition"
+		);
+
+		// operator
+		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+			sparseMatrixA + sparseMatrixB,
+			manualResult,
+			"Incorrect matrices addition (operator +)"
 		);
 	}
 

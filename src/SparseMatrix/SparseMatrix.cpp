@@ -15,6 +15,8 @@
 using namespace std;
 
 
+// === CREATION ==============================================
+
 template<typename T>
 SparseMatrix<T>::SparseMatrix(int n)
 {
@@ -97,6 +99,8 @@ void SparseMatrix<T>::destruct(void)
 }
 
 
+// === GETTERS / SETTERS ==============================================
+
 template<typename T>
 int SparseMatrix<T>::getRowCount(void) const
 {
@@ -110,6 +114,8 @@ int SparseMatrix<T>::getColumnCount(void) const
 	return this->n;
 }
 
+
+// === VALUES ==============================================
 
 template<typename T>
 T SparseMatrix<T>::get(int row, int col) const
@@ -165,6 +171,8 @@ SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
 }
 
 
+// === OPERATIONS ==============================================
+
 template<typename T>
 vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 {
@@ -186,6 +194,13 @@ vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 	}
 
 	return result;
+}
+
+
+template<typename T>
+vector<T> operator * (const SparseMatrix<T> & m, const vector<T> & x)
+{
+	return m.multiply(x);
 }
 
 
@@ -220,6 +235,13 @@ SparseMatrix<T> SparseMatrix<T>::multiply(const SparseMatrix<T> & m) const
 
 
 template<typename T>
+SparseMatrix<T> operator * (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
+{
+	return a.multiply(b);
+}
+
+
+template<typename T>
 SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 {
 	if (this->m != m.m || this->n != m.n) {
@@ -240,6 +262,15 @@ SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 	return result;
 }
 
+
+template<typename T>
+SparseMatrix<T> operator + (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
+{
+	return a.add(b);
+}
+
+
+// === HELPERS / VALIDATORS ==============================================
 
 template<typename T>
 void SparseMatrix<T>::validateCoordinates(int row, int col) const
