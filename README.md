@@ -1,86 +1,131 @@
-# Sparse Matrix library
+# Sparse Matrix
 
-Sparse Matrix library implements sparse matrix using [CRS](http://netlib.org/linalg/html_templates/node91.html#SECTION00931100000000000000) format. Using this library should be as intuitive as possible (see examples below).
+C++ implementation of sparse matrix using [CRS format](http://netlib.org/linalg/html_templates/node91.html#SECTION00931100000000000000).
 
 [![Buy me a Coffee](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KWQJ7VTXZMZLS)
 
+
+## Installation
+
+To use this library simply include the implementation file:
+
+```cpp
+#include "<libs_dir>/src/SparseMatrix/SparseMatrix.cpp"
+```
+
+
 ## Usage
 
-### Loading
+### Creation
 
-To load the library just include the header file.
-
-```cpp
-#include "src/SparseMatrix/SparseMatrix.h"
-```
-
-
-### Matrix creation
-
-The constructor takes one or two arguments depending on if we want to create a square or non-square matrix. By default, values of all matrix elements are 0.
+SparseMatrix comes is a template class, so we have to specify the element type.
 
 ```cpp
-SparseMatrix<int> a(3); // 3×3 matrix
-SparseMatrix<int> b(3, 5); // 3×5 matrix (3 rows, 5 columns)
+SparseMatrix<int> matrix(3); // 3×3 matrix of integers
+SparseMatrix<int> matrix2(4, 5); // 4×5 matrix - 4 rows, 5 columns
 ```
 
+All values are now equal to `<type>()`, which for type `int` is `0`.
 
-### Matrix operations
+Both copying constructor and `operator=` are implemented using deep copy, so can use those as well.
 
-#### Setting element
+### Values
 
-For inserting new element there is a method `set()`, which takes 3 arguments - what (value) and where (row, column) we want to insert.
+To set or get value, use methods `set()` and `get()`:
 
 ```cpp
-SparseMatrix<int> a(3);
-a.set(-5, 2, 3); // inserts value -5 on 2nd row into 3rd column
+int val;
+matrix.set(-5, 2, 3); // sets -5 on 2nd row and 3rd column
+val = matrix.get(2, 3); // val = -5
+val = matrix.get(1, 1); // val = 0
 ```
 
-#### Getting element
+When accessing invalid coordinates, `InvalidCoordinatesException` is thrown. Please note that **rows and columns are indexed from 1**.
 
-To get the value of specific element use method `get()`:
+### Operations
+
+#### Matrix-Vector multiplication
+
+Number of columns in the matrix has to be the same as the size of the vector, otherwise `InvalidDimensionsException` is thrown.
 
 ```cpp
-SparseMatrix<int> a(3);
-a.get(2, 3); // returns value of the element on 2nd row in 3rd column (returns 0 if no value has been assigned yet)
+SparseMatrix<int> mat(4, 5);
+vector<int> vec(5, 2);
+vector<int> result = mat.multiply(vec);
 ```
 
-#### Vector multiplication
+#### Matrix-Matrix multiplication
 
-We can multiply the matrix by vector (but only if the vector has a proper dimension).
+Number of columns in the left matrix must be same as number of rows in the right matrix, otherwise `InvalidDimensionsException` is thrown.
 
 ```cpp
-SparseMatrix<int> a(3);
-vector<int> x(3, 2);
-vector<int> result = a.multiply(x);
+SparseMatrix<int> matrixA(2, 3);
+SparseMatrix<int> matrixB(3, 4);
+
+SparseMatrix<int> product = matrixA.multiply(matrixB); // is of size 2×4
 ```
 
-#### Matrix multiplication
+#### Matrix-Matrix addition
 
-We can also multiply the matrix by another matrix (again - only if the matrix has proper dimensions).
+You can also add matrices together. Both matrices has to have same dimentions, otherwise `InvalidDimensionsException` is thrown.
 
 ```cpp
-SparseMatrix<int> a(3, 4);
-SparseMatrix<int> b(4, 5);
-SparseMatrix<int> result = a.multiply(b);
+SparseMatrix<int> matrixA(4, 7);
+SparseMatrix<int> matrixB(4, 7);
+
+SparseMatrix<int> sum = matrixA.add(matrixB);
 ```
 
-#### Matrix addition
+#### Dimensions
 
-When two matrices have the same dimensions, we can add them together.
+To access matrix dimensions use simple getters:
 
 ```cpp
-SparseMatrix<int> a(3, 4);
-SparseMatrix<int> b(3, 4);
-SparseMatrix<int> result = a.add(b);
+matrix.getRowCount();
+matrix.getColumnCount();
 ```
 
+#### Printing matrix
 
-#### Matrix printing
-
-When we want to print the matrix in human readable form, we can simply send it to the output stream.
+Basic output streaming is implemented. Note that output operator must be implemented for the element type as well.
 
 ```cpp
-SparseMatrix<int> a(3);
-std::cout << a << endl;
+SparseMatrix<int> matrix(3, 4);
+matrix.set(2, 1, 1);
+matrix.set(7, 1, 3);
+matrix.set(4, 2, 2);
+matrix.set(1, 3, 4);
+
+std::cout << matrix << std::endl;
+
+/*
+2 0 7 0
+0 4 0 0
+0 0 0 1
+*/
 ```
+
+### Custom element type
+
+If integers/floats are not enough, you can always use your own element type.
+
+Make sure your type implements:
+
+* empty constructor (so that empty matrix can be created)
+* copying constructor
+* comparison `operator ==` so that it is possible to tell whether a value is zero-ish
+* adding `operator +`
+* product `operator *`
+* output `operator <<` to be able to nicely output the matrix
+
+You can see a simple custom element example in [the tests](tests/tests/custom-type.h).
+
+### Roadmap
+
+In the nearest future following features are planned to be added:
+
+* moving under a namespace to prevent colisions
+* adding matrix operators `+` and `*` to shorten the code
+* `operator[]` for both getting and setting matrix values
+* optimizing of M-M multiplication and addition
+* more matrix operations (subtraction, transpose, etc.)

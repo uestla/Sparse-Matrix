@@ -1,7 +1,7 @@
 /**
  * This file is part of the SparseMatrix library
  *
- * Copyright (c) 2014-2016 Petr Kessler (http://kesspess.1991.cz)
+ * Copyright (c) 2014-2016 Petr Kessler (https://kesspess.cz)
  *
  * @license  MIT
  * @link     https://github.com/uestla/Sparse-Matrix
@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <iostream>
+#include "exceptions.h"
 #include "SparseMatrix.h"
 
 using namespace std;
@@ -29,22 +30,6 @@ SparseMatrix<T>::SparseMatrix(int rows, int columns)
 
 
 template<typename T>
-void SparseMatrix<T>::construct(int rows, int columns)
-{
-	if (rows < 1 || columns < 1) {
-		throw "Matrix dimensions cannot be zero or negative.";
-	}
-
-	this->m = rows;
-	this->n = columns;
-
-	this->vals = NULL;
-	this->cols = NULL;
-	this->rows = new vector<int>(rows + 1, 1);
-}
-
-
-template<typename T>
 SparseMatrix<T>::SparseMatrix(const SparseMatrix<T> & matrix)
 {
 	this->deepCopy(matrix);
@@ -55,6 +40,7 @@ template<typename T>
 SparseMatrix<T> & SparseMatrix<T>::operator = (const SparseMatrix<T> & matrix)
 {
 	if (&matrix != this) {
+		this->destruct();
 		this->deepCopy(matrix);
 	}
 
@@ -67,14 +53,40 @@ void SparseMatrix<T>::deepCopy(const SparseMatrix<T> & matrix)
 {
 	this->m = matrix.m;
 	this->n = matrix.n;
-	this->cols = new vector<int>(*(matrix.cols));
 	this->rows = new vector<int>(*(matrix.rows));
-	this->vals = new vector<T>(*(matrix.vals));
+
+	if (matrix.vals != NULL) {
+		this->cols = new vector<int>(*(matrix.cols));
+		this->vals = new vector<T>(*(matrix.vals));
+	}
 }
 
 
 template<typename T>
 SparseMatrix<T>::~SparseMatrix(void)
+{
+	this->destruct();
+}
+
+
+template<typename T>
+void SparseMatrix<T>::construct(int rows, int columns)
+{
+	if (rows < 1 || columns < 1) {
+		throw InvalidDimensionsException("Matrix dimensions cannot be zero or negative.");
+	}
+
+	this->m = rows;
+	this->n = columns;
+
+	this->vals = NULL;
+	this->cols = NULL;
+	this->rows = new vector<int>(rows + 1, 1);
+}
+
+
+template<typename T>
+void SparseMatrix<T>::destruct(void)
 {
 	if (this->vals != NULL) {
 		delete this->vals;
@@ -82,6 +94,20 @@ SparseMatrix<T>::~SparseMatrix(void)
 	}
 
 	delete this->rows;
+}
+
+
+template<typename T>
+int SparseMatrix<T>::getRowCount(void) const
+{
+	return this->m;
+}
+
+
+template<typename T>
+int SparseMatrix<T>::getColumnCount(void) const
+{
+	return this->n;
 }
 
 
@@ -118,16 +144,13 @@ SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
 	for (; pos < this->rows->at(row) - 1; pos++) {
 		currCol = this->cols->at(pos);
 
-		if (currCol == col) {
-			break;
-
-		} else if (currCol > col) {
+		if (currCol >= col) {
 			break;
 		}
 	}
 
 	if (currCol != col) {
-		if (val != T()) {
+		if (!(val == T())) {
 			this->insert(pos, row, col, val);
 		}
 
@@ -146,20 +169,19 @@ template<typename T>
 vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 {
 	if (this->n != (int) x.size()) {
-		throw "Cannot multiply: Matrix column count and vector size don't match.";
+		throw InvalidDimensionsException("Cannot multiply: Matrix column count and vector size don't match.");
 	}
 
 	vector<T> result(this->m, T());
 
-	if (this->vals != NULL) { // only if some values set
-		int row = 1;
-
-		for (int i = 0, len = this->vals->size(); i < len; i++) {
-			if (this->rows->at(row) - 1 == i) {
-				row++;
+	if (this->vals != NULL) { // only if any value set
+		for (int i = 0; i < this->m; i++) {
+			T sum = T();
+			for (int j = this->rows->at(i); j < this->rows->at(i + 1); j++) {
+				sum = sum + this->vals->at(j - 1) * x[this->cols->at(j - 1) - 1];
 			}
 
-			result[row - 1] += this->vals->at(i) * x[this->cols->at(i) - 1];
+			result[i] = sum;
 		}
 	}
 
@@ -171,19 +193,22 @@ template<typename T>
 SparseMatrix<T> SparseMatrix<T>::multiply(const SparseMatrix<T> & m) const
 {
 	if (this->n != m.m) {
-		throw "Cannot multiply: Left matrix column count and right matrix row count don't match.";
+		throw InvalidDimensionsException("Cannot multiply: Left matrix column count and right matrix row count don't match.");
 	}
 
 	SparseMatrix<T> result(this->m, m.n);
 
 	T a;
 
+	// TODO: more efficient?
+	// @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
+
 	for (int i = 1; i <= this->m; i++) {
 		for (int j = 1; j <= m.n; j++) {
-			a = 0;
+			a = T();
 
 			for (int k = 1; k <= this->n; k++) {
-				a += this->get(i, k) * m.get(k, j);
+				a = a + this->get(i, k) * m.get(k, j);
 			}
 
 			result.set(a, i, j);
@@ -198,10 +223,13 @@ template<typename T>
 SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 {
 	if (this->m != m.m || this->n != m.n) {
-		throw "Cannot add: matrices dimensions don't match.";
+		throw InvalidDimensionsException("Cannot add: matrices dimensions don't match.");
 	}
 
 	SparseMatrix<T> result(this->m, this->n);
+
+	// TODO: more efficient?
+	// @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
 
 	for (int i = 1; i <= this->m; i++) {
 		for (int j = 1; j <= this->n; j++) {
@@ -214,67 +242,10 @@ SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 
 
 template<typename T>
-void SparseMatrix<T>::printInfo(ostream & os) const
-{
-	vector<int>::iterator intIt;
-
-	os << "rows (" << this->rows->size() << "): [";
-
-	for (intIt = this->rows->begin(); intIt < this->rows->end(); intIt++) {
-		if (intIt > this->rows->begin()) {
-			os << ", ";
-		}
-
-		os << *intIt;
-	}
-
-	os << "]";
-
-	os << endl << "cols";
-	if (this->cols == NULL) {
-		os << ": NULL";
-
-	} else {
-		os << " (" << this->cols->size() << "): [";
-
-		for (intIt = this->cols->begin(); intIt < this->cols->end(); intIt++) {
-			if (intIt > this->cols->begin()) {
-				os << ", ";
-			}
-
-			os << *intIt;
-		}
-
-		os << "]";
-	}
-
-	os << endl << "vals";
-	if (this->vals == NULL) {
-		os << ": NULL";
-
-	} else {
-		typename vector<T>::iterator valIt;
-
-		os << " (" << this->vals->size() << "): [";
-
-		for (valIt = this->vals->begin(); valIt < this->vals->end(); valIt++) {
-			if (valIt > this->vals->begin()) {
-				os << ", ";
-			}
-
-			os << *valIt;
-		}
-
-		os << "]";
-	}
-}
-
-
-template<typename T>
 void SparseMatrix<T>::validateCoordinates(int row, int col) const
 {
 	if (row < 1 || col < 1 || row > this->m || col > this->n) {
-		throw "Coordinates out of range.";
+		throw InvalidCoordinatesException("Coordinates out of range.");
 	}
 }
 
@@ -348,21 +319,3 @@ ostream & operator << (ostream & os, const SparseMatrix<T> & matrix)
 
 	return os;
 }
-
-
-// === BASIC TYPES DECLARATIONS =========================================
-
-template class SparseMatrix<int>;
-template class SparseMatrix<float>;
-template class SparseMatrix<double>;
-
-template bool operator == (const SparseMatrix<int> & a, const SparseMatrix<int> & b);
-template bool operator != (const SparseMatrix<int> & a, const SparseMatrix<int> & b);
-template bool operator == (const SparseMatrix<float> & a, const SparseMatrix<float> & b);
-template bool operator != (const SparseMatrix<float> & a, const SparseMatrix<float> & b);
-template bool operator == (const SparseMatrix<double> & a, const SparseMatrix<double> & b);
-template bool operator != (const SparseMatrix<double> & a, const SparseMatrix<double> & b);
-
-template ostream & operator << (ostream & os, const SparseMatrix<int> & m);
-template ostream & operator << (ostream & os, const SparseMatrix<float> & m);
-template ostream & operator << (ostream & os, const SparseMatrix<double> & m);

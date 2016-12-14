@@ -1,7 +1,7 @@
 /**
  * This file is part of the SparseMatrix library
  *
- * Copyright (c) 2014-2016 Petr Kessler (http://kesspess.1991.cz)
+ * Copyright (c) 2014-2016 Petr Kessler (https://kesspess.cz)
  *
  * @license  MIT
  * @link     https://github.com/uestla/Sparse-Matrix
@@ -61,6 +61,22 @@
 
 
 			/**
+			 * Number of rows
+			 *
+			 * @return int
+			 */
+			int getRowCount(void) const;
+
+
+			/**
+			 * Number of columns
+			 *
+			 * @return int
+			 */
+			int getColumnCount(void) const;
+
+
+			/**
 			 * Element getter
 			 *
 			 * @param  row
@@ -106,15 +122,6 @@
 			 * @return result of the sum
 			 */
 			SparseMatrix<T> add(const SparseMatrix<T> & m) const;
-
-
-			/**
-			 * Sends internal storage info to given output stream
-			 *
-			 * @param  os output stream
-			 * @return void
-			 */
-			void printInfo(ostream & os) const;
 
 
 			/**
@@ -165,6 +172,12 @@
 			 * @param  n number of columns
 			 */
 			void construct(int m, int n);
+
+
+			/**
+			 * Common internal destructor
+			 */
+			void destruct(void);
 
 
 			/**

@@ -1,7 +1,7 @@
 /**
  * This file is part of the SparseMatrix library
  *
- * Copyright (c) 2014-2016 Petr Kessler (http://kesspess.1991.cz)
+ * Copyright (c) 2014-2016 Petr Kessler (https://kesspess.cz)
  *
  * @license  MIT
  * @link     https://github.com/uestla/Sparse-Matrix
@@ -12,26 +12,27 @@
 	#define	__TESTSLIB_H__
 
 	#include <string>
+	#include <vector>
 	#include <cstring>
 	#include <sstream>
 	#include <iostream>
+	#include <typeinfo>
+	#include <exception>
 
 	using namespace std;
 
 
-	class FailureException
+	class FailureException : public exception
 	{
 
 		public:
 
-			FailureException(const string & testname, const string & message) : testname(testname), message(message)
+			FailureException(const string & message) : exception(), message(message)
 			{}
 
 
-			inline string getTestName(void) const
-			{
-				return this->testname;
-			}
+			virtual ~FailureException(void) throw ()
+			{}
 
 
 			inline string getMessage(void) const
@@ -42,51 +43,115 @@
 
 		protected:
 
-			string testname, message;
+			string message;
 
 	};
 
 
-	void success(const char * name)
-	{
-		cout << name << " - OK" << endl;
-	}
-
-
-	void assertException(const char * testname, void (*callback)(void), const char * message)
+	void assertException(const char * exceptionClass, void (*callback)(void))
 	{
 		try {
 			callback();
-			throw exception();
-
-		} catch (const char * msg) {
-			if (strcmp(msg, message) != 0) {
-				ostringstream oss;
-				oss << "Exception message '" << message << "' expected, but '" << msg << "' given.";
-
-				throw FailureException(testname, oss.str());
-			}
 
 		} catch (const exception & e) {
-			throw FailureException(testname, "Exception expected but none thrown.");
+			string actualClass(typeid(e).name());
+
+			if (strstr(actualClass.c_str(), exceptionClass) == NULL) {
+				ostringstream oss;
+				oss << "Exception class '" << exceptionClass << "' expected, but '" << actualClass << "' thrown.";
+
+				throw FailureException(oss.str());
+			}
+
+			return ;
 		}
 
-		success(testname);
+		throw FailureException("Exception expected but none thrown.");
 	}
 
 
 	template<typename T>
-	void assertEquals(const char * testname, const T & a, const T & b)
+	void assertEquals(const T & a, const T & b, const char * message = NULL)
 	{
-		if (a != b) {
+		if (!(a == b)) {
 			ostringstream oss;
-			oss << "Objects not equal when they should be." << endl;
-			oss << a << endl << endl << "vs." << endl << endl << b;
+			if (message == NULL) {
+				oss << "Objects not equal when they should be." << endl;
 
-			throw FailureException(testname, oss.str());
+			} else {
+				oss << message << endl;
+			}
+
+			oss << a << endl << "expected, but" << endl << b << " given";
+			throw FailureException(oss.str());
+		}
+	}
+
+
+	template<typename X, typename Y>
+	void assertEquals(const X & a, const Y & b, const char * message = NULL)
+	{
+		if (!(a == b)) {
+			ostringstream oss;
+			if (message == NULL) {
+				oss << "Objects not equal when they should be." << endl;
+
+			} else {
+				oss << message << endl;
+			}
+
+			oss << a << endl << "expected, but" << endl << b << " given";
+			throw FailureException(oss.str());
+		}
+	}
+
+
+	template<typename T>
+	vector<T> generateRandomVector(int size)
+	{
+		vector<T> vector(size, 0);
+
+		for (int i = 0; i < size; i++) {
+			vector[i] = rand() % 101;
 		}
 
-		success(testname);
+		return vector;
+	}
+
+
+	template<typename T>
+	vector<vector<T> > generateRandomMatrix(int rows, int columns)
+	{
+		vector<vector<T> > matrix(rows, vector<int>(columns, 0));
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				matrix[i][j] = rand() % 101;
+			}
+		}
+
+		return matrix;
+	}
+
+
+	// === OUTPUT HELPERS =========================================
+
+	template<typename T>
+	ostream & operator << (ostream & os, const vector<T> & v)
+	{
+		os << "[";
+
+		for (int i = 0, len = v.size(); i < len; i++) {
+			if (i != 0) {
+				os << ", ";
+			}
+
+			os << v[i];
+		}
+
+		os << "]";
+
+		return os;
 	}
 
 #endif
