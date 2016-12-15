@@ -198,9 +198,9 @@ vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 
 
 template<typename T>
-vector<T> operator * (const SparseMatrix<T> & m, const vector<T> & x)
+vector<T> SparseMatrix<T>::operator * (const vector<T> & x) const
 {
-	return m.multiply(x);
+	return this->multiply(x);
 }
 
 
@@ -235,9 +235,9 @@ SparseMatrix<T> SparseMatrix<T>::multiply(const SparseMatrix<T> & m) const
 
 
 template<typename T>
-SparseMatrix<T> operator * (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
+SparseMatrix<T> SparseMatrix<T>::operator * (const SparseMatrix<T> & m) const
 {
-	return a.multiply(b);
+	return this->multiply(m);
 }
 
 
@@ -264,9 +264,9 @@ SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 
 
 template<typename T>
-SparseMatrix<T> operator + (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
+SparseMatrix<T> SparseMatrix<T>::operator + (const SparseMatrix<T> & m) const
 {
-	return a.add(b);
+	return this->add(m);
 }
 
 

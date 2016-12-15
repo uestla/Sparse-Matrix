@@ -104,9 +104,7 @@
 			 * @return result of the product
 			 */
 			vector<T> multiply(const vector<T> & x) const;
-
-			template<typename X>
-			friend vector<X> operator * (const SparseMatrix<X> & m, const vector<X> & x);
+			vector<T> operator * (const vector<T> & x) const;
 
 
 			/**
@@ -116,9 +114,7 @@
 			 * @return result of the product
 			 */
 			SparseMatrix<T> multiply(const SparseMatrix<T> & m) const;
-
-			template<typename X>
-			friend SparseMatrix<X> operator * (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
+			SparseMatrix<T> operator * (const SparseMatrix<T> & m) const;
 
 
 			/**
@@ -128,9 +124,7 @@
 			 * @return result of the sum
 			 */
 			SparseMatrix<T> add(const SparseMatrix<T> & m) const;
-
-			template<typename X>
-			friend SparseMatrix<X> operator + (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
+			SparseMatrix<T> operator + (const SparseMatrix<T> & m) const;
 
 
 			/**
