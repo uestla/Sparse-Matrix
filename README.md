@@ -18,7 +18,7 @@ To use this library simply include the implementation file:
 
 ### Creation
 
-SparseMatrix comes is a template class, so we have to specify the element type.
+SparseMatrix comes as a template class, so we have to specify the element type.
 
 ```cpp
 SparseMatrix<int> matrix(3); // 3×3 matrix of integers
