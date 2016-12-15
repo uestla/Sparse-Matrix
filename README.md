@@ -137,6 +137,7 @@ Make sure your type implements:
 * copying constructor
 * comparison `operator ==` so that it is possible to tell whether a value is zero-ish
 * adding `operator +`
+* subtracting `operator -`
 * product `operator *`
 * output `operator <<` to be able to nicely output the matrix
 

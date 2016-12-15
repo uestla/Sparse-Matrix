@@ -50,10 +50,16 @@ person operator + (const person & a, const person & b)
 }
 
 
+person operator - (const person & a, const person & b)
+{
+	return person(b.lastname, a.lastname);
+}
+
+
 person operator * (const person & a, const person & b)
 {
-	if (a == person("", "") || b == person("", "")) {
-		return person("", "");
+	if (a == person() || b == person()) {
+		return person();
 	}
 
 	return person(joinStrings(a.firstname, b.lastname), joinStrings(a.lastname, b.firstname));
@@ -81,6 +87,12 @@ void testElementTypes(void)
 
 	SparseMatrix<person> sum = a.add(b);
 	assertEquals<person>(person("John Foo", "Doe Bar"), sum.get(3, 2));
+
+
+	// subtraction
+
+	SparseMatrix<person> diff = a.subtract(b);
+	assertEquals<person>(person("Bar", "Doe"), diff.get(3, 2));
 
 
 	// matrix-matrix multiplication
