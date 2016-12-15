@@ -17,6 +17,7 @@
 #include "tests/get-set.h"
 #include "tests/multiplication.h"
 #include "tests/addition.h"
+#include "tests/subtraction.h"
 #include "tests/crs-format.h"
 #include "tests/output.h"
 #include "tests/custom-type.h"
@@ -41,12 +42,16 @@ int main(int argc, char ** argv)
 		testAdditionFail1();
 		testAdditionFail2();
 		testAdditionFail3();
+		testSubtractionFail1();
+		testSubtractionFail2();
+		testSubtractionFail3();
 		testGettersAndSetters();
 		testInternalStorage();
 		testOutput();
 		testVectorMultiplication();
 		testMatricesMultiplication();
 		testAddition();
+		testSubtraction();
 		testElementTypes();
 
 	} catch (const FailureException & e) {

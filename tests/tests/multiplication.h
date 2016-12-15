@@ -44,7 +44,7 @@ void testMultiplicationFail2(void)
 
 void testVectorMultiplication(void)
 {
-	for (int N = 0; N < 1e4; N++) {
+	for (int N = 0; N < 5e3; N++) {
 		cout << "\rvector multiplication... #" << N + 1 << flush;
 
 		// generate random vector and matrix
@@ -78,7 +78,7 @@ void testVectorMultiplication(void)
 
 void testMatricesMultiplication(void)
 {
-	for (int N = 0; N < 1e4; N++) {
+	for (int N = 0; N < 5e3; N++) {
 		cout << "\rmatrices multiplication... #" << N + 1 << flush;
 
 		// generate random matrices

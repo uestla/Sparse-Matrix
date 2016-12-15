@@ -72,9 +72,9 @@ product = matrixA.multiply(matrixB); // method
 product = matrixA * matrixB; // operator
 ```
 
-#### Matrix-Matrix addition
+#### Matrix-Matrix addition / subtraction
 
-You can also add matrices together. Both matrices has to have same dimentions, otherwise `InvalidDimensionsException` is thrown.
+You can also add and subtract matrices together. Both matrices has to have same dimentions, otherwise `InvalidDimensionsException` is thrown.
 
 ```cpp
 SparseMatrix<int> matrixA(4, 7);
@@ -83,6 +83,10 @@ SparseMatrix<int> matrixB(4, 7);
 SparseMatrix<int> sum;
 sum = matrixA.add(matrixB); // method
 sum = matrixA + matrixB; // operator
+
+SparseMatrix<int> diff;
+diff = matrixA.subtract(matrixB); // method
+diff = matrixA - matrixB; // operator
 ```
 
 #### Matrix-Matrix comparison
@@ -145,4 +149,4 @@ In the nearest future following features are planned to be added:
 * moving under a namespace to prevent colisions
 * `operator[]` for both getting and setting matrix values
 * optimizing of M-M multiplication and addition
-* more matrix operations (subtraction, transpose, etc.)
+* more matrix operations (transpose, scalar-matrix multiplication, matrix-scalar division, etc.)

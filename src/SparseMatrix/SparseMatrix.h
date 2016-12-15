@@ -128,6 +128,16 @@
 
 
 			/**
+			 * Subtracts another matrix from this matrix
+			 *
+			 * @param  m
+			 * @return result of the subraction
+			 */
+			SparseMatrix<T> subtract(const SparseMatrix<T> & m) const;
+			SparseMatrix<T> operator - (const SparseMatrix<T> & m) const;
+
+
+			/**
 			 * Compares two matrices
 			 *
 			 * @param  a

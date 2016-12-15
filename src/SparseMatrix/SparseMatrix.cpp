@@ -270,6 +270,35 @@ SparseMatrix<T> SparseMatrix<T>::operator + (const SparseMatrix<T> & m) const
 }
 
 
+template<typename T>
+SparseMatrix<T> SparseMatrix<T>::subtract(const SparseMatrix<T> & m) const
+{
+	if (this->m != m.m || this->n != m.n) {
+		throw InvalidDimensionsException("Cannot subtract: matrices dimensions don't match.");
+	}
+
+	SparseMatrix<T> result(this->m, this->n);
+
+	// TODO: more efficient?
+	// @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
+
+	for (int i = 1; i <= this->m; i++) {
+		for (int j = 1; j <= this->n; j++) {
+			result.set(this->get(i, j) - m.get(i, j), i, j);
+		}
+	}
+
+	return result;
+}
+
+
+template<typename T>
+SparseMatrix<T> SparseMatrix<T>::operator - (const SparseMatrix<T> & m) const
+{
+	return this->subtract(m);
+}
+
+
 // === HELPERS / VALIDATORS ==============================================
 
 template<typename T>
