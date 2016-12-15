@@ -15,22 +15,6 @@
 using namespace std;
 
 
-struct person
-{
-	person(void) : firstname(""), lastname("") {}
-	person(const person & p) : firstname(p.firstname), lastname(p.lastname) {}
-	person(const string & f, const string & l) : firstname(f), lastname(l) {}
-	string firstname, lastname;
-};
-
-
-bool operator == (const person & a, const person & b)
-{
-	return a.firstname == b.firstname
-			&& a.lastname == b.lastname;
-}
-
-
 string joinStrings(const string & a, const string & b)
 {
 	string c = a;
@@ -44,26 +28,52 @@ string joinStrings(const string & a, const string & b)
 }
 
 
-person operator + (const person & a, const person & b)
+struct person
 {
-	return person(joinStrings(a.firstname, b.firstname), joinStrings(a.lastname, b.lastname));
-}
+
+	person(void) : firstname(""), lastname("")
+	{}
 
 
-person operator - (const person & a, const person & b)
-{
-	return person(b.lastname, a.lastname);
-}
+	person(const person & p) : firstname(p.firstname), lastname(p.lastname)
+	{}
 
 
-person operator * (const person & a, const person & b)
-{
-	if (a == person() || b == person()) {
-		return person();
+	person(const string & f, const string & l) : firstname(f), lastname(l)
+	{}
+
+
+	bool operator == (const person & p) const
+	{
+		return this->firstname == p.firstname && this->lastname == p.lastname;
 	}
 
-	return person(joinStrings(a.firstname, b.lastname), joinStrings(a.lastname, b.firstname));
-}
+
+	person operator + (const person & p) const
+	{
+		return person(joinStrings(this->firstname, p.firstname), joinStrings(this->lastname, p.lastname));
+	}
+
+
+	person operator - (const person & p) const
+	{
+		return person(p.lastname, this->lastname);
+	}
+
+
+	person operator * (const person & p) const
+	{
+		if (*this == person() || p == person()) {
+			return person();
+		}
+
+		return person(joinStrings(this->firstname, p.lastname), joinStrings(this->lastname, p.firstname));
+	}
+
+
+	string firstname, lastname;
+
+};
 
 
 ostream & operator << (ostream & os, const person & p)
