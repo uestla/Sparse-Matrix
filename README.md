@@ -23,11 +23,12 @@ SparseMatrix comes is a template class, so we have to specify the element type.
 ```cpp
 SparseMatrix<int> matrix(3); // 3×3 matrix of integers
 SparseMatrix<int> matrix2(4, 5); // 4×5 matrix - 4 rows, 5 columns
+
+SparseMatrix<int> matrix3(matrix); // copy constructor
+SparseMatrix<int> matrix4 = matrix2; // deep copy assignment
 ```
 
 All values are now equal to `<type>()`, which for type `int` is `0`.
-
-Both copying constructor and `operator=` are implemented using deep copy, so can use those as well.
 
 ### Values
 
