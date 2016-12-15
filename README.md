@@ -44,6 +44,8 @@ When accessing invalid coordinates, `InvalidCoordinatesException` is thrown. Ple
 
 ### Operations
 
+SparseMatrix is implemented as an immutable object - all operations create new matrix instead of changing the matrix the operation is called on.
+
 #### Matrix-Vector multiplication
 
 Number of columns in the matrix has to be the same as the size of the vector, otherwise `InvalidDimensionsException` is thrown.
@@ -81,6 +83,15 @@ SparseMatrix<int> matrixB(4, 7);
 SparseMatrix<int> sum;
 sum = matrixA.add(matrixB); // method
 sum = matrixA + matrixB; // operator
+```
+
+#### Matrix-Matrix comparison
+
+```cpp
+SparseMatrix<int> matrixA(3);
+SparseMatrix<int> matrixB(3);
+
+bool areSame = matrixA == matrixB; // true
 ```
 
 #### Dimensions
