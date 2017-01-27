@@ -1,9 +1,8 @@
 /**
  * This file is part of the SparseMatrix library
  *
- * Copyright (c) 2014-2016 Petr Kessler (https://kesspess.cz)
- *
  * @license  MIT
+ * @author   Petr Kessler (https://kesspess.cz)
  * @link     https://github.com/uestla/Sparse-Matrix
  */
 
