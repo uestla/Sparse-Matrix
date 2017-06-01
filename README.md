@@ -134,7 +134,7 @@ If integers/floats are not enough, you can always use your own element type.
 
 Make sure your type implements:
 
-* empty constructor (so that empty matrix can be created)
+* empty constructor (which represents the zero value)
 * copying constructor
 * comparison `operator ==` so that it is possible to tell whether a value is zero-ish
 * adding `operator +`
