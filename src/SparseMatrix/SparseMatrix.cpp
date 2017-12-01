@@ -82,7 +82,7 @@ void SparseMatrix<T>::construct(int rows, int columns)
 
 	this->vals = NULL;
 	this->cols = NULL;
-	this->rows = new vector<int>(rows + 1, 1);
+    this->rows = new vector<int>(rows + 1, 1);
 }
 
 
@@ -139,7 +139,7 @@ T SparseMatrix<T>::get(int row, int col) const
 
 
 template<typename T>
-SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
+SparseMatrix<T> & SparseMatrix<T>::set(int row, int col, T val)
 {
 	this->validateCoordinates(row, col);
 

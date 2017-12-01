@@ -42,7 +42,7 @@
 			// === VALUES ==============================================
 
 			T get(int row, int col) const;
-			SparseMatrix & set(T val, int row, int col);
+            SparseMatrix & set(int row, int col, T val);
 
 
 			// === OPERATIONS ==============================================
