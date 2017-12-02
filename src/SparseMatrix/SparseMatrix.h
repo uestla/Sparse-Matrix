@@ -71,6 +71,9 @@ public:
     template<typename X>
     friend ostream & operator << (ostream & os, const SparseMatrix<X> & matrix);
 
+    // === Number of row elements =========================================
+
+    int numberOfRowElement(int row) const;
 
 private:
 

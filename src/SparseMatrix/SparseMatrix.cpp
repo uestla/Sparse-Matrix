@@ -297,6 +297,14 @@ SparseMatrix<T> SparseMatrix<T>::operator - (const SparseMatrix<T> & m) const
     return this->subtract(m);
 }
 
+template<typename T>
+int SparseMatrix<T>::numberOfRowElement(int row) const
+{
+    validateCoordinates(row, 1);
+    return this->rows->at(row) - this->rows->at(row - 1);
+
+}
+
 
 // === HELPERS / VALIDATORS ==============================================
 
