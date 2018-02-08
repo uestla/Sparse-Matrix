@@ -75,6 +75,10 @@ public:
 
     int numberOfRowElement(int row) const;
 
+
+    bool removeAnyEdge(int row, int& col);
+    bool removeEdge(int row, int col);
+
 private:
 
     int m, n;
@@ -91,7 +95,6 @@ private:
     void validateCoordinates(int row, int col) const;
     void insert(int index, int row, int col, T val);
     void remove(int index, int row);
-
 
 
 };

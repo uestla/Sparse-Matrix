@@ -123,7 +123,8 @@ T SparseMatrix<T>::get(int row, int col) const
 
     int currCol;
 
-    for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++) {
+    for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++)
+    {
         currCol = this->cols->at(pos);
 
         if (currCol == col) {
@@ -136,7 +137,57 @@ T SparseMatrix<T>::get(int row, int col) const
 
     return T();
 }
+template<typename T>
+bool SparseMatrix<T>::removeAnyEdge(int row, int& col)
+{
+    for (col = 1; col <= this->n; ++col)
+    {
+        this->validateCoordinates(row, col);
 
+        int pos = this->rows->at(row - 1) - 1;
+        int currCol = 0;
+
+        for (; pos < this->rows->at(row) - 1; pos++)
+        {
+            currCol = this->cols->at(pos);
+
+            if (currCol >= col)
+                break;
+        }
+
+        if (currCol == col)
+        {
+            this->remove(pos, row);
+
+            return true;
+        }
+    }
+    return false;
+}
+template<typename T>
+bool SparseMatrix<T>::removeEdge(int row, int col)
+{
+    this->validateCoordinates(row, col);
+
+    int currCol;
+
+    for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++)
+    {
+        currCol = this->cols->at(pos);
+
+        if (currCol == col)
+        {
+            remove(pos, row);
+            return true;
+        }
+        else if (currCol > col)
+        {
+            break;
+        }
+    }
+
+    return false;
+}
 
 template<typename T>
 SparseMatrix<T> & SparseMatrix<T>::set(int row, int col, T val)
@@ -304,6 +355,8 @@ int SparseMatrix<T>::numberOfRowElement(int row) const
     return this->rows->at(row) - this->rows->at(row - 1);
 
 }
+
+
 
 
 // === HELPERS / VALIDATORS ==============================================
