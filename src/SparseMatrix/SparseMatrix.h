@@ -79,6 +79,8 @@ public:
     bool removeAnyEdge(int row, int& col);
     bool removeEdge(int row, int col);
 
+
+    vector<T> getNeighbors(int row);
 private:
 
     int m, n;
