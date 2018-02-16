@@ -120,20 +120,21 @@ template<typename T>
 T SparseMatrix<T>::get(int row, int col) const
 {
 	this->validateCoordinates(row, col);
-
 	int currCol;
-
-	for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++) {
-		currCol = this->cols->at(pos);
-
+	std::vector<int>& rowsRef = *this->rows;
+	int l1 = rowsRef[row - 1] - 1;
+	int l2 = rowsRef[row] - 1;
+	std::vector<int>& colsRef = *this->cols;
+	std::vector<T>& valsRef = *this->vals;
+	for (int pos = l1; pos < l2; ++pos) {		
+		currCol = colsRef[pos];
 		if (currCol == col) {
-			return this->vals->at(pos);
+			return valsRef[pos];
 
 		} else if (currCol > col) {
 			break;
 		}
 	}
-
 	return T();
 }
 
