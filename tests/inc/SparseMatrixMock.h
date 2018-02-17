@@ -11,7 +11,7 @@
 	#define __SPARSEMATRIX_MOCK_H__
 
 	#include <vector>
-	#include "../src/SparseMatrix/SparseMatrix.h"
+	#include "../../src/SparseMatrix/SparseMatrix.h"
 
 	using namespace std;
 

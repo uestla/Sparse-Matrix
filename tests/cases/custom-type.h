@@ -8,8 +8,8 @@
 
 #include <string>
 #include <iostream>
-#include "../testslib.h"
-#include "../SparseMatrixMock.h"
+#include "../inc/testslib.h"
+#include "../inc/SparseMatrixMock.h"
 
 using namespace std;
 
