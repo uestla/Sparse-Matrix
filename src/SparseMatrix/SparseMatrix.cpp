@@ -123,11 +123,11 @@ T SparseMatrix<T>::get(int row, int col) const
 
 	int currCol;
 
-	for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++) {
-		currCol = this->cols->at(pos);
+	for (int pos = (*(this->rows))[row - 1] - 1; pos < (*(this->rows))[row] - 1; ++pos) {
+		currCol = (*(this->cols))[pos];
 
 		if (currCol == col) {
-			return this->vals->at(pos);
+			return (*(this->vals))[pos];
 
 		} else if (currCol > col) {
 			break;
@@ -143,11 +143,11 @@ SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
 {
 	this->validateCoordinates(row, col);
 
-	int pos = this->rows->at(row - 1) - 1;
+	int pos = (*(this->rows))[row - 1] - 1;
 	int currCol = 0;
 
-	for (; pos < this->rows->at(row) - 1; pos++) {
-		currCol = this->cols->at(pos);
+	for (; pos < (*(this->rows))[row] - 1; pos++) {
+		currCol = (*(this->cols))[pos];
 
 		if (currCol >= col) {
 			break;
@@ -163,7 +163,7 @@ SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
 		this->remove(pos, row);
 
 	} else {
-		this->vals->at(pos) = val;
+		(*(this->vals))[pos] = val;
 	}
 
 	return *this;
@@ -184,8 +184,8 @@ vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 	if (this->vals != NULL) { // only if any value set
 		for (int i = 0; i < this->m; i++) {
 			T sum = T();
-			for (int j = this->rows->at(i); j < this->rows->at(i + 1); j++) {
-				sum = sum + this->vals->at(j - 1) * x[this->cols->at(j - 1) - 1];
+			for (int j = (*(this->rows))[i]; j < (*(this->rows))[i + 1]; j++) {
+				sum = sum + (*(this->vals))[j - 1] * x[(*(this->cols))[j - 1] - 1];
 			}
 
 			result[i] = sum;
@@ -322,7 +322,7 @@ void SparseMatrix<T>::insert(int index, int row, int col, T val)
 	}
 
 	for (int i = row; i <= this->m; i++) {
-		this->rows->at(i) = this->rows->at(i) + 1;
+		(*(this->rows))[i] += 1;
 	}
 }
 
@@ -334,7 +334,7 @@ void SparseMatrix<T>::remove(int index, int row)
 	this->cols->erase(this->cols->begin() + index);
 
 	for (int i = row; i <= this->m; i++) {
-		this->rows->at(i) = this->rows->at(i) - 1;
+		(*(this->rows))[i] -= 1;
 	}
 }
 
