@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "inc/testslib.h"
+#include "inc/helpers.h"
 
 #include "../src/SparseMatrix/SparseMatrix.cpp"
 #include "cases/constructor.h"
