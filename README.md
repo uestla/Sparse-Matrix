@@ -142,7 +142,7 @@ Make sure your type implements:
 * product `operator *`
 * output `operator <<` to be able to nicely output the matrix
 
-You can see a simple custom element example in [the tests](tests/tests/custom-type.h).
+You can see a simple custom element example in [the tests](tests/cases/custom-type.h).
 
 
 -----------
