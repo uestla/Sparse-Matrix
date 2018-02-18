@@ -46,6 +46,85 @@
 	}
 
 
+	// === STANDARD OPERATIONS =========================================
+
+	template<typename T>
+	vector<vector<T> > addMatrices(const vector<vector<T> > & a, const vector<vector<T> > & b)
+	{
+		int rows = a.size();
+		int cols = a.front().size();
+
+		vector<vector<T> > result(rows, vector<int>(cols, 0));
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				result[i][j] = a[i][j] + b[i][j];
+			}
+		}
+
+		return result;
+	}
+
+
+	template<typename T>
+	vector<vector<T> > subtractMatrices(const vector<vector<T> > & a, const vector<vector<T> > & b)
+	{
+		int rows = a.size();
+		int cols = a.front().size();
+
+		vector<vector<T> > result(rows, vector<int>(cols, 0));
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				result[i][j] = a[i][j] - b[i][j];
+			}
+		}
+
+		return result;
+	}
+
+
+	template<typename T>
+	vector<T> multiplyMatrixByVector(const vector<vector<T> > & m, const vector<T> & v)
+	{
+		int rows = m.size();
+		int cols = v.size();
+
+		vector<T> result(rows, 0);
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				result[i] += m[i][j] * v[j];
+			}
+		}
+
+		return result;
+	}
+
+
+	template<typename T>
+	vector<vector<T> > multiplyMatrices(const vector<vector<T> > & a, const vector<vector<T> > & b)
+	{
+		int rowsA = a.size();
+		int colsA = a.front().size();
+		int colsB = b.front().size();
+
+		vector<vector<T> > result(rowsA, vector<int>(colsB, 0));
+
+		for (int i = 0; i < rowsA; i++) {
+			for (int j = 0; j < colsB; j++) {
+				result[i][j] = 0;
+
+				for (int k = 0; k < colsA; k++) {
+					result[i][j] += a[i][k] * b[k][j];
+				}
+			}
+		}
+
+		return result;
+	}
+
+
 	// === OUTPUT HELPERS =========================================
 
 	template<typename T>
