@@ -147,13 +147,4 @@ You can see a simple custom element example in [the tests](tests/cases/custom-ty
 
 -----------
 
-### Roadmap
-
-In the nearest future following features are planned to be added:
-
-* `operator[]` for both getting and setting matrix values
-* moving under a namespace to prevent collisions
-* optimizing M-M multiplication and addition
-* more matrix operations (transpose, scalar-matrix multiplication, matrix-scalar division, etc.)
-
 Any questions / issues / pull requests / [donations](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KWQJ7VTXZMZLS) are very welcome! :-)
