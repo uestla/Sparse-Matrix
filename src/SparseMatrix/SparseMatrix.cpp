@@ -123,12 +123,20 @@ T SparseMatrix<T>::get(int row, int col) const
 
     int currCol;
 
+<<<<<<< HEAD
     for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++)
     {
         currCol = this->cols->at(pos);
 
         if (currCol == col) {
             return this->vals->at(pos);
+=======
+	for (int pos = (*(this->rows))[row - 1] - 1; pos < (*(this->rows))[row] - 1; ++pos) {
+		currCol = (*(this->cols))[pos];
+
+		if (currCol == col) {
+			return (*(this->vals))[pos];
+>>>>>>> 6de7bfc46f4ff035c5b9b3da0734d4b35e5c3e85
 
         } else if (currCol > col) {
             break;
@@ -189,6 +197,7 @@ bool SparseMatrix<T>::removeEdge(int row, int col)
     return false;
 }
 
+<<<<<<< HEAD
 template<typename T>
 vector<T> SparseMatrix<T>::getNeighbors(int row)
 {
@@ -197,6 +206,13 @@ vector<T> SparseMatrix<T>::getNeighbors(int row)
 
     {
         this->validateCoordinates(row, col);
+=======
+	int pos = (*(this->rows))[row - 1] - 1;
+	int currCol = 0;
+
+	for (; pos < (*(this->rows))[row] - 1; pos++) {
+		currCol = (*(this->cols))[pos];
+>>>>>>> 6de7bfc46f4ff035c5b9b3da0734d4b35e5c3e85
 
         int currCol;
 
@@ -205,12 +221,18 @@ vector<T> SparseMatrix<T>::getNeighbors(int row)
         {
             currCol = this->cols->at(pos);
 
+<<<<<<< HEAD
             if (currCol == col)
                 neighbors.push_back(this->vals->at(pos));
             else if (currCol > col)
                 break;
         }
     }
+=======
+	} else {
+		(*(this->vals))[pos] = val;
+	}
+>>>>>>> 6de7bfc46f4ff035c5b9b3da0734d4b35e5c3e85
 
     return neighbors;
 }
@@ -258,12 +280,21 @@ vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 
     vector<T> result(this->m, T());
 
+<<<<<<< HEAD
     if (this->vals != NULL) { // only if any value set
         for (int i = 0; i < this->m; i++) {
             T sum = T();
             for (int j = this->rows->at(i); j < this->rows->at(i + 1); j++) {
                 sum = sum + this->vals->at(j - 1) * x[this->cols->at(j - 1) - 1];
             }
+=======
+	if (this->vals != NULL) { // only if any value set
+		for (int i = 0; i < this->m; i++) {
+			T sum = T();
+			for (int j = (*(this->rows))[i]; j < (*(this->rows))[i + 1]; j++) {
+				sum = sum + (*(this->vals))[j - 1] * x[(*(this->cols))[j - 1] - 1];
+			}
+>>>>>>> 6de7bfc46f4ff035c5b9b3da0734d4b35e5c3e85
 
             result[i] = sum;
         }
@@ -399,6 +430,7 @@ void SparseMatrix<T>::validateCoordinates(int row, int col) const
 template<typename T>
 void SparseMatrix<T>::insert(int index, int row, int col, T val)
 {
+<<<<<<< HEAD
     if (this->vals == NULL) {
         this->vals = new vector<T>(1, val);
         this->cols = new vector<int>(1, col);
@@ -411,6 +443,20 @@ void SparseMatrix<T>::insert(int index, int row, int col, T val)
     for (int i = row; i <= this->m; i++) {
         this->rows->at(i) = this->rows->at(i) + 1;
     }
+=======
+	if (this->vals == NULL) {
+		this->vals = new vector<T>(1, val);
+		this->cols = new vector<int>(1, col);
+
+	} else {
+		this->vals->insert(this->vals->begin() + index, val);
+		this->cols->insert(this->cols->begin() + index, col);
+	}
+
+	for (int i = row; i <= this->m; i++) {
+		(*(this->rows))[i] = (*(this->rows))[i] + 1;
+	}
+>>>>>>> 6de7bfc46f4ff035c5b9b3da0734d4b35e5c3e85
 }
 
 
@@ -420,9 +466,15 @@ void SparseMatrix<T>::remove(int index, int row)
     this->vals->erase(this->vals->begin() + index);
     this->cols->erase(this->cols->begin() + index);
 
+<<<<<<< HEAD
     for (int i = row; i <= this->m; i++) {
         this->rows->at(i) = this->rows->at(i) - 1;
     }
+=======
+	for (int i = row; i <= this->m; i++) {
+		(*(this->rows))[i] = (*(this->rows))[i] - 1;
+	}
+>>>>>>> 6de7bfc46f4ff035c5b9b3da0734d4b35e5c3e85
 }
 
 
