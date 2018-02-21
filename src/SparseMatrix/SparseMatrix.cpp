@@ -190,6 +190,32 @@ bool SparseMatrix<T>::removeEdge(int row, int col)
 }
 
 template<typename T>
+vector<T> SparseMatrix<T>::getNeighbors(int row)
+{
+    vector<T> neighbors;
+    for (int col = 1; col <= this->n; ++col)
+
+    {
+        this->validateCoordinates(row, col);
+
+        int currCol;
+
+
+        for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++)
+        {
+            currCol = this->cols->at(pos);
+
+            if (currCol == col)
+                neighbors.push_back(this->vals->at(pos));
+            else if (currCol > col)
+                break;
+        }
+    }
+
+    return neighbors;
+}
+
+template<typename T>
 SparseMatrix<T> & SparseMatrix<T>::set(int row, int col, T val)
 {
     this->validateCoordinates(row, col);
