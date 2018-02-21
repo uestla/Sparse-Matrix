@@ -6,8 +6,8 @@
  * @link     https://github.com/uestla/Sparse-Matrix
  */
 
-#include "../testslib.h"
-#include "../SparseMatrixMock.h"
+#include "../inc/testslib.h"
+#include "../inc/SparseMatrixMock.h"
 
 
 void _multiplicationFail1(void)
@@ -56,13 +56,7 @@ void testVectorMultiplication(void)
 		SparseMatrixMock<int> sparseMatrix = SparseMatrixMock<int>::fromVectors(classicMatrix);
 
 		// calculate result manually
-		vector<int> manualResult(rows, 0);
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				manualResult[i] += classicMatrix[i][j] * vec[j];
-			}
-		}
+		vector<int> manualResult = multiplyMatrixByVector(classicMatrix, vec);
 
 		// method
 		assertEquals<vector<int> >(manualResult, sparseMatrix.multiply(vec), "Incorrect vector multiplication");
@@ -92,17 +86,7 @@ void testMatricesMultiplication(void)
 		SparseMatrixMock<int> sparseMatrixB = SparseMatrixMock<int>::fromVectors(classicMatrixB);
 
 		// calculate result manually
-		vector<vector<int> > manualResult(rowsA, vector<int>(colsB, 0));
-
-		for (int i = 0; i < rowsA; i++) {
-			for (int j = 0; j < colsB; j++) {
-				manualResult[i][j] = 0;
-
-				for (int k = 0; k < colsArowsB; k++) { // rows in B
-					manualResult[i][j] += classicMatrixA[i][k] * classicMatrixB[k][j];
-				}
-			}
-		}
+		vector<vector<int> > manualResult = multiplyMatrices(classicMatrixA, classicMatrixB);
 
 		// method
 		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
