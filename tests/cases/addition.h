@@ -6,8 +6,8 @@
  * @link     https://github.com/uestla/Sparse-Matrix
  */
 
-#include "../testslib.h"
-#include "../SparseMatrixMock.h"
+#include "../inc/testslib.h"
+#include "../inc/SparseMatrixMock.h"
 
 
 void _additionFail1(void)
@@ -71,13 +71,7 @@ void testAddition(void)
 		SparseMatrixMock<int> sparseMatrixB = SparseMatrixMock<int>::fromVectors(classicMatrixB);
 
 		// calculate result manually
-		vector<vector<int> > manualResult(rows, vector<int>(cols, 0));
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				manualResult[i][j] += classicMatrixA[i][j] + classicMatrixB[i][j];
-			}
-		}
+		vector<vector<int> > manualResult = addMatrices(classicMatrixA, classicMatrixB);
 
 		// method
 		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
