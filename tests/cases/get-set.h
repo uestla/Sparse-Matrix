@@ -13,7 +13,7 @@
 void _getFail(void)
 {
 	SparseMatrix<int> m(1, 1);
-	m.get(2, 1);
+	m.get(1, 0);
 }
 
 
@@ -28,7 +28,7 @@ void testGetFail(void)
 void _setFail(void)
 {
 	SparseMatrix<int> m(3, 4);
-	m.set(-1, 4, 0);
+	m.set(-1, 3, -1);
 }
 
 
@@ -45,14 +45,14 @@ void testGettersAndSetters(void)
 	cout << "getters/setters..." << flush;
 
 	SparseMatrix<int> m(3);
-	for (int i = 1; i <= 3; i++) {
-		for (int j = 1; j <= 3; j++) {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
 			assertEquals<int>(0, m.get(i, j));
 		}
 	}
 
-	m.set(-4, 1, 3);
-	assertEquals<int>(-4, m.get(1, 3));
+	m.set(-4, 0, 2);
+	assertEquals<int>(-4, m.get(0, 2));
 
 	cout << " OK" << endl;
 }

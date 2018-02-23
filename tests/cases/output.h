@@ -21,9 +21,9 @@ void testOutput(void)
 	oss << m;
 	assertEquals<string>("0 0 0\n0 0 0\n0 0 0", oss.str());
 
-	m.set(7, 1, 3)
-		.set(5, 2, 2)
-		.set(3, 3, 1);
+	m.set(7, 0, 2)
+		.set(5, 1, 1)
+		.set(3, 2, 0);
 
 	oss.str("");
 	oss << m;

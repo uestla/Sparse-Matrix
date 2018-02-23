@@ -89,33 +89,33 @@ void testElementTypes(void)
 	// addition
 
 	SparseMatrix<person> a(4, 5);
-	a.set(person("John", "Doe"), 3, 2);
+	a.set(person("John", "Doe"), 2, 1);
 
 	SparseMatrix<person> b(4, 5);
-	b.set(person("Foo", "Bar"), 3, 2);
+	b.set(person("Foo", "Bar"), 2, 1);
 
 	SparseMatrix<person> sum = a.add(b);
-	assertEquals<person>(person("John Foo", "Doe Bar"), sum.get(3, 2));
+	assertEquals<person>(person("John Foo", "Doe Bar"), sum.get(2, 1));
 
 
 	// subtraction
 
 	SparseMatrix<person> diff = a.subtract(b);
-	assertEquals<person>(person("Bar", "Doe"), diff.get(3, 2));
+	assertEquals<person>(person("Bar", "Doe"), diff.get(2, 1));
 
 
 	// matrix-matrix multiplication
 
 	SparseMatrix<person> c(5, 3);
-	c.set(person("Foo", "Bar"), 2, 3);
+	c.set(person("Foo", "Bar"), 1, 2);
 
 	SparseMatrix<person> product = a.multiply(c);
 
-	for (int i = 1, rows = product.getRowCount(); i <= rows; i++) {
-		for (int j = 1, cols = product.getColumnCount(); j <= cols; j++) {
+	for (int i = 0, rows = product.getRowCount(); i < rows; i++) {
+		for (int j = 0, cols = product.getColumnCount(); j < cols; j++) {
 			person value = product.get(i, j);
 
-			if (i == 3 && j == 3) {
+			if (i == 2 && j == 2) {
 				assertEquals<person>(person("John Bar", "Doe Foo"), value);
 
 			} else {

@@ -125,7 +125,7 @@
 
 				for (int i = 0, len = vec.size(); i < len; i++) {
 					for (int j = 0, len = vec[i].size(); j < len; j++) {
-						matrix.set(vec[i][j], i + 1, j + 1);
+						matrix.set(vec[i][j], i, j);
 					}
 				}
 
@@ -140,7 +140,7 @@
 	{
 		for (int i = 0, rows = classical.size(); i < rows; i++) {
 			for (int j = 0, cols = classical[i].size(); j < cols; j++) {
-				if (sparse.get(i + 1, j + 1) != classical[i][j]) {
+				if (sparse.get(i, j) != classical[i][j]) {
 					return false;
 				}
 			}

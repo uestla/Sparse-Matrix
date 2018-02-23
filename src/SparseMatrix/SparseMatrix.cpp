@@ -82,7 +82,7 @@ void SparseMatrix<T>::construct(int rows, int columns)
 
 	this->vals = NULL;
 	this->cols = NULL;
-	this->rows = new vector<int>(rows + 1, 1);
+	this->rows = new vector<int>(rows + 1, 0);
 }
 
 
@@ -123,7 +123,7 @@ T SparseMatrix<T>::get(int row, int col) const
 
 	int currCol;
 
-	for (int pos = (*(this->rows))[row - 1] - 1; pos < (*(this->rows))[row] - 1; ++pos) {
+	for (int pos = (*(this->rows))[row]; pos < (*(this->rows))[row + 1]; ++pos) {
 		currCol = (*(this->cols))[pos];
 
 		if (currCol == col) {
@@ -143,10 +143,10 @@ SparseMatrix<T> & SparseMatrix<T>::set(T val, int row, int col)
 {
 	this->validateCoordinates(row, col);
 
-	int pos = (*(this->rows))[row - 1] - 1;
-	int currCol = 0;
+	int pos = (*(this->rows))[row];
+	int currCol = -1;
 
-	for (; pos < (*(this->rows))[row] - 1; pos++) {
+	for (; pos < (*(this->rows))[row + 1]; pos++) {
 		currCol = (*(this->cols))[pos];
 
 		if (currCol >= col) {
@@ -185,7 +185,7 @@ vector<T> SparseMatrix<T>::multiply(const vector<T> & x) const
 		for (int i = 0; i < this->m; i++) {
 			T sum = T();
 			for (int j = (*(this->rows))[i]; j < (*(this->rows))[i + 1]; j++) {
-				sum = sum + (*(this->vals))[j - 1] * x[(*(this->cols))[j - 1] - 1];
+				sum = sum + (*(this->vals))[j] * x[(*(this->cols))[j]];
 			}
 
 			result[i] = sum;
@@ -217,11 +217,11 @@ SparseMatrix<T> SparseMatrix<T>::multiply(const SparseMatrix<T> & m) const
 	// TODO: more efficient?
 	// @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
 
-	for (int i = 1; i <= this->m; i++) {
-		for (int j = 1; j <= m.n; j++) {
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < m.n; j++) {
 			a = T();
 
-			for (int k = 1; k <= this->n; k++) {
+			for (int k = 0; k < this->n; k++) {
 				a = a + this->get(i, k) * m.get(k, j);
 			}
 
@@ -252,8 +252,8 @@ SparseMatrix<T> SparseMatrix<T>::add(const SparseMatrix<T> & m) const
 	// TODO: more efficient?
 	// @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
 
-	for (int i = 1; i <= this->m; i++) {
-		for (int j = 1; j <= this->n; j++) {
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++) {
 			result.set(this->get(i, j) + m.get(i, j), i, j);
 		}
 	}
@@ -281,8 +281,8 @@ SparseMatrix<T> SparseMatrix<T>::subtract(const SparseMatrix<T> & m) const
 	// TODO: more efficient?
 	// @see http://www.math.tamu.edu/~srobertp/Courses/Math639_2014_Sp/CRSDescription/CRSStuff.pdf
 
-	for (int i = 1; i <= this->m; i++) {
-		for (int j = 1; j <= this->n; j++) {
+	for (int i = 0; i < this->m; i++) {
+		for (int j = 0; j < this->n; j++) {
 			result.set(this->get(i, j) - m.get(i, j), i, j);
 		}
 	}
@@ -303,7 +303,7 @@ SparseMatrix<T> SparseMatrix<T>::operator - (const SparseMatrix<T> & m) const
 template<typename T>
 void SparseMatrix<T>::validateCoordinates(int row, int col) const
 {
-	if (row < 1 || col < 1 || row > this->m || col > this->n) {
+	if (row < 0 || col < 0 || row >= this->m || col >= this->n) {
 		throw InvalidCoordinatesException("Coordinates out of range.");
 	}
 }
@@ -321,7 +321,7 @@ void SparseMatrix<T>::insert(int index, int row, int col, T val)
 		this->cols->insert(this->cols->begin() + index, col);
 	}
 
-	for (int i = row; i <= this->m; i++) {
+	for (int i = row + 1; i <= this->m; i++) {
 		(*(this->rows))[i] += 1;
 	}
 }
@@ -333,7 +333,7 @@ void SparseMatrix<T>::remove(int index, int row)
 	this->vals->erase(this->vals->begin() + index);
 	this->cols->erase(this->cols->begin() + index);
 
-	for (int i = row; i <= this->m; i++) {
+	for (int i = row + 1; i <= this->m; i++) {
 		(*(this->rows))[i] -= 1;
 	}
 }
@@ -362,16 +362,16 @@ bool operator != (const SparseMatrix<T> & a, const SparseMatrix<T> & b)
 template<typename T>
 ostream & operator << (ostream & os, const SparseMatrix<T> & matrix)
 {
-	for (int i = 1; i <= matrix.m; i++) {
-		for (int j = 1; j <= matrix.n; j++) {
-			if (j != 1) {
+	for (int i = 0; i < matrix.m; i++) {
+		for (int j = 0; j < matrix.n; j++) {
+			if (j != 0) {
 				os << " ";
 			}
 
 			os << matrix.get(i, j);
 		}
 
-		if (i < matrix.m) {
+		if (i < matrix.m - 1) {
 			os << endl;
 		}
 	}

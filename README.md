@@ -36,12 +36,12 @@ To set or get value, use methods `set()` and `get()`:
 
 ```cpp
 int val;
-matrix.set(-5, 2, 3); // sets -5 on 2nd row and 3rd column
-val = matrix.get(2, 3); // val = -5
-val = matrix.get(1, 1); // val = 0
+matrix.set(-5, 1, 2); // sets -5 on 2nd row and 3rd column
+val = matrix.get(1, 2); // val = -5
+val = matrix.get(0, 0); // val = 0
 ```
 
-When accessing invalid coordinates, `InvalidCoordinatesException` is thrown. Please note that **rows and columns are indexed from 1**.
+When accessing invalid coordinates, `InvalidCoordinatesException` is thrown. Please note that **rows and columns are indexed from 0**.
 
 ### Operations
 
@@ -114,10 +114,10 @@ Basic output streaming is implemented. Note that output operator must be impleme
 
 ```cpp
 SparseMatrix<int> matrix(3, 4);
-matrix.set(2, 1, 1);
-matrix.set(7, 1, 3);
-matrix.set(4, 2, 2);
-matrix.set(1, 3, 4);
+matrix.set(2, 0, 0);
+matrix.set(7, 0, 2);
+matrix.set(4, 1, 1);
+matrix.set(1, 2, 3);
 
 std::cout << matrix << std::endl;
 
