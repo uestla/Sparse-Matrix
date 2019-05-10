@@ -9,18 +9,17 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
-#include "inc/testslib.h"
-#include "inc/helpers.h"
+#include "testslib.h"
 
 #include "../src/SparseMatrix/SparseMatrix.cpp"
-#include "cases/constructor.h"
-#include "cases/get-set.h"
-#include "cases/multiplication.h"
-#include "cases/addition.h"
-#include "cases/subtraction.h"
-#include "cases/crs-format.h"
-#include "cases/output.h"
-#include "cases/custom-type.h"
+#include "tests/constructor.h"
+#include "tests/get-set.h"
+#include "tests/multiplication.h"
+#include "tests/addition.h"
+#include "tests/subtraction.h"
+#include "tests/crs-format.h"
+#include "tests/output.h"
+#include "tests/custom-type.h"
 
 using namespace std;
 
