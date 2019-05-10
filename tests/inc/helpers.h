@@ -67,24 +67,6 @@
 
 
 	template<typename T>
-	vector<vector<T> > subtractMatrices(const vector<vector<T> > & a, const vector<vector<T> > & b)
-	{
-		int rows = a.size();
-		int cols = a.front().size();
-
-		vector<vector<T> > result(rows, vector<int>(cols, 0));
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				result[i][j] = a[i][j] - b[i][j];
-			}
-		}
-
-		return result;
-	}
-
-
-	template<typename T>
 	vector<T> multiplyMatrixByVector(const vector<vector<T> > & m, const vector<T> & v)
 	{
 		int rows = m.size();
