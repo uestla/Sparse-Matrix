@@ -128,9 +128,6 @@ T SparseMatrix<T>::get(int row, int col) const
     {
         currCol = this->cols->at(pos);
 
-        if (currCol == col) {
-            return this->vals->at(pos);
-
         } else if (currCol > col) {
             break;
         }
@@ -166,6 +163,7 @@ bool SparseMatrix<T>::removeAnyEdge(int row, int& col)
     return false;
 }
 template<typename T>
+
 bool SparseMatrix<T>::removeEdge(int row, int col)
 {
     this->validateCoordinates(row, col);
@@ -190,27 +188,27 @@ bool SparseMatrix<T>::removeEdge(int row, int col)
     return false;
 }
 
-template<typename T>
-vector<T> SparseMatrix<T>::getNeighbors(int row)
-{
-    vector<T> neighbors;
-    for (int col = 1; col <= this->n; ++col)
 
-    {
-        this->validateCoordinates(row, col);
+    int pos = this->rows->at(row - 1) - 1;
+    int currCol = 0;
+
+    for (; pos < this->rows->at(row) - 1; pos++) {
+        currCol = this->cols->at(pos);
+
+
 
         int currCol;
+
 
 
         for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++)
         {
             currCol = this->cols->at(pos);
 
-            if (currCol == col)
-                neighbors.push_back(this->vals->at(pos));
-            else if (currCol > col)
-                break;
-        }
+
+
+    } else {
+        this->vals->at(pos) = val;
     }
 
     return neighbors;
@@ -373,6 +371,16 @@ template<typename T>
 SparseMatrix<T> SparseMatrix<T>::operator - (const SparseMatrix<T> & m) const
 {
     return this->subtract(m);
+
+}
+
+template<typename T>
+int SparseMatrix<T>::numberOfRowElement(int row) const
+{
+    validateCoordinates(row, 1);
+    return this->rows->at(row) - this->rows->at(row - 1);
+
+
 }
 
 template<typename T>
@@ -382,6 +390,8 @@ int SparseMatrix<T>::numberOfRowElement(int row) const
     return this->rows->at(row) - this->rows->at(row - 1);
 
 }
+
+
 
 
 
