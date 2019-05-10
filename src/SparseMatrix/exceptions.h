@@ -8,58 +8,58 @@
 
 #ifndef __SPARSEMATRIX_EXCEPTIONS_H__
 
-	#define	__SPARSEMATRIX_EXCEPTIONS_H__
+#define	__SPARSEMATRIX_EXCEPTIONS_H__
 
-	#include <exception>
+#include <exception>
 
-	using namespace std;
-
-
-	class Exception : public exception
-	{
-
-		public:
-
-			explicit Exception(const string & message) : exception(), message(message)
-			{}
+using namespace std;
 
 
-			virtual ~Exception(void) throw ()
-			{}
+class Exception : public exception
+{
+
+public:
+
+    explicit Exception(const string & message) : exception(), message(message)
+    {}
 
 
-			inline string getMessage(void) const
-			{
-				return this->message;
-			}
+    virtual ~Exception(void) throw ()
+    {}
 
 
-		protected:
-
-			string message;
-
-	};
-
-
-	class InvalidDimensionsException : public Exception
-	{
-
-		public:
-
-			InvalidDimensionsException(const string & message) : Exception(message)
-			{}
-
-	};
+    inline string getMessage(void) const
+    {
+        return this->message;
+    }
 
 
-	class InvalidCoordinatesException : public Exception
-	{
+protected:
 
-		public:
+    string message;
 
-			InvalidCoordinatesException(const string & message) : Exception(message)
-			{}
+};
 
-	};
+
+class InvalidDimensionsException : public Exception
+{
+
+public:
+
+    InvalidDimensionsException(const string & message) : Exception(message)
+    {}
+
+};
+
+
+class InvalidCoordinatesException : public Exception
+{
+
+public:
+
+    InvalidCoordinatesException(const string & message) : Exception(message)
+    {}
+
+};
 
 #endif

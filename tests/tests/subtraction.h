@@ -6,8 +6,8 @@
  * @link     https://github.com/uestla/Sparse-Matrix
  */
 
-#include "../inc/testslib.h"
-#include "../inc/SparseMatrixMock.h"
+#include "../testslib.h"
+#include "../SparseMatrixMock.h"
 
 
 void _subtractionFail1(void)

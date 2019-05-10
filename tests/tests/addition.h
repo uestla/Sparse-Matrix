@@ -6,59 +6,59 @@
  * @link     https://github.com/uestla/Sparse-Matrix
  */
 
-#include "../inc/testslib.h"
-#include "../inc/SparseMatrixMock.h"
+#include "../testslib.h"
+#include "../SparseMatrixMock.h"
 
 
-void _subtractionFail1(void)
+void _additionFail1(void)
 {
 	SparseMatrix<int> a(3, 4), b(3, 5);
-	a.subtract(b);
+	a.add(b);
 }
 
 
-void testSubtractionFail1(void)
+void testAdditionFail1(void)
 {
-	cout << "subtract() fail #1..." << flush;
-	assertException("InvalidDimensionsException", _subtractionFail1);
+	cout << "add() fail #1..." << flush;
+	assertException("InvalidDimensionsException", _additionFail1);
 	cout << " OK" << endl;
 }
 
 
-void _subtractionFail2(void)
+void _additionFail2(void)
 {
 	SparseMatrix<int> a(3, 4), b(4, 4);
-	a.subtract(b);
+	a.add(b);
 }
 
 
-void testSubtractionFail2(void)
+void testAdditionFail2(void)
 {
-	cout << "subtract() fail #2..." << flush;
-	assertException("InvalidDimensionsException", _subtractionFail2);
+	cout << "add() fail #2..." << flush;
+	assertException("InvalidDimensionsException", _additionFail2);
 	cout << " OK" << endl;
 }
 
 
-void _subtractionFail3(void)
+void _additionFail3(void)
 {
 	SparseMatrix<int> a(3, 4), b(4, 5);
-	a.subtract(b);
+	a.add(b);
 }
 
 
-void testSubtractionFail3(void)
+void testAdditionFail3(void)
 {
-	cout << "subtract() fail #3..." << flush;
-	assertException("InvalidDimensionsException", _subtractionFail3);
+	cout << "add() fail #3..." << flush;
+	assertException("InvalidDimensionsException", _additionFail3);
 	cout << " OK" << endl;
 }
 
 
-void testSubtraction(void)
+void testAddition(void)
 {
 	for (int N = 0; N < 5e3; N++) {
-		cout << "\rmatrices subtraction... #" << N + 1 << flush;
+		cout << "\rmatrices addition... #" << N + 1 << flush;
 
 		// generate random matrices
 		int rows = rand() % 16 + 1;
@@ -75,22 +75,22 @@ void testSubtraction(void)
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				manualResult[i][j] += classicMatrixA[i][j] - classicMatrixB[i][j];
+				manualResult[i][j] += classicMatrixA[i][j] + classicMatrixB[i][j];
 			}
 		}
 
 		// method
 		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
-			sparseMatrixA.subtract(sparseMatrixB),
+			sparseMatrixA.add(sparseMatrixB),
 			manualResult,
-			"Incorrect matrices subtract"
+			"Incorrect matrices addition"
 		);
 
 		// operator
 		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
-			sparseMatrixA - sparseMatrixB,
+			sparseMatrixA + sparseMatrixB,
 			manualResult,
-			"Incorrect matrices subtract (operator -)"
+			"Incorrect matrices addition (operator +)"
 		);
 	}
 
