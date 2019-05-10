@@ -194,7 +194,9 @@ bool SparseMatrix<T>::removeEdge(int row, int col)
 	for (; pos < (*(this->rows))[row] - 1; pos++) {
 		currCol = (*(this->cols))[pos];
 
+
         int currCol;
+
 
 
         for (int pos = this->rows->at(row - 1) - 1; pos < this->rows->at(row) - 1; pos++)
