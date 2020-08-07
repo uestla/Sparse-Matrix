@@ -12,81 +12,81 @@
 
 void _subtractionFail1(void)
 {
-	SparseMatrix<int> a(3, 4), b(3, 5);
+	SparseMatrix::SparseMatrix<int> a(3, 4), b(3, 5);
 	a.subtract(b);
 }
 
 
 void testSubtractionFail1(void)
 {
-	cout << "subtract() fail #1..." << flush;
+	std::cout << "subtract() fail #1..." << std::flush;
 	assertException("InvalidDimensionsException", _subtractionFail1);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _subtractionFail2(void)
 {
-	SparseMatrix<int> a(3, 4), b(4, 4);
+	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 4);
 	a.subtract(b);
 }
 
 
 void testSubtractionFail2(void)
 {
-	cout << "subtract() fail #2..." << flush;
+	std::cout << "subtract() fail #2..." << std::flush;
 	assertException("InvalidDimensionsException", _subtractionFail2);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _subtractionFail3(void)
 {
-	SparseMatrix<int> a(3, 4), b(4, 5);
+	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 5);
 	a.subtract(b);
 }
 
 
 void testSubtractionFail3(void)
 {
-	cout << "subtract() fail #3..." << flush;
+	std::cout << "subtract() fail #3..." << std::flush;
 	assertException("InvalidDimensionsException", _subtractionFail3);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void testSubtraction(void)
 {
 	for (int N = 0; N < 5e3; N++) {
-		cout << "\rmatrices subtraction... #" << N + 1 << flush;
+		std::cout << "\rmatrices subtraction... #" << N + 1 << std::flush;
 
 		// generate random matrices
 		int rows = rand() % 16 + 1;
 		int cols = rand() % 16 + 1;
 
-		vector<vector<int> > classicMatrixA = generateRandomMatrix<int>(rows, cols);
+		std::vector<std::vector<int> > classicMatrixA = generateRandomMatrix<int>(rows, cols);
 		SparseMatrixMock<int> sparseMatrixA = SparseMatrixMock<int>::fromVectors(classicMatrixA);
 
-		vector<vector<int> > classicMatrixB = generateRandomMatrix<int>(rows, cols);
+		std::vector<std::vector<int> > classicMatrixB = generateRandomMatrix<int>(rows, cols);
 		SparseMatrixMock<int> sparseMatrixB = SparseMatrixMock<int>::fromVectors(classicMatrixB);
 
 		// calculate result manually
-		vector<vector<int> > manualResult = subtractMatrices(classicMatrixA, classicMatrixB);
+		std::vector<std::vector<int> > manualResult = subtractMatrices(classicMatrixA, classicMatrixB);
 
 		// method
-		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA.subtract(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices subtract"
 		);
 
 		// operator
-		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA - sparseMatrixB,
 			manualResult,
 			"Incorrect matrices subtract (operator -)"
 		);
 	}
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

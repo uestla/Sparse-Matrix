@@ -12,54 +12,57 @@
 
 	#include <exception>
 
-	using namespace std;
 
-
-	class Exception : public exception
+	namespace SparseMatrix
 	{
 
-		public:
+		class Exception : public std::exception
+		{
 
-			explicit Exception(const string & message) : exception(), message(message)
-			{}
+			public:
 
-
-			virtual ~Exception(void) throw ()
-			{}
-
-
-			inline string getMessage(void) const
-			{
-				return this->message;
-			}
+				explicit Exception(const std::string & message) : exception(), message(message)
+				{}
 
 
-		protected:
-
-			string message;
-
-	};
+				virtual ~Exception(void) throw ()
+				{}
 
 
-	class InvalidDimensionsException : public Exception
-	{
-
-		public:
-
-			InvalidDimensionsException(const string & message) : Exception(message)
-			{}
-
-	};
+				inline std::string getMessage(void) const
+				{
+					return this->message;
+				}
 
 
-	class InvalidCoordinatesException : public Exception
-	{
+			protected:
 
-		public:
+				std::string message;
 
-			InvalidCoordinatesException(const string & message) : Exception(message)
-			{}
+		};
 
-	};
+
+		class InvalidDimensionsException : public Exception
+		{
+
+			public:
+
+				InvalidDimensionsException(const std::string & message) : Exception(message)
+				{}
+
+		};
+
+
+		class InvalidCoordinatesException : public Exception
+		{
+
+			public:
+
+				InvalidCoordinatesException(const std::string & message) : Exception(message)
+				{}
+
+		};
+
+	}
 
 #endif

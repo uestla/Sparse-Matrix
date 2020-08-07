@@ -22,8 +22,6 @@
 #include "cases/output.h"
 #include "cases/custom-type.h"
 
-using namespace std;
-
 
 int main(int argc, char ** argv)
 {
@@ -55,7 +53,7 @@ int main(int argc, char ** argv)
 		testElementTypes();
 
 	} catch (const FailureException & e) {
-		cout << " - FAIL: '" << e.getMessage() << "'" << endl;
+		std::cout << " - FAIL: '" << e.getMessage() << "'" << std::endl;
 		return 1;
 	}
 

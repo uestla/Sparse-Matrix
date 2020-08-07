@@ -12,55 +12,55 @@
 
 void _constructorFail1(void)
 {
-	SparseMatrix<int>(0);
+	SparseMatrix::SparseMatrix<int>(0);
 }
 
 
 void testConstructorFail1(void)
 {
-	cout << "constructor fail #1..." << flush;
+	std::cout << "constructor fail #1..." << std::flush;
 	assertException("InvalidDimensionsException", _constructorFail1);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _constructorFail2(void)
 {
-	SparseMatrix<int>(0, 1);
+	SparseMatrix::SparseMatrix<int>(0, 1);
 }
 
 
 void testConstructorFail2(void)
 {
-	cout << "constructor fail #2..." << flush;
+	std::cout << "constructor fail #2..." << std::flush;
 	assertException("InvalidDimensionsException", _constructorFail2);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _constructorFail3(void)
 {
-	SparseMatrix<int>(1, 0);
+	SparseMatrix::SparseMatrix<int>(1, 0);
 }
 
 
 void testConstructorFail3(void)
 {
-	cout << "constructor fail #3..." << flush;
+	std::cout << "constructor fail #3..." << std::flush;
 	assertException("InvalidDimensionsException", _constructorFail3);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _constructorFail4(void)
 {
-	SparseMatrix<int>(0, 0);
+	SparseMatrix::SparseMatrix<int>(0, 0);
 }
 
 
 void testConstructorFail4(void)
 {
-	cout << "constructor fail #4..." << flush;
+	std::cout << "constructor fail #4..." << std::flush;
 	assertException("InvalidDimensionsException", _constructorFail4);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

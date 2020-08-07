@@ -12,14 +12,14 @@
 
 void testOutput(void)
 {
-	cout << "output..." << flush;
+	std::cout << "output..." << std::flush;
 
-	ostringstream oss;
-	string output;
+	std::ostringstream oss;
+	std::string output;
 
-	SparseMatrix<int> m(3, 3);
+	SparseMatrix::SparseMatrix<int> m(3, 3);
 	oss << m;
-	assertEquals<string>("0 0 0\n0 0 0\n0 0 0", oss.str());
+	assertEquals<std::string>("0 0 0\n0 0 0\n0 0 0", oss.str());
 
 	m.set(7, 1, 3)
 		.set(5, 2, 2)
@@ -27,7 +27,7 @@ void testOutput(void)
 
 	oss.str("");
 	oss << m;
-	assertEquals<string>("0 0 7\n0 5 0\n3 0 0", oss.str());
+	assertEquals<std::string>("0 0 7\n0 5 0\n3 0 0", oss.str());
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

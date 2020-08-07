@@ -12,11 +12,11 @@ C++ implementation of sparse matrix using [CRS format](http://netlib.org/linalg/
 SparseMatrix comes as a template class, so we have to specify the element type.
 
 ```cpp
-SparseMatrix<int> matrix(3); // 3×3 matrix of integers
-SparseMatrix<int> matrix2(4, 5); // 4×5 matrix - 4 rows, 5 columns
+SparseMatrix::SparseMatrix<int> matrix(3); // 3×3 matrix of integers
+SparseMatrix::SparseMatrix<int> matrix2(4, 5); // 4×5 matrix - 4 rows, 5 columns
 
-SparseMatrix<int> matrix3(matrix); // copy constructor
-SparseMatrix<int> matrix4 = matrix2; // deep copy assignment
+SparseMatrix::SparseMatrix<int> matrix3(matrix); // copy constructor
+SparseMatrix::SparseMatrix<int> matrix4 = matrix2; // deep copy assignment
 ```
 
 All values are now equal to `<type>()`, which for type `int` is `0`.
@@ -43,10 +43,10 @@ SparseMatrix is implemented as an immutable object - all operations create new m
 Number of columns in the matrix has to be the same as the size of the vector, otherwise `InvalidDimensionsException` is thrown.
 
 ```cpp
-SparseMatrix<int> mat(4, 5);
-vector<int> vec(5, 2);
+SparseMatrix::SparseMatrix<int> mat(4, 5);
+std::vector<int> vec(5, 2);
 
-vector<int> result;
+std::vector<int> result;
 result = mat.multiply(vec); // method
 result = mat * vec; // operator
 ```
@@ -56,10 +56,10 @@ result = mat * vec; // operator
 Number of columns in the left matrix must be same as number of rows in the right matrix, otherwise `InvalidDimensionsException` is thrown.
 
 ```cpp
-SparseMatrix<int> matrixA(2, 3);
-SparseMatrix<int> matrixB(3, 4);
+SparseMatrix::SparseMatrix<int> matrixA(2, 3);
+SparseMatrix::SparseMatrix<int> matrixB(3, 4);
 
-SparseMatrix<int> product; // will be of size 2×4
+SparseMatrix::SparseMatrix<int> product; // will be of size 2×4
 product = matrixA.multiply(matrixB); // method
 product = matrixA * matrixB; // operator
 ```
@@ -69,14 +69,14 @@ product = matrixA * matrixB; // operator
 You can also add and subtract matrices together. Both matrices has to have same dimentions, otherwise `InvalidDimensionsException` is thrown.
 
 ```cpp
-SparseMatrix<int> matrixA(4, 7);
-SparseMatrix<int> matrixB(4, 7);
+SparseMatrix::SparseMatrix<int> matrixA(4, 7);
+SparseMatrix::SparseMatrix<int> matrixB(4, 7);
 
-SparseMatrix<int> sum;
+SparseMatrix::SparseMatrix<int> sum;
 sum = matrixA.add(matrixB); // method
 sum = matrixA + matrixB; // operator
 
-SparseMatrix<int> diff;
+SparseMatrix::SparseMatrix<int> diff;
 diff = matrixA.subtract(matrixB); // method
 diff = matrixA - matrixB; // operator
 ```
@@ -84,8 +84,8 @@ diff = matrixA - matrixB; // operator
 #### Matrix-Matrix comparison
 
 ```cpp
-SparseMatrix<int> matrixA(3);
-SparseMatrix<int> matrixB(3);
+SparseMatrix::SparseMatrix<int> matrixA(3);
+SparseMatrix::SparseMatrix<int> matrixB(3);
 
 bool areSame = matrixA == matrixB; // true
 ```
@@ -104,7 +104,7 @@ int cols = matrix.getColumnCount();
 Basic output streaming is implemented. Note that output operator must be implemented for the element type as well.
 
 ```cpp
-SparseMatrix<int> matrix(3, 4);
+SparseMatrix::SparseMatrix<int> matrix(3, 4);
 matrix.set(2, 1, 1);
 matrix.set(7, 1, 3);
 matrix.set(4, 2, 2);

@@ -13,15 +13,13 @@
 	#include <vector>
 	#include <iostream>
 
-	using namespace std;
-
 
 	// === GENERATORS =========================================
 
 	template<typename T>
-	vector<T> generateRandomVector(int size)
+	std::vector<T> generateRandomVector(int size)
 	{
-		vector<T> vector(size, 0);
+		std::vector<T> vector(size, 0);
 
 		for (int i = 0; i < size; i++) {
 			vector[i] = rand() % 101;
@@ -32,9 +30,9 @@
 
 
 	template<typename T>
-	vector<vector<T> > generateRandomMatrix(int rows, int columns)
+	std::vector<std::vector<T> > generateRandomMatrix(int rows, int columns)
 	{
-		vector<vector<T> > matrix(rows, vector<int>(columns, 0));
+		std::vector<std::vector<T> > matrix(rows, std::vector<int>(columns, 0));
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
@@ -49,12 +47,12 @@
 	// === STANDARD OPERATIONS =========================================
 
 	template<typename T>
-	vector<vector<T> > addMatrices(const vector<vector<T> > & a, const vector<vector<T> > & b)
+	std::vector<std::vector<T> > addMatrices(const std::vector<std::vector<T> > & a, const std::vector<std::vector<T> > & b)
 	{
 		int rows = a.size();
 		int cols = a.front().size();
 
-		vector<vector<T> > result(rows, vector<int>(cols, 0));
+		std::vector<std::vector<T> > result(rows, std::vector<int>(cols, 0));
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
@@ -67,12 +65,12 @@
 
 
 	template<typename T>
-	vector<vector<T> > subtractMatrices(const vector<vector<T> > & a, const vector<vector<T> > & b)
+	std::vector<std::vector<T> > subtractMatrices(const std::vector<std::vector<T> > & a, const std::vector<std::vector<T> > & b)
 	{
 		int rows = a.size();
 		int cols = a.front().size();
 
-		vector<vector<T> > result(rows, vector<int>(cols, 0));
+		std::vector<std::vector<T> > result(rows, std::vector<int>(cols, 0));
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
@@ -85,12 +83,12 @@
 
 
 	template<typename T>
-	vector<T> multiplyMatrixByVector(const vector<vector<T> > & m, const vector<T> & v)
+	std::vector<T> multiplyMatrixByVector(const std::vector<std::vector<T> > & m, const std::vector<T> & v)
 	{
 		int rows = m.size();
 		int cols = v.size();
 
-		vector<T> result(rows, 0);
+		std::vector<T> result(rows, 0);
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
@@ -103,13 +101,13 @@
 
 
 	template<typename T>
-	vector<vector<T> > multiplyMatrices(const vector<vector<T> > & a, const vector<vector<T> > & b)
+	std::vector<std::vector<T> > multiplyMatrices(const std::vector<std::vector<T> > & a, const std::vector<std::vector<T> > & b)
 	{
 		int rowsA = a.size();
 		int colsA = a.front().size();
 		int colsB = b.front().size();
 
-		vector<vector<T> > result(rowsA, vector<int>(colsB, 0));
+		std::vector<std::vector<T> > result(rowsA, std::vector<int>(colsB, 0));
 
 		for (int i = 0; i < rowsA; i++) {
 			for (int j = 0; j < colsB; j++) {
@@ -128,7 +126,7 @@
 	// === OUTPUT HELPERS =========================================
 
 	template<typename T>
-	ostream & operator << (ostream & os, const vector<T> & v)
+	std::ostream & operator << (std::ostream & os, const std::vector<T> & v)
 	{
 		os << "[";
 
