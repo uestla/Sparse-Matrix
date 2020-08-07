@@ -5,15 +5,6 @@ C++ implementation of sparse matrix using [CRS format](http://netlib.org/linalg/
 [![Buy me a Coffee](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KWQJ7VTXZMZLS)
 
 
-## Installation
-
-To use this library simply include the implementation file:
-
-```cpp
-#include "<libs_dir>/src/SparseMatrix/SparseMatrix.cpp"
-```
-
-
 ## Usage
 
 ### Creation
