@@ -2,8 +2,10 @@
 
 all: test
 
-test:
+build:
 	g++ -Wall -pedantic tests/run.cpp -o tests/SparseMatrix-tests
+
+test: build
 	./tests/SparseMatrix-tests.exe
 
 debug:
