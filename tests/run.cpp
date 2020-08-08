@@ -13,14 +13,14 @@
 #include "inc/helpers.h"
 
 #include "../src/SparseMatrix/SparseMatrix.cpp"
-#include "cases/constructor.h"
-#include "cases/get-set.h"
-#include "cases/multiplication.h"
-#include "cases/addition.h"
-#include "cases/subtraction.h"
-#include "cases/crs-format.h"
-#include "cases/output.h"
-#include "cases/custom-type.h"
+#include "cases/constructor.cpp"
+#include "cases/values.cpp"
+#include "cases/multiplication.cpp"
+#include "cases/addition.cpp"
+#include "cases/subtraction.cpp"
+#include "cases/crs-format.cpp"
+#include "cases/output.cpp"
+#include "cases/custom-type.cpp"
 
 
 int main(int argc, char ** argv)
