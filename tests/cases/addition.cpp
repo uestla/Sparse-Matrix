@@ -12,81 +12,81 @@
 
 void _additionFail1(void)
 {
-	SparseMatrix<int> a(3, 4), b(3, 5);
+	SparseMatrix::SparseMatrix<int> a(3, 4), b(3, 5);
 	a.add(b);
 }
 
 
 void testAdditionFail1(void)
 {
-	cout << "add() fail #1..." << flush;
+	std::cout << "add() fail #1..." << std::flush;
 	assertException("InvalidDimensionsException", _additionFail1);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _additionFail2(void)
 {
-	SparseMatrix<int> a(3, 4), b(4, 4);
+	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 4);
 	a.add(b);
 }
 
 
 void testAdditionFail2(void)
 {
-	cout << "add() fail #2..." << flush;
+	std::cout << "add() fail #2..." << std::flush;
 	assertException("InvalidDimensionsException", _additionFail2);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _additionFail3(void)
 {
-	SparseMatrix<int> a(3, 4), b(4, 5);
+	SparseMatrix::SparseMatrix<int> a(3, 4), b(4, 5);
 	a.add(b);
 }
 
 
 void testAdditionFail3(void)
 {
-	cout << "add() fail #3..." << flush;
+	std::cout << "add() fail #3..." << std::flush;
 	assertException("InvalidDimensionsException", _additionFail3);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void testAddition(void)
 {
 	for (int N = 0; N < 5e3; N++) {
-		cout << "\rmatrices addition... #" << N + 1 << flush;
+		std::cout << "\rmatrices addition... #" << N + 1 << std::flush;
 
 		// generate random matrices
 		int rows = rand() % 16 + 1;
 		int cols = rand() % 16 + 1;
 
-		vector<vector<int> > classicMatrixA = generateRandomMatrix<int>(rows, cols);
+		std::vector<std::vector<int> > classicMatrixA = generateRandomMatrix<int>(rows, cols);
 		SparseMatrixMock<int> sparseMatrixA = SparseMatrixMock<int>::fromVectors(classicMatrixA);
 
-		vector<vector<int> > classicMatrixB = generateRandomMatrix<int>(rows, cols);
+		std::vector<std::vector<int> > classicMatrixB = generateRandomMatrix<int>(rows, cols);
 		SparseMatrixMock<int> sparseMatrixB = SparseMatrixMock<int>::fromVectors(classicMatrixB);
 
 		// calculate result manually
-		vector<vector<int> > manualResult = addMatrices(classicMatrixA, classicMatrixB);
+		std::vector<std::vector<int> > manualResult = addMatrices(classicMatrixA, classicMatrixB);
 
 		// method
-		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA.add(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices addition"
 		);
 
 		// operator
-		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA + sparseMatrixB,
 			manualResult,
 			"Incorrect matrices addition (operator +)"
 		);
 	}
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

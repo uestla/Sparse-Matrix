@@ -12,96 +12,96 @@
 
 void _multiplicationFail1(void)
 {
-	SparseMatrix<int> m(3, 4);
-	vector<int> x(3, 1);
+	SparseMatrix::SparseMatrix<int> m(3, 4);
+	std::vector<int> x(3, 1);
 	m.multiply(x);
 }
 
 
 void testMultiplicationFail1(void)
 {
-	cout << "multiply() fail #1..." << flush;
+	std::cout << "multiply() fail #1..." << std::flush;
 	assertException("InvalidDimensionsException", _multiplicationFail1);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _multiplicationFail2(void)
 {
-	SparseMatrix<int> a(3, 4), b(5, 6);
+	SparseMatrix::SparseMatrix<int> a(3, 4), b(5, 6);
 	a.multiply(b);
 }
 
 
 void testMultiplicationFail2(void)
 {
-	cout << "multiply() fail #2..." << flush;
+	std::cout << "multiply() fail #2..." << std::flush;
 	assertException("InvalidDimensionsException", _multiplicationFail2);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void testVectorMultiplication(void)
 {
 	for (int N = 0; N < 5e3; N++) {
-		cout << "\rvector multiplication... #" << N + 1 << flush;
+		std::cout << "\rvector multiplication... #" << N + 1 << std::flush;
 
 		// generate random vector and matrix
 		int rows = rand() % 16 + 1;
 		int cols = rand() % 16 + 1;
 
-		vector<int> vec = generateRandomVector<int>(cols);
+		std::vector<int> vec = generateRandomVector<int>(cols);
 
-		vector<vector<int> > classicMatrix = generateRandomMatrix<int>(rows, cols);
+		std::vector<std::vector<int> > classicMatrix = generateRandomMatrix<int>(rows, cols);
 		SparseMatrixMock<int> sparseMatrix = SparseMatrixMock<int>::fromVectors(classicMatrix);
 
 		// calculate result manually
-		vector<int> manualResult = multiplyMatrixByVector(classicMatrix, vec);
+		std::vector<int> manualResult = multiplyMatrixByVector(classicMatrix, vec);
 
 		// method
-		assertEquals<vector<int> >(manualResult, sparseMatrix.multiply(vec), "Incorrect vector multiplication");
+		assertEquals<std::vector<int> >(manualResult, sparseMatrix.multiply(vec), "Incorrect vector multiplication");
 
 		// operator
-		assertEquals<vector<int> >(manualResult, sparseMatrix * vec, "Incorrect vector multiplication (operator *)");
+		assertEquals<std::vector<int> >(manualResult, sparseMatrix * vec, "Incorrect vector multiplication (operator *)");
 	}
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void testMatricesMultiplication(void)
 {
 	for (int N = 0; N < 5e3; N++) {
-		cout << "\rmatrices multiplication... #" << N + 1 << flush;
+		std::cout << "\rmatrices multiplication... #" << N + 1 << std::flush;
 
 		// generate random matrices
 		int rowsA = rand() % 16 + 1;
 		int colsArowsB = rand() % 16 + 1;
 		int colsB = rand() % 16 + 1;
 
-		vector<vector<int> > classicMatrixA = generateRandomMatrix<int>(rowsA, colsArowsB);
+		std::vector<std::vector<int> > classicMatrixA = generateRandomMatrix<int>(rowsA, colsArowsB);
 		SparseMatrixMock<int> sparseMatrixA = SparseMatrixMock<int>::fromVectors(classicMatrixA);
 
-		vector<vector<int> > classicMatrixB = generateRandomMatrix<int>(colsArowsB, colsB);
+		std::vector<std::vector<int> > classicMatrixB = generateRandomMatrix<int>(colsArowsB, colsB);
 		SparseMatrixMock<int> sparseMatrixB = SparseMatrixMock<int>::fromVectors(classicMatrixB);
 
 		// calculate result manually
-		vector<vector<int> > manualResult = multiplyMatrices(classicMatrixA, classicMatrixB);
+		std::vector<std::vector<int> > manualResult = multiplyMatrices(classicMatrixA, classicMatrixB);
 
 		// method
-		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA.multiply(sparseMatrixB),
 			manualResult,
 			"Incorrect matrices multiplication"
 		);
 
 		// operator
-		assertEquals<SparseMatrix<int>, vector<vector<int> > >(
+		assertEquals<SparseMatrix::SparseMatrix<int>, std::vector<std::vector<int> > >(
 			sparseMatrixA * sparseMatrixB,
 			manualResult,
 			"Incorrect matrices multiplication (operator *)"
 		);
 	}
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

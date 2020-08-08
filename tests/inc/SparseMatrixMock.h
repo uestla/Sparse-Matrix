@@ -13,8 +13,6 @@
 	#include <vector>
 	#include "../../src/SparseMatrix/SparseMatrix.h"
 
-	using namespace std;
-
 
 	/**
 	 * This class is used only for testing purposes
@@ -22,35 +20,35 @@
 	 * @internal
 	 */
 	template <typename T>
-	class SparseMatrixMock : public SparseMatrix<T>
+	class SparseMatrixMock : public SparseMatrix::SparseMatrix<T>
 	{
 
 		public:
 
-			SparseMatrixMock(int n) : SparseMatrix<T>(n)
+			SparseMatrixMock(int n) : SparseMatrix::SparseMatrix<T>(n)
 			{}
 
 
-			SparseMatrixMock(int rows, int columns) : SparseMatrix<T>(rows, columns)
+			SparseMatrixMock(int rows, int columns) : SparseMatrix::SparseMatrix<T>(rows, columns)
 			{}
 
 
 			/** @return Non-empty values in the matrix */
-			vector<T> * getValues(void)
+			std::vector<T> * getValues(void)
 			{
 				return this->vals;
 			}
 
 
 			/** @return Column pointers */
-			vector<int> * getColumnPointers(void)
+			std::vector<int> * getColumnPointers(void)
 			{
 				return this->cols;
 			}
 
 
 			/** @return Row pointers */
-			vector<int> * getRowPointers(void)
+			std::vector<int> * getRowPointers(void)
 			{
 				return this->rows;
 			}
@@ -62,9 +60,9 @@
 			 * @param  os output stream
 			 * @return void
 			 */
-			void printInfo(ostream & os) const
+			void printInfo(std::ostream & os) const
 			{
-				vector<int>::iterator intIt;
+				std::vector<int>::iterator intIt;
 
 				os << "rows (" << this->rows->size() << "): [";
 
@@ -78,7 +76,7 @@
 
 				os << "]";
 
-				os << endl << "cols";
+				os << std::endl << "cols";
 				if (this->cols == NULL) {
 					os << ": NULL";
 
@@ -96,12 +94,12 @@
 					os << "]";
 				}
 
-				os << endl << "vals";
+				os << std::endl << "vals";
 				if (this->vals == NULL) {
 					os << ": NULL";
 
 				} else {
-					typename vector<T>::iterator valIt;
+					typename std::vector<T>::iterator valIt;
 
 					os << " (" << this->vals->size() << "): [";
 
@@ -119,7 +117,7 @@
 
 
 			/** @return Constructed SparseMatrix */
-			static SparseMatrixMock<T> fromVectors(vector<vector<T> > vec)
+			static SparseMatrixMock<T> fromVectors(std::vector<std::vector<T> > vec)
 			{
 				SparseMatrixMock<T> matrix(vec.size(), vec[0].size());
 
@@ -136,7 +134,7 @@
 
 
 	template<typename T>
-	bool operator == (const SparseMatrix<T> & sparse, const vector<vector<T> > & classical)
+	bool operator == (const SparseMatrix::SparseMatrix<T> & sparse, const std::vector<std::vector<T> > & classical)
 	{
 		for (int i = 0, rows = classical.size(); i < rows; i++) {
 			for (int j = 0, cols = classical[i].size(); j < cols; j++) {

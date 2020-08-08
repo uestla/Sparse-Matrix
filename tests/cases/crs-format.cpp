@@ -12,7 +12,7 @@
 
 void testInternalStorage(void)
 {
-	cout << "internal storage..." << flush;
+	std::cout << "internal storage..." << std::flush;
 
 	/*
 		"Standard" matrix
@@ -35,14 +35,14 @@ void testInternalStorage(void)
 		.set(3, 2, 2)
 		.set(2, 2, 3);
 
-	vector<int> rowPointers1;
+	std::vector<int> rowPointers1;
 	rowPointers1.push_back(0);
 	rowPointers1.push_back(3);
 	rowPointers1.push_back(5);
 	rowPointers1.push_back(7);
-	assertEquals<vector<int> >(rowPointers1, *(m1.getRowPointers()), "Incorrect internal row pointers");
+	assertEquals<std::vector<int> >(rowPointers1, *(m1.getRowPointers()), "Incorrect internal row pointers");
 
-	vector<int> columnPointers1;
+	std::vector<int> columnPointers1;
 	columnPointers1.push_back(0);
 	columnPointers1.push_back(2);
 	columnPointers1.push_back(3);
@@ -50,9 +50,9 @@ void testInternalStorage(void)
 	columnPointers1.push_back(1);
 	columnPointers1.push_back(2);
 	columnPointers1.push_back(3);
-	assertEquals<vector<int> >(columnPointers1, *(m1.getColumnPointers()), "Incorrect internal column pointers");
+	assertEquals<std::vector<int> >(columnPointers1, *(m1.getColumnPointers()), "Incorrect internal column pointers");
 
-	vector<int> values1;
+	std::vector<int> values1;
 	values1.push_back(1);
 	values1.push_back(4);
 	values1.push_back(5);
@@ -60,7 +60,7 @@ void testInternalStorage(void)
 	values1.push_back(-1);
 	values1.push_back(3);
 	values1.push_back(2);
-	assertEquals<vector<int> >(values1, *(m1.getValues()), "Incorrect internal values storage");
+	assertEquals<std::vector<int> >(values1, *(m1.getValues()), "Incorrect internal values storage");
 
 
 	/*
@@ -82,28 +82,28 @@ void testInternalStorage(void)
 		. set(1, 2, 1)
 		. set(4, 2, 3);
 
-	vector<int> rowPointers2;
+	std::vector<int> rowPointers2;
 	rowPointers2.push_back(0);
 	rowPointers2.push_back(2);
 	rowPointers2.push_back(2);
 	rowPointers2.push_back(5);
-	assertEquals<vector<int> >(rowPointers2, *(m2.getRowPointers()), "Incorrect internal row pointers");
+	assertEquals<std::vector<int> >(rowPointers2, *(m2.getRowPointers()), "Incorrect internal row pointers");
 
-	vector<int> columnPointers2;
+	std::vector<int> columnPointers2;
 	columnPointers2.push_back(0);
 	columnPointers2.push_back(3);
 	columnPointers2.push_back(0);
 	columnPointers2.push_back(1);
 	columnPointers2.push_back(3);
-	assertEquals<vector<int> >(columnPointers2, *(m2.getColumnPointers()), "Incorrect internal column pointers");
+	assertEquals<std::vector<int> >(columnPointers2, *(m2.getColumnPointers()), "Incorrect internal column pointers");
 
-	vector<int> values2;
+	std::vector<int> values2;
 	values2.push_back(10);
 	values2.push_back(2);
 	values2.push_back(3);
 	values2.push_back(1);
 	values2.push_back(4);
-	assertEquals<vector<int> >(values2, *(m2.getValues()), "Incorrect internal values storage");
+	assertEquals<std::vector<int> >(values2, *(m2.getValues()), "Incorrect internal values storage");
 
 
 	/*
@@ -118,30 +118,30 @@ void testInternalStorage(void)
 	SparseMatrixMock<int> m3 = m2;
 	m3.set(5, 1, 1);
 
-	vector<int> rowPointers3;
+	std::vector<int> rowPointers3;
 	rowPointers3.push_back(0);
 	rowPointers3.push_back(2);
 	rowPointers3.push_back(3);
 	rowPointers3.push_back(6);
-	assertEquals<vector<int> >(rowPointers3, *(m3.getRowPointers()), "Incorrect internal row pointers");
+	assertEquals<std::vector<int> >(rowPointers3, *(m3.getRowPointers()), "Incorrect internal row pointers");
 
-	vector<int> columnPointers3;
+	std::vector<int> columnPointers3;
 	columnPointers3.push_back(0);
 	columnPointers3.push_back(3);
 	columnPointers3.push_back(1);
 	columnPointers3.push_back(0);
 	columnPointers3.push_back(1);
 	columnPointers3.push_back(3);
-	assertEquals<vector<int> >(columnPointers3, *(m3.getColumnPointers()), "Incorrect internal column pointers");
+	assertEquals<std::vector<int> >(columnPointers3, *(m3.getColumnPointers()), "Incorrect internal column pointers");
 
-	vector<int> values3;
+	std::vector<int> values3;
 	values3.push_back(10);
 	values3.push_back(2);
 	values3.push_back(5);
 	values3.push_back(3);
 	values3.push_back(1);
 	values3.push_back(4);
-	assertEquals<vector<int> >(values3, *(m3.getValues()), "Incorrect internal values storage");
+	assertEquals<std::vector<int> >(values3, *(m3.getValues()), "Incorrect internal values storage");
 
 	/*
 		Previous matrix with removed the only non-zero element on 2nd row (should be equal to 2nd matrix)
@@ -155,9 +155,9 @@ void testInternalStorage(void)
 	SparseMatrixMock<int> m4 = m3;
 	m4.set(0, 1, 1);
 
-	assertEquals<vector<int> >(rowPointers2, *(m4.getRowPointers()), "Incorrect internal row pointers");
-	assertEquals<vector<int> >(columnPointers2, *(m4.getColumnPointers()), "Incorrect internal column pointers");
-	assertEquals<vector<int> >(values2, *(m4.getValues()), "Incorrect internal values storage");
+	assertEquals<std::vector<int> >(rowPointers2, *(m4.getRowPointers()), "Incorrect internal row pointers");
+	assertEquals<std::vector<int> >(columnPointers2, *(m4.getColumnPointers()), "Incorrect internal column pointers");
+	assertEquals<std::vector<int> >(values2, *(m4.getValues()), "Incorrect internal values storage");
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

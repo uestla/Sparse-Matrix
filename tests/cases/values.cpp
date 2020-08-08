@@ -12,39 +12,39 @@
 
 void _getFail(void)
 {
-	SparseMatrix<int> m(1, 1);
+	SparseMatrix::SparseMatrix<int> m(1, 1);
 	m.get(1, 0);
 }
 
 
 void testGetFail(void)
 {
-	cout << "get() fail..." << flush;
+	std::cout << "get() fail..." << std::flush;
 	assertException("InvalidCoordinatesException", _getFail);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void _setFail(void)
 {
-	SparseMatrix<int> m(3, 4);
+	SparseMatrix::SparseMatrix<int> m(3, 4);
 	m.set(-1, 3, -1);
 }
 
 
 void testSetFail(void)
 {
-	cout << "set() fail..." << flush;
+	std::cout << "set() fail..." << std::flush;
 	assertException("InvalidCoordinatesException", _setFail);
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }
 
 
 void testGettersAndSetters(void)
 {
-	cout << "getters/setters..." << flush;
+	std::cout << "getters/setters..." << std::flush;
 
-	SparseMatrix<int> m(3);
+	SparseMatrix::SparseMatrix<int> m(3);
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			assertEquals<int>(0, m.get(i, j));
@@ -54,5 +54,5 @@ void testGettersAndSetters(void)
 	m.set(-4, 0, 2);
 	assertEquals<int>(-4, m.get(0, 2));
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

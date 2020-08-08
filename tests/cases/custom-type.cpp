@@ -7,16 +7,15 @@
  */
 
 #include <string>
+#include <vector>
 #include <iostream>
 #include "../inc/testslib.h"
 #include "../inc/SparseMatrixMock.h"
 
-using namespace std;
 
-
-string joinStrings(const string & a, const string & b)
+std::string joinStrings(const std::string & a, const std::string & b)
 {
-	string c = a;
+	std::string c = a;
 
 	if (a.length() && b.length()) {
 		c += " ";
@@ -38,7 +37,7 @@ struct person
 	{}
 
 
-	person(const string & f, const string & l) : firstname(f), lastname(l)
+	person(const std::string & f, const std::string & l) : firstname(f), lastname(l)
 	{}
 
 
@@ -70,12 +69,12 @@ struct person
 	}
 
 
-	string firstname, lastname;
+	std::string firstname, lastname;
 
 };
 
 
-ostream & operator << (ostream & os, const person & p)
+std::ostream & operator << (std::ostream & os, const person & p)
 {
 	os << p.firstname << ", " << p.lastname;
 	return os;
@@ -84,32 +83,32 @@ ostream & operator << (ostream & os, const person & p)
 
 void testElementTypes(void)
 {
-	cout << "custom element types..." << flush;
+	std::cout << "custom element types..." << std::flush;
 
 	// addition
 
-	SparseMatrix<person> a(4, 5);
+	SparseMatrix::SparseMatrix<person> a(4, 5);
 	a.set(person("John", "Doe"), 2, 1);
 
-	SparseMatrix<person> b(4, 5);
+	SparseMatrix::SparseMatrix<person> b(4, 5);
 	b.set(person("Foo", "Bar"), 2, 1);
 
-	SparseMatrix<person> sum = a.add(b);
+	SparseMatrix::SparseMatrix<person> sum = a.add(b);
 	assertEquals<person>(person("John Foo", "Doe Bar"), sum.get(2, 1));
 
 
 	// subtraction
 
-	SparseMatrix<person> diff = a.subtract(b);
+	SparseMatrix::SparseMatrix<person> diff = a.subtract(b);
 	assertEquals<person>(person("Bar", "Doe"), diff.get(2, 1));
 
 
 	// matrix-matrix multiplication
 
-	SparseMatrix<person> c(5, 3);
+	SparseMatrix::SparseMatrix<person> c(5, 3);
 	c.set(person("Foo", "Bar"), 1, 2);
 
-	SparseMatrix<person> product = a.multiply(c);
+	SparseMatrix::SparseMatrix<person> product = a.multiply(c);
 
 	for (int i = 0, rows = product.getRowCount(); i < rows; i++) {
 		for (int j = 0, cols = product.getColumnCount(); j < cols; j++) {
@@ -127,18 +126,18 @@ void testElementTypes(void)
 
 	// vector-matrix multiplication
 
-	vector<person> people;
+	std::vector<person> people;
 	people.push_back(person("John", "Doe"));
 	people.push_back(person("Foo", "Bar"));
 	people.push_back(person("Willy", "Wonka"));
 	people.push_back(person("Jon", "Snow"));
 	people.push_back(person("Bridget", "Johnes"));
 
-	vector<person> result = a.multiply(people);
+	std::vector<person> result = a.multiply(people);
 	assertEquals<person>(person(), result[0]);
 	assertEquals<person>(person(), result[1]);
 	assertEquals<person>(person("John Bar", "Doe Foo"), result[2]);
 	assertEquals<person>(person(), result[3]);
 
-	cout << " OK" << endl;
+	std::cout << " OK" << std::endl;
 }

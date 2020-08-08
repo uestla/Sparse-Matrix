@@ -13,82 +13,85 @@
 	#include <vector>
 	#include <iostream>
 
-	using namespace std;
 
-
-	template<typename T>
-	class SparseMatrix
+	namespace SparseMatrix
 	{
 
-		public:
+		template<typename T>
+		class SparseMatrix
+		{
 
-			// === CREATION ==============================================
+			public:
 
-			SparseMatrix(int n); // square matrix n×n
-			SparseMatrix(int rows, int columns); // general matrix
+				// === CREATION ==============================================
 
-			SparseMatrix(const SparseMatrix<T> & m); // copy constructor
-			SparseMatrix<T> & operator = (const SparseMatrix<T> & m);
+				SparseMatrix(int n); // square matrix n×n
+				SparseMatrix(int rows, int columns); // general matrix
 
-			~SparseMatrix(void);
+				SparseMatrix(const SparseMatrix<T> & m); // copy constructor
+				SparseMatrix<T> & operator = (const SparseMatrix<T> & m);
 
-
-			// === GETTERS / SETTERS ==============================================
-
-			int getRowCount(void) const;
-			int getColumnCount(void) const;
+				~SparseMatrix(void);
 
 
-			// === VALUES ==============================================
+				// === GETTERS / SETTERS ==============================================
 
-			T get(int row, int col) const;
-			SparseMatrix & set(T val, int row, int col);
-
-
-			// === OPERATIONS ==============================================
-
-			vector<T> multiply(const vector<T> & x) const;
-			vector<T> operator * (const vector<T> & x) const;
-
-			SparseMatrix<T> multiply(const SparseMatrix<T> & m) const;
-			SparseMatrix<T> operator * (const SparseMatrix<T> & m) const;
-
-			SparseMatrix<T> add(const SparseMatrix<T> & m) const;
-			SparseMatrix<T> operator + (const SparseMatrix<T> & m) const;
-
-			SparseMatrix<T> subtract(const SparseMatrix<T> & m) const;
-			SparseMatrix<T> operator - (const SparseMatrix<T> & m) const;
+				int getRowCount(void) const;
+				int getColumnCount(void) const;
 
 
-			// === FRIEND FUNCTIONS =========================================
+				// === VALUES ==============================================
 
-			template<typename X>
-			friend bool operator == (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
-
-			template<typename X>
-			friend bool operator != (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
-
-			template<typename X>
-			friend ostream & operator << (ostream & os, const SparseMatrix<X> & matrix);
+				T get(int row, int col) const;
+				SparseMatrix & set(T val, int row, int col);
 
 
-		protected:
+				// === OPERATIONS ==============================================
 
-			int m, n;
+				std::vector<T> multiply(const std::vector<T> & x) const;
+				std::vector<T> operator * (const std::vector<T> & x) const;
 
-			vector<T> * vals;
-			vector<int> * rows, * cols;
+				SparseMatrix<T> multiply(const SparseMatrix<T> & m) const;
+				SparseMatrix<T> operator * (const SparseMatrix<T> & m) const;
+
+				SparseMatrix<T> add(const SparseMatrix<T> & m) const;
+				SparseMatrix<T> operator + (const SparseMatrix<T> & m) const;
+
+				SparseMatrix<T> subtract(const SparseMatrix<T> & m) const;
+				SparseMatrix<T> operator - (const SparseMatrix<T> & m) const;
 
 
-			// === HELPERS / VALIDATORS ==============================================
+				// === FRIEND FUNCTIONS =========================================
 
-			void construct(int m, int n);
-			void destruct(void);
-			void deepCopy(const SparseMatrix<T> & m);
-			void validateCoordinates(int row, int col) const;
-			void insert(int index, int row, int col, T val);
-			void remove(int index, int row);
+				template<typename X>
+				friend bool operator == (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
 
-	};
+				template<typename X>
+				friend bool operator != (const SparseMatrix<X> & a, const SparseMatrix<X> & b);
+
+				template<typename X>
+				friend std::ostream & operator << (std::ostream & os, const SparseMatrix<X> & matrix);
+
+
+			protected:
+
+				int m, n;
+
+				std::vector<T> * vals;
+				std::vector<int> * rows, * cols;
+
+
+				// === HELPERS / VALIDATORS ==============================================
+
+				void construct(int m, int n);
+				void destruct(void);
+				void deepCopy(const SparseMatrix<T> & m);
+				void validateCoordinates(int row, int col) const;
+				void insert(int index, int row, int col, T val);
+				void remove(int index, int row);
+
+		};
+
+	}
 
 #endif

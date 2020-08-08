@@ -18,15 +18,13 @@
 	#include <typeinfo>
 	#include <exception>
 
-	using namespace std;
 
-
-	class FailureException : public exception
+	class FailureException : public std::exception
 	{
 
 		public:
 
-			FailureException(const string & message) : exception(), message(message)
+			FailureException(const std::string & message) : std::exception(), message(message)
 			{}
 
 
@@ -34,7 +32,7 @@
 			{}
 
 
-			inline string getMessage(void) const
+			inline std::string getMessage(void) const
 			{
 				return this->message;
 			}
@@ -42,7 +40,7 @@
 
 		protected:
 
-			string message;
+			std::string message;
 
 	};
 
@@ -52,11 +50,11 @@
 		try {
 			callback();
 
-		} catch (const exception & e) {
-			string actualClass(typeid(e).name());
+		} catch (const std::exception & e) {
+			std::string actualClass(typeid(e).name());
 
 			if (strstr(actualClass.c_str(), exceptionClass) == NULL) {
-				ostringstream oss;
+				std::ostringstream oss;
 				oss << "Exception class '" << exceptionClass << "' expected, but '" << actualClass << "' thrown.";
 
 				throw FailureException(oss.str());
@@ -73,15 +71,15 @@
 	void assertEquals(const T & a, const T & b, const char * message = NULL)
 	{
 		if (!(a == b)) {
-			ostringstream oss;
+			std::ostringstream oss;
 			if (message == NULL) {
-				oss << "Objects not equal when they should be." << endl;
+				oss << "Objects not equal when they should be." << std::endl;
 
 			} else {
-				oss << message << endl;
+				oss << message << std::endl;
 			}
 
-			oss << a << endl << "expected, but" << endl << b << " given";
+			oss << a << std::endl << "expected, but" << std::endl << b << " given";
 			throw FailureException(oss.str());
 		}
 	}
@@ -91,15 +89,15 @@
 	void assertEquals(const X & a, const Y & b, const char * message = NULL)
 	{
 		if (!(a == b)) {
-			ostringstream oss;
+			std::ostringstream oss;
 			if (message == NULL) {
-				oss << "Objects not equal when they should be." << endl;
+				oss << "Objects not equal when they should be." << std::endl;
 
 			} else {
-				oss << message << endl;
+				oss << message << std::endl;
 			}
 
-			oss << a << endl << "expected, but" << endl << b << " given";
+			oss << a << std::endl << "expected, but" << std::endl << b << " given";
 			throw FailureException(oss.str());
 		}
 	}
